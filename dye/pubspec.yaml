@@ -29,6 +29,8 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  flutter_screenutil: ^5.0.1
+  auto_size_text: ^3.0.0
 
 
   # The following adds the Cupertino Icons font to your application.
@@ -68,10 +70,10 @@ flutter:
   fonts:
     - family: Godo
       fonts:
-        - asset: assets/font/Godo/GodoB.ttf
-          weight: 700
         - asset: assets/font/Godo/GodoM.ttf
           weight: 500
+        - asset: assets/font/Godo/GodoB.ttf
+          weight: 700
     - family: Noto_Sans_KR
       fonts:
         - asset: assets/font/Noto_Sans_KR/NotoSansKR-Thin.otf
