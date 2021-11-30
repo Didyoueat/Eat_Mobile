@@ -1,3 +1,4 @@
+import 'package:dye/screens/subscribe_apply/apply_subscribe_settings.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -24,7 +25,8 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blue,
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      // home: const ApplySubscribeSettings(),
+      home: ApplySubscribeSettings(),
     );
   }
 }
