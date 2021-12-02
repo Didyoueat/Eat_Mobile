@@ -20,6 +20,7 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           fontFamily: "Noto_Sans_KR",
           primarySwatch: Colors.blue,
+          primaryColor: Color(0xffff5439),
         ),
         // home: const ApplySubscribeSettings(),
         home: ApplySubscribeSettings(),
