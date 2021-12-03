@@ -82,7 +82,11 @@ class _ApplySubscribeSettingsState extends State<ApplySubscribeSettings> {
                   width: 1000.w,
                   height: 98.h,
                   alignment: Alignment.topCenter,
-                  child: BottomButton("이제 반찬을 골라볼까요?", true, () {}),
+                  child: BottomButton(
+                    "이제 반찬을 골라볼까요?",
+                    true,
+                    () {},
+                  ),
                 )
               ],
             ),

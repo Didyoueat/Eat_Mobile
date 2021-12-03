@@ -25,7 +25,11 @@ class BottomButton extends StatelessWidget {
       child: TextButton(
         child: AutoSizeText(
           message,
-          style: TextStyle(fontSize: 18.sp, fontFamily: "Godo"),
+          style: TextStyle(
+            color: Colors.white,
+            fontSize: 18.sp,
+            fontFamily: "Godo",
+          ),
           maxLines: 1,
         ),
         style: TextButton.styleFrom(
@@ -38,9 +42,11 @@ class BottomButton extends StatelessWidget {
           alignment: Alignment.topCenter,
           padding: EdgeInsets.only(top: 20.h),
           tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-          backgroundColor: Color(custom_colors.mainColor),
+          backgroundColor: isActive
+              ? Color(custom_colors.mainColor)
+              : Color(custom_colors.buttonInactive),
         ),
-        onPressed: function,
+        onPressed: isActive ? function : null,
       ),
     );
   }
