@@ -15,38 +15,10 @@ class ApplySubscribeSettings extends StatefulWidget {
 
 class _ApplySubscribeSettingsState extends State<ApplySubscribeSettings> {
   final name = "성수";
-
-  bool q1Selection = false;
-  var outlinedButtonStyle1 = OutlinedButton.styleFrom();
-
-  _ApplySubscribeSettingsState() {
-    changeQ1ButtonStatus();
-  }
-
-  void changeQ1ButtonStatus() {
-    outlinedButtonStyle1 = OutlinedButton.styleFrom(
-      tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-      primary: q1Selection
-          ? Color(custom_colors.mainColor)
-          : Color(custom_colors.textColorGray),
-      padding: EdgeInsets.fromLTRB(38.w, 0, 38.w, 0),
-      splashFactory: NoSplash.splashFactory,
-      side: BorderSide(
-          color: q1Selection
-              ? Color(custom_colors.mainColor)
-              : Color(custom_colors.textColorGray),
-          width: 1,
-          style: BorderStyle.solid),
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(30.0),
-      ),
-    );
-  }
+  List<bool> q1Selection = [false, false];
 
   @override
   Widget build(BuildContext context) {
-    changeQ1ButtonStatus();
-
     return Scaffold(
       appBar: CupertinoNavigationBar(
         middle: Text("정기배송 구독 신청서"),
@@ -96,6 +68,26 @@ class _ApplySubscribeSettingsState extends State<ApplySubscribeSettings> {
     );
   }
 
+  ButtonStyle getQ1ButtonStatus(int position) {
+    return OutlinedButton.styleFrom(
+      tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+      primary: q1Selection[position]
+          ? Color(custom_colors.mainColor)
+          : Color(custom_colors.textColorGray),
+      padding: EdgeInsets.fromLTRB(38.w, 0, 38.w, 0),
+      splashFactory: NoSplash.splashFactory,
+      side: BorderSide(
+          color: q1Selection[position]
+              ? Color(custom_colors.mainColor)
+              : Color(custom_colors.textColorGray),
+          width: 1,
+          style: BorderStyle.solid),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(30.0),
+      ),
+    );
+  }
+
   Widget _question1() {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
@@ -133,21 +125,26 @@ class _ApplySubscribeSettingsState extends State<ApplySubscribeSettings> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             OutlinedButton(
-                style: outlinedButtonStyle1,
-                onPressed: () {
-                  setState(() {
-                    if (!q1Selection) {
-                      q1Selection = true;
-                    }
-                  });
-                },
-                child: Text("직접 선택")),
+              style: getQ1ButtonStatus(0),
+              onPressed: () {
+                if (!q1Selection[0]) {
+                  q1Selection[0] = true;
+                  setState(() {});
+                }
+              },
+              child: Text("직접 선택"),
+            ),
             SizedBox(
               width: 12.w,
             ),
             OutlinedButton(
-                style: outlinedButtonStyle1,
-                onPressed: () {},
+                style: getQ1ButtonStatus(1),
+                onPressed: () {
+                  ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                    content: Text('랜덤 추천 서비스는 추후 제공됩니다!'),
+                    duration: Duration(milliseconds: 700),
+                  ));
+                },
                 child: Text("랜덤 추천")),
           ],
         ),
