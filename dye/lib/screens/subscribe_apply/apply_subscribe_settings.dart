@@ -1,7 +1,8 @@
-import 'package:dye/widgets/bottom_complete_button.dart';
+import 'package:dye/widgets/bottom_button.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:dye/constants/colors.dart' as custom_colors;
 
 //void main() => runApp(const subsc);
 
@@ -14,9 +15,6 @@ class ApplySubscribeSettings extends StatefulWidget {
 
 class _ApplySubscribeSettingsState extends State<ApplySubscribeSettings> {
   final name = "성수";
-  final textColorGray = 0xffaaaaaa;
-  final borderColorGray = 0x55aaaaaa;
-  final mainColor = 0xffff5439;
 
   bool q1Selection = false;
   var outlinedButtonStyle1 = OutlinedButton.styleFrom();
@@ -28,11 +26,15 @@ class _ApplySubscribeSettingsState extends State<ApplySubscribeSettings> {
   void changeQ1ButtonStatus() {
     outlinedButtonStyle1 = OutlinedButton.styleFrom(
       tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-      primary: q1Selection ? Color(mainColor) : Color(textColorGray),
+      primary: q1Selection
+          ? Color(custom_colors.mainColor)
+          : Color(custom_colors.textColorGray),
       padding: EdgeInsets.fromLTRB(38.w, 0, 38.w, 0),
       splashFactory: NoSplash.splashFactory,
       side: BorderSide(
-          color: q1Selection ? Color(mainColor) : Color(textColorGray),
+          color: q1Selection
+              ? Color(custom_colors.mainColor)
+              : Color(custom_colors.textColorGray),
           width: 1,
           style: BorderStyle.solid),
       shape: RoundedRectangleBorder(
@@ -80,8 +82,7 @@ class _ApplySubscribeSettingsState extends State<ApplySubscribeSettings> {
                   width: 1000.w,
                   height: 98.h,
                   alignment: Alignment.topCenter,
-                  child:
-                      bottomCompleteButton("이제 반찬을 골라볼까요?", () {}, mainColor),
+                  child: BottomButton("이제 반찬을 골라볼까요?", true, () {}),
                 )
               ],
             ),
@@ -219,13 +220,14 @@ class _ApplySubscribeSettingsState extends State<ApplySubscribeSettings> {
         height: circleSize,
         alignment: Alignment.center,
         decoration: BoxDecoration(
-          border: Border.all(color: Color(borderColorGray), width: 1.sp),
+          border: Border.all(
+              color: Color(custom_colors.borderColorGray), width: 1.sp),
           borderRadius: BorderRadius.circular(50),
         ),
         child: Center(
           child: Text(
             week,
-            style: TextStyle(color: Color(textColorGray)),
+            style: TextStyle(color: Color(custom_colors.textColorGray)),
           ),
         ),
       ),
@@ -260,7 +262,7 @@ class _ApplySubscribeSettingsState extends State<ApplySubscribeSettings> {
             style: TextStyle(
               fontSize: 16.sp,
               fontWeight: FontWeight.bold,
-              color: Color(mainColor),
+              color: Color(custom_colors.mainColor),
             ),
             children: const <TextSpan>[
               TextSpan(
