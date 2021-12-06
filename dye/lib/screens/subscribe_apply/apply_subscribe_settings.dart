@@ -20,6 +20,20 @@ class _ApplySubscribeSettingsState extends State<ApplySubscribeSettings> {
   final List<bool> _q1Selection = [];
   final List<bool> _q2Selection = [];
   final List<String> _weekName = ["월", "화", "수", "목", "금", "토", "일"];
+  bool _q2Visible = false;
+  bool _notiVisible = false;
+
+  @override
+  void setState(VoidCallback fn) {
+    // TODO: implement setState
+    super.setState(fn);
+    if (!_q2Visible) _q2Visible = true;
+    if (_q2Selection.contains(true)) {
+      _notiVisible = true;
+    } else {
+      _notiVisible = false;
+    }
+  }
 
   @override
   void initState() {
@@ -51,18 +65,30 @@ class _ApplySubscribeSettingsState extends State<ApplySubscribeSettings> {
                   SizedBox(
                     height: 32.h,
                   ),
-                  _questionCard(_question1()),
+                  widgetVisible(_questionCard(_question1()), true),
                   SizedBox(height: 28.h),
-                  _questionCard(_question2()),
+                  widgetVisible(_questionCard(_question2()), _q2Visible),
                   SizedBox(height: 28.h),
-                  _questionCard(_noticeCard(), 0xfffff6E4),
+                  widgetVisible(
+                      _questionCard(_noticeCard(), colorBeige), _notiVisible),
                 ],
               ),
             ),
           ),
-          BottomButton("이제 반찬을 골라볼까요?", true, () {}),
+          widgetVisible(
+              BottomButton("이제 반찬을 골라볼까요?", true, () {}), _notiVisible),
         ],
       ),
+    );
+  }
+
+  Widget widgetVisible(Widget _widget, bool _visible) {
+    return Visibility(
+      child: _widget,
+      maintainState: true,
+      maintainSize: true,
+      maintainAnimation: true,
+      visible: _visible,
     );
   }
 
@@ -81,12 +107,6 @@ class _ApplySubscribeSettingsState extends State<ApplySubscribeSettings> {
         borderRadius: BorderRadius.circular(30.0),
       ),
     );
-  }
-
-  void setQ2ButtonStatus(int position) {
-    setState(() {
-      _q2Selection[position] = !_q2Selection[position];
-    });
   }
 
   Widget _question1() {
@@ -154,6 +174,12 @@ class _ApplySubscribeSettingsState extends State<ApplySubscribeSettings> {
     );
   }
 
+  void setQ2ButtonStatus(int position) {
+    setState(() {
+      _q2Selection[position] = !_q2Selection[position];
+    });
+  }
+
   Widget _question2() {
     return Container(
       margin: EdgeInsets.only(top: 2.h, bottom: 2.h),
@@ -195,7 +221,7 @@ class _ApplySubscribeSettingsState extends State<ApplySubscribeSettings> {
     );
   }
 
-  Row getWeekButton() {
+  Widget getWeekButton() {
     final circleWidth = 36.w;
     final circleHeight = 36.h;
     final padding = 8.w;
@@ -215,7 +241,6 @@ class _ApplySubscribeSettingsState extends State<ApplySubscribeSettings> {
       ));
       if (i != 6) list.add(SizedBox(width: padding));
     }
-
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: list,
@@ -298,7 +323,7 @@ class _ApplySubscribeSettingsState extends State<ApplySubscribeSettings> {
           RoundedRectangleBorder(borderRadius: BorderRadius.circular(15.0.sp)),
       shadowColor: Color(0x33aaaaaa),
       color: Color(cardColor),
-      elevation: 10,
+      elevation: 5,
       child: Container(
         alignment: Alignment.center,
         width: 1000,
