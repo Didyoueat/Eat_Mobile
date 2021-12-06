@@ -296,7 +296,7 @@ class _ApplySubscribeSettingsState extends State<ApplySubscribeSettings> {
             ),
             children: const <TextSpan>[
               TextSpan(
-                text: "월, 수, 금",
+                text: "월, 목, 금, 일",
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
                 ),
