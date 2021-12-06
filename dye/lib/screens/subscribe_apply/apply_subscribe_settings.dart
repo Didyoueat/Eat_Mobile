@@ -65,24 +65,24 @@ class _ApplySubscribeSettingsState extends State<ApplySubscribeSettings> {
                   SizedBox(
                     height: 32.h,
                   ),
-                  setVisibility(_questionCard(_question1()), true),
+                  widgetVisible(_questionCard(_question1()), true),
                   SizedBox(height: 28.h),
-                  setVisibility(_questionCard(_question2()), _q2Visible),
+                  widgetVisible(_questionCard(_question2()), _q2Visible),
                   SizedBox(height: 28.h),
-                  setVisibility(
+                  widgetVisible(
                       _questionCard(_noticeCard(), colorBeige), _notiVisible),
                 ],
               ),
             ),
           ),
-          setVisibility(
+          widgetVisible(
               BottomButton("이제 반찬을 골라볼까요?", true, () {}), _notiVisible),
         ],
       ),
     );
   }
 
-  Widget setVisibility(Widget _widget, bool _visible) {
+  Widget widgetVisible(Widget _widget, bool _visible) {
     return Visibility(
       child: _widget,
       maintainState: true,
@@ -323,7 +323,7 @@ class _ApplySubscribeSettingsState extends State<ApplySubscribeSettings> {
           RoundedRectangleBorder(borderRadius: BorderRadius.circular(15.0.sp)),
       shadowColor: Color(0x33aaaaaa),
       color: Color(cardColor),
-      elevation: 10,
+      elevation: 5,
       child: Container(
         alignment: Alignment.center,
         width: 1000,
