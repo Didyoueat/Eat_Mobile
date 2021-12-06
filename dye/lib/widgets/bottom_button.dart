@@ -20,34 +20,37 @@ class BottomButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      width: 1000,
-      height: buttonHeight,
-      child: TextButton(
-        child: AutoSizeText(
-          message,
-          style: TextStyle(
-            color: Colors.white,
-            fontSize: 18.sp,
-            fontFamily: font,
+    return Container(
+      alignment: Alignment.bottomCenter,
+      child: SizedBox(
+        width: 1000,
+        height: buttonHeight,
+        child: TextButton(
+          child: AutoSizeText(
+            message,
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 18.sp,
+              fontFamily: font,
+            ),
+            maxLines: 1,
           ),
-          maxLines: 1,
-        ),
-        style: TextButton.styleFrom(
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(buttonTopRadius),
-                topRight: Radius.circular(buttonTopRadius)),
+          style: TextButton.styleFrom(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(buttonTopRadius),
+                  topRight: Radius.circular(buttonTopRadius)),
+            ),
+            primary: Colors.white,
+            alignment: Alignment.topCenter,
+            padding: EdgeInsets.only(top: 20.h),
+            tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+            backgroundColor: isActive
+                ? Color(custom_colors.mainColor)
+                : Color(custom_colors.buttonInactive),
           ),
-          primary: Colors.white,
-          alignment: Alignment.topCenter,
-          padding: EdgeInsets.only(top: 20.h),
-          tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-          backgroundColor: isActive
-              ? Color(custom_colors.mainColor)
-              : Color(custom_colors.buttonInactive),
+          onPressed: isActive ? function : null,
         ),
-        onPressed: isActive ? function : null,
       ),
     );
   }

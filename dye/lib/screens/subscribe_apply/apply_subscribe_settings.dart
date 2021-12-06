@@ -60,24 +60,7 @@ class _ApplySubscribeSettingsState extends State<ApplySubscribeSettings> {
               ),
             ),
           ),
-          Container(
-            alignment: Alignment.bottomCenter,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: <Widget>[
-                Container(
-                  width: 1000.w,
-                  height: 98.h,
-                  alignment: Alignment.topCenter,
-                  child: BottomButton(
-                    "이제 반찬을 골라볼까요?",
-                    true,
-                    () {},
-                  ),
-                )
-              ],
-            ),
-          ),
+          BottomButton("이제 반찬을 골라볼까요?", true, () {}),
         ],
       ),
     );
