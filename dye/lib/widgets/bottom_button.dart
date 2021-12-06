@@ -1,17 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:dye/constants/colors.dart' as custom_colors;
+import 'package:dye/constants/colors.dart';
 
 class BottomButton extends StatelessWidget {
-  final buttonHeight = 98.h;
-  final buttonTopRadius = 15.w;
   final font = "Godo";
   final String message;
   final bool isActive;
   final VoidCallback function;
 
-  BottomButton(
+  const BottomButton(
     this.message,
     this.isActive,
     this.function, {
@@ -20,6 +18,9 @@ class BottomButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final buttonHeight = 98.h;
+    final buttonTopRadius = 15.w;
+
     return Container(
       alignment: Alignment.bottomCenter,
       child: SizedBox(
@@ -45,9 +46,7 @@ class BottomButton extends StatelessWidget {
             alignment: Alignment.topCenter,
             padding: EdgeInsets.only(top: 20.h),
             tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-            backgroundColor: isActive
-                ? Color(custom_colors.mainColor)
-                : Color(custom_colors.buttonInactive),
+            backgroundColor: isActive ? mainColor : buttonInactive,
           ),
           onPressed: isActive ? function : null,
         ),

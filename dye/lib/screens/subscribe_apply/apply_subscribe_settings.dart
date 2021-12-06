@@ -96,12 +96,11 @@ class _ApplySubscribeSettingsState extends State<ApplySubscribeSettings> {
   ButtonStyle getQ1ButtonStatus(int position) {
     return OutlinedButton.styleFrom(
       tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-      primary: _q1Selection[position] ? Color(mainColor) : Color(textColorGray),
+      primary: _q1Selection[position] ? mainColor : textColorGray,
       padding: EdgeInsets.fromLTRB(38.w, 0, 38.w, 0),
       splashFactory: NoSplash.splashFactory,
       side: BorderSide(
-          color:
-              _q1Selection[position] ? Color(mainColor) : Color(textColorGray),
+          color: _q1Selection[position] ? mainColor : borderColorGray,
           width: 1,
           style: BorderStyle.solid),
       shape: RoundedRectangleBorder(
@@ -233,11 +232,10 @@ class _ApplySubscribeSettingsState extends State<ApplySubscribeSettings> {
         onTap: () => setQ2ButtonStatus(i),
         width: circleWidth,
         height: circleHeight,
-        borderColor: _q2Selection[i] ? Color(mainColor) : null,
+        borderColor: _q2Selection[i] ? mainColor : null,
         child: Text(
           _weekName[i],
-          style: TextStyle(
-              color: _q2Selection[i] ? Color(mainColor) : Color(textColorGray)),
+          style: TextStyle(color: _q2Selection[i] ? mainColor : textColorGray),
         ),
       ));
       if (i != 6) list.add(SizedBox(width: padding));
@@ -276,7 +274,7 @@ class _ApplySubscribeSettingsState extends State<ApplySubscribeSettings> {
             style: TextStyle(
               fontSize: 16.sp,
               fontWeight: FontWeight.bold,
-              color: Color(mainColor),
+              color: mainColor,
             ),
             children: const <TextSpan>[
               TextSpan(

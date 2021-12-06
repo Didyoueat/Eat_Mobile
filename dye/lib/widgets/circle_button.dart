@@ -43,7 +43,7 @@ class _CircleButtonState extends State<CircleButton> {
             color: widget.backgroundColor ?? Colors.transparent,
             shape: BoxShape.circle,
             border: Border.all(
-              color: widget.borderColor ?? Color(borderColorGray),
+              color: widget.borderColor ?? borderColorGray,
               style: widget.borderStyle ?? BorderStyle.solid,
               width: widget.borderWidth ?? 1,
             ),

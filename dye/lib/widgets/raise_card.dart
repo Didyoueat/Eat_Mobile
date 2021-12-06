@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class RaiseCard extends StatelessWidget {
-  final int? cardColor;
+  final Color? cardColor;
   final double? cardHeight;
   final Widget widget;
   final double _elevation = 5;
@@ -22,7 +22,7 @@ class RaiseCard extends StatelessWidget {
       shape:
           RoundedRectangleBorder(borderRadius: BorderRadius.circular(15.0.sp)),
       shadowColor: Color(0x33aaaaaa),
-      color: Color(cardColor ?? 0xffffffff),
+      color: cardColor ?? Colors.white,
       elevation: _elevation,
       child: Container(
         alignment: Alignment.center,
