@@ -4,3 +4,6 @@ const borderColorGray = 0x55aaaaaa;
 
 //Button
 const buttonInactive = 0xffbbbbbb;
+
+//Background
+const colorBeige = 0xfffff6E4;
