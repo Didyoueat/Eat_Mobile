@@ -1,11 +1,12 @@
-import 'package:dye/widgets/circle_button.dart';
-
-import 'package:dye/widgets/bottom_button.dart';
-import 'package:dye/widgets/raise_card.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:easy_rich_text/easy_rich_text.dart';
+
 import 'package:dye/constants/colors.dart';
+import 'package:dye/widgets/circle_button.dart';
+import 'package:dye/widgets/bottom_button.dart';
+import 'package:dye/widgets/raise_card.dart';
 
 //void main() => runApp(const subsc);
 
@@ -113,26 +114,15 @@ class _ApplySubscribeSettingsState extends State<ApplySubscribeSettings> {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
-        RichText(
+        EasyRichText(
+          "Q1. 원하는 정기배송 유형을 선택해주세요!",
+          defaultStyle: TextStyle(fontSize: 16.sp, color: Colors.black),
           textAlign: TextAlign.center,
-          text: TextSpan(
-            text: "Q1. 원하는 ",
-            style: TextStyle(
-              fontSize: 16.sp,
-              color: Colors.black,
-            ),
-            children: const <TextSpan>[
-              TextSpan(
-                text: "정기배송 유형",
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              TextSpan(
-                text: "을 선택해주세요!",
-              )
-            ],
-          ),
+          patternList: [
+            EasyRichTextPattern(
+                targetString: "정기배송 유형",
+                style: TextStyle(fontWeight: FontWeight.bold))
+          ],
         ),
         Text(
           "이거 텍스트 수정 => 피그마 댓글 어케달지 모르니 그냥 이렇게 함",
@@ -186,26 +176,15 @@ class _ApplySubscribeSettingsState extends State<ApplySubscribeSettings> {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
-          RichText(
+          EasyRichText(
+            "Q2. 배송을 원하는 요일을 선택해주세요!",
+            defaultStyle: TextStyle(fontSize: 16.sp, color: Colors.black),
             textAlign: TextAlign.center,
-            text: TextSpan(
-              text: "Q2. 배송을 원하는 ",
-              style: TextStyle(
-                fontSize: 16.sp,
-                color: Colors.black,
-              ),
-              children: const <TextSpan>[
-                TextSpan(
-                  text: "요일",
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                TextSpan(
-                  text: "을 선택해주세요!",
-                )
-              ],
-            ),
+            patternList: [
+              EasyRichTextPattern(
+                  targetString: "요일",
+                  style: TextStyle(fontWeight: FontWeight.bold))
+            ],
           ),
           Text(
             "(원하는 요일을 모두 선택해주세요)",
@@ -250,65 +229,23 @@ class _ApplySubscribeSettingsState extends State<ApplySubscribeSettings> {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
-        RichText(
+        EasyRichText(
+          "$name님이 구독하신 반찬은\n2021년 11월 29일 월요일 부터\n매주 월, 목, 금, 일에 배송 예정입니다!",
+          defaultStyle: TextStyle(fontSize: 16.sp, color: Colors.black),
           textAlign: TextAlign.center,
-          text: TextSpan(
-            text: name,
-            style: TextStyle(
-              fontSize: 16.sp,
-              color: Colors.black,
-              fontWeight: FontWeight.bold,
+          patternList: [
+            EasyRichTextPattern(
+                targetString: name,
+                style: TextStyle(fontWeight: FontWeight.bold)),
+            EasyRichTextPattern(
+              targetString: "2021년 11월 29일 월요일",
+              style: TextStyle(fontWeight: FontWeight.bold, color: mainColor),
             ),
-            children: const <TextSpan>[
-              TextSpan(
-                text: "님이 구독하신 반찬은",
-                style: TextStyle(fontWeight: FontWeight.normal),
-              ),
-            ],
-          ),
-        ),
-        RichText(
-          textAlign: TextAlign.center,
-          text: TextSpan(
-            text: "2021년 11월 29일 월요일 ",
-            style: TextStyle(
-              fontSize: 16.sp,
-              fontWeight: FontWeight.bold,
-              color: mainColor,
-            ),
-            children: const <TextSpan>[
-              TextSpan(
-                text: "부터",
-                style: TextStyle(
-                    color: Colors.black, fontWeight: FontWeight.normal),
-              )
-            ],
-          ),
-        ),
-        RichText(
-          textAlign: TextAlign.center,
-          text: TextSpan(
-            text: "매주 ",
-            style: TextStyle(
-              fontSize: 16.sp,
-              color: Colors.black,
-              fontWeight: FontWeight.normal,
-            ),
-            children: const <TextSpan>[
-              TextSpan(
-                text: "월, 목, 금, 일",
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              TextSpan(
-                text: "에 배송 예정입니다!",
-                style: TextStyle(
-                  fontWeight: FontWeight.normal,
-                ),
-              )
-            ],
-          ),
+            EasyRichTextPattern(
+              targetString: "월, 목, 금, 일",
+              style: TextStyle(fontWeight: FontWeight.bold),
+            )
+          ],
         ),
       ],
     );
@@ -317,23 +254,17 @@ class _ApplySubscribeSettingsState extends State<ApplySubscribeSettings> {
   Widget _titleText(String name) {
     return Container(
       alignment: Alignment.center,
-      child: RichText(
+      child: EasyRichText(
+        "$name님에게 딱맞는 반찬을 배송하기 위해\n몇가지 물어볼거에요!",
+        defaultStyle:
+            TextStyle(fontSize: 18.sp, color: Colors.black, fontFamily: "Godo"),
         textAlign: TextAlign.center,
-        text: TextSpan(
-          text: name,
-          style: TextStyle(
-            fontSize: 18.sp,
-            color: Colors.black,
-            fontFamily: "Godo",
-            fontWeight: FontWeight.bold,
+        patternList: [
+          EasyRichTextPattern(
+            targetString: name,
+            style: TextStyle(fontWeight: FontWeight.bold),
           ),
-          children: const <TextSpan>[
-            TextSpan(
-              text: "님에게 딱맞는 반찬을 배송하기 위해\n몇가지 물어볼거에요!",
-              style: TextStyle(fontWeight: FontWeight.normal),
-            ),
-          ],
-        ),
+        ],
       ),
     );
   }
