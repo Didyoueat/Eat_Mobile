@@ -1,6 +1,7 @@
 import 'package:dye/widgets/circle_button.dart';
 
 import 'package:dye/widgets/bottom_button.dart';
+import 'package:dye/widgets/raise_card.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -65,12 +66,12 @@ class _ApplySubscribeSettingsState extends State<ApplySubscribeSettings> {
                   SizedBox(
                     height: 32.h,
                   ),
-                  widgetVisible(_questionCard(_question1()), true),
+                  widgetVisible(RaiseCard(_question1()), true),
                   SizedBox(height: 28.h),
-                  widgetVisible(_questionCard(_question2()), _q2Visible),
+                  widgetVisible(RaiseCard(_question2()), _q2Visible),
                   SizedBox(height: 28.h),
-                  widgetVisible(
-                      _questionCard(_noticeCard(), colorBeige), _notiVisible),
+                  widgetVisible(RaiseCard(_noticeCard(), cardColor: colorBeige),
+                      _notiVisible),
                 ],
               ),
             ),
@@ -312,24 +313,6 @@ class _ApplySubscribeSettingsState extends State<ApplySubscribeSettings> {
           ),
         ),
       ],
-    );
-  }
-
-  Widget _questionCard(Widget question, [var cardColor = 0xffffffff]) {
-    final cardHeight = 128.h;
-
-    return Card(
-      shape:
-          RoundedRectangleBorder(borderRadius: BorderRadius.circular(15.0.sp)),
-      shadowColor: Color(0x33aaaaaa),
-      color: Color(cardColor),
-      elevation: 5,
-      child: Container(
-        alignment: Alignment.center,
-        width: 1000,
-        height: cardHeight,
-        child: question,
-      ),
     );
   }
 
