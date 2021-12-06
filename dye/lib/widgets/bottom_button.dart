@@ -6,6 +6,7 @@ import 'package:dye/constants/colors.dart' as custom_colors;
 class BottomButton extends StatelessWidget {
   final buttonHeight = 98.h;
   final buttonTopRadius = 15.w;
+  final font = "Godo";
   final String message;
   final bool isActive;
   final VoidCallback function;
@@ -28,7 +29,7 @@ class BottomButton extends StatelessWidget {
           style: TextStyle(
             color: Colors.white,
             fontSize: 18.sp,
-            fontFamily: "Godo",
+            fontFamily: font,
           ),
           maxLines: 1,
         ),
