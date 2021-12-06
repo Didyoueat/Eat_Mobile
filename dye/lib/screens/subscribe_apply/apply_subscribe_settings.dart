@@ -17,17 +17,20 @@ class ApplySubscribeSettings extends StatefulWidget {
 
 class _ApplySubscribeSettingsState extends State<ApplySubscribeSettings> {
   final name = "성수";
-  final List<bool> _q1Selection = [false, false];
-  final List<bool> _q2Selection = [
-    false,
-    false,
-    false,
-    false,
-    false,
-    false,
-    false
-  ];
+  final List<bool> _q1Selection = [];
+  final List<bool> _q2Selection = [];
   final List<String> _weekName = ["월", "화", "수", "목", "금", "토", "일"];
+
+  @override
+  void initState() {
+    super.initState();
+    for (int i = 0; i < 2; i++) {
+      _q1Selection.add(false);
+    }
+    for (int i = 0; i < 7; i++) {
+      _q2Selection.add(false);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -305,7 +308,7 @@ class _ApplySubscribeSettingsState extends State<ApplySubscribeSettings> {
   }
 
   Widget _questionCard(Widget question, [var cardColor = 0xffffffff]) {
-    double cardHeight = 128.h;
+    final cardHeight = 128.h;
 
     return Card(
       shape:
