@@ -1,8 +1,10 @@
+import 'package:dye/widgets/circle_button.dart';
+
 import 'package:dye/widgets/bottom_button.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:dye/constants/colors.dart' as custom_colors;
+import 'package:dye/constants/colors.dart';
 
 //void main() => runApp(const subsc);
 
@@ -15,7 +17,17 @@ class ApplySubscribeSettings extends StatefulWidget {
 
 class _ApplySubscribeSettingsState extends State<ApplySubscribeSettings> {
   final name = "성수";
-  List<bool> q1Selection = [false, false];
+  final List<bool> _q1Selection = [false, false];
+  final List<bool> _q2Selection = [
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false
+  ];
+  final List<String> _weekName = ["월", "화", "수", "목", "금", "토", "일"];
 
   @override
   Widget build(BuildContext context) {
@@ -71,21 +83,24 @@ class _ApplySubscribeSettingsState extends State<ApplySubscribeSettings> {
   ButtonStyle getQ1ButtonStatus(int position) {
     return OutlinedButton.styleFrom(
       tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-      primary: q1Selection[position]
-          ? Color(custom_colors.mainColor)
-          : Color(custom_colors.textColorGray),
+      primary: _q1Selection[position] ? Color(mainColor) : Color(textColorGray),
       padding: EdgeInsets.fromLTRB(38.w, 0, 38.w, 0),
       splashFactory: NoSplash.splashFactory,
       side: BorderSide(
-          color: q1Selection[position]
-              ? Color(custom_colors.mainColor)
-              : Color(custom_colors.textColorGray),
+          color:
+              _q1Selection[position] ? Color(mainColor) : Color(textColorGray),
           width: 1,
           style: BorderStyle.solid),
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(30.0),
       ),
     );
+  }
+
+  void setQ2ButtonStatus(int position) {
+    setState(() {
+      _q2Selection[position] = !_q2Selection[position];
+    });
   }
 
   Widget _question1() {
@@ -127,8 +142,8 @@ class _ApplySubscribeSettingsState extends State<ApplySubscribeSettings> {
             OutlinedButton(
               style: getQ1ButtonStatus(0),
               onPressed: () {
-                if (!q1Selection[0]) {
-                  q1Selection[0] = true;
+                if (!_q1Selection[0]) {
+                  _q1Selection[0] = true;
                   setState(() {});
                 }
               },
@@ -140,6 +155,7 @@ class _ApplySubscribeSettingsState extends State<ApplySubscribeSettings> {
             OutlinedButton(
                 style: getQ1ButtonStatus(1),
                 onPressed: () {
+                  ScaffoldMessenger.of(context).clearSnackBars();
                   ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                     content: Text('랜덤 추천 서비스는 추후 제공됩니다!'),
                     duration: Duration(milliseconds: 700),
@@ -187,51 +203,36 @@ class _ApplySubscribeSettingsState extends State<ApplySubscribeSettings> {
           SizedBox(
             height: 12.h,
           ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              _weekWidget("월"),
-              SizedBox(width: 8.w),
-              _weekWidget("화"),
-              SizedBox(width: 8.w),
-              _weekWidget("수"),
-              SizedBox(width: 8.w),
-              _weekWidget("목"),
-              SizedBox(width: 8.w),
-              _weekWidget("금"),
-              SizedBox(width: 8.w),
-              _weekWidget("토"),
-              SizedBox(width: 8.w),
-              _weekWidget("일"),
-            ],
-          ),
+          getWeekButton(),
         ],
       ),
     );
   }
 
-  Widget _weekWidget(String week) {
-    double circleSize = 36.w;
+  Row getWeekButton() {
+    final circleWidth = 36.w;
+    final circleHeight = 36.h;
+    final padding = 8.w;
+    final List<Widget> list = [];
 
-    return ConstrainedBox(
-      constraints: const BoxConstraints(
-          minWidth: 36, maxWidth: 45, minHeight: 36, maxHeight: 45),
-      child: Container(
-        width: circleSize,
-        height: circleSize,
-        alignment: Alignment.center,
-        decoration: BoxDecoration(
-          border: Border.all(
-              color: Color(custom_colors.borderColorGray), width: 1.sp),
-          borderRadius: BorderRadius.circular(50),
+    for (int i = 0; i < 7; i++) {
+      list.add(CircleButton(
+        onTap: () => setQ2ButtonStatus(i),
+        width: circleWidth,
+        height: circleHeight,
+        borderColor: _q2Selection[i] ? Color(mainColor) : null,
+        child: Text(
+          _weekName[i],
+          style: TextStyle(
+              color: _q2Selection[i] ? Color(mainColor) : Color(textColorGray)),
         ),
-        child: Center(
-          child: Text(
-            week,
-            style: TextStyle(color: Color(custom_colors.textColorGray)),
-          ),
-        ),
-      ),
+      ));
+      if (i != 6) list.add(SizedBox(width: padding));
+    }
+
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: list,
     );
   }
 
@@ -263,7 +264,7 @@ class _ApplySubscribeSettingsState extends State<ApplySubscribeSettings> {
             style: TextStyle(
               fontSize: 16.sp,
               fontWeight: FontWeight.bold,
-              color: Color(custom_colors.mainColor),
+              color: Color(mainColor),
             ),
             children: const <TextSpan>[
               TextSpan(
