@@ -1,4 +1,4 @@
-import 'package:dye/screens/subscribe_apply/apply_subscribe_settings.dart';
+import 'package:dye/screens/subscribe_apply/subscribe_settings_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
