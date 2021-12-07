@@ -1,3 +1,4 @@
+import 'package:dye/screens/subscribe_apply/shop_list.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -78,7 +79,17 @@ class _ApplySubscribeSettingsState extends State<ApplySubscribeSettings> {
             ),
           ),
           widgetVisible(
-              BottomButton("이제 반찬을 골라볼까요?", true, () {}), _notiVisible),
+              BottomButton(
+                "이제 반찬을 골라볼까요?",
+                true,
+                () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => ShopListScreen()),
+                  );
+                },
+              ),
+              _notiVisible),
         ],
       ),
     );
