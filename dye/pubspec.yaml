@@ -63,7 +63,6 @@ flutter:
 
   assets:
     - assets/icons/
-    - assets/test.png
 
 
   fonts:
