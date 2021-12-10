@@ -832,9 +832,12 @@ class MyApp extends StatelessWidget {
         home: Scaffold(
           body: SafeArea(
             child: Container(
-              padding: EdgeInsets.only(left: 20.w, right: 20.w),
+              // padding: EdgeInsets.only(left: 20.w, right: 20.w),
               color: Colors.white,
-              child: LocateBasedShopList(list: temp),
+              child: LocateBasedShopList(
+                list: temp,
+                isInSubscribe: true,
+              ),
             ),
           ),
         ),

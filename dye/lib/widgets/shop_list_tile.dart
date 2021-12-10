@@ -34,7 +34,8 @@ class ShopListTile extends StatefulWidget {
 class _ShopListTileState extends State<ShopListTile> {
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
+    return Container(
+      margin: EdgeInsets.only(left: 20.w, right: 20.w),
       child: RaiseCard(
         Container(
           padding: EdgeInsets.only(top: 12.h, bottom: 12.h),
