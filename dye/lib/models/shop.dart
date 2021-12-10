@@ -93,7 +93,7 @@ class Shop {
     data['createdAt'] = createdAt;
     data['updatedAt'] = updatedAt;
     if (dishes != null) {
-      data['dishes'] = dishes.map((v) => v!.toJson()).toList();
+      data['dishes'] = dishes.map((v) => v.toJson()).toList();
     }
     data['distance'] = distance;
     return data;
