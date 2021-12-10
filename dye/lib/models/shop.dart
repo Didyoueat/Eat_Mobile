@@ -1,37 +1,33 @@
 import 'package:dye/models/dish.dart';
-import 'package:json_annotation/json_annotation.dart';
-part 'shop.g.dart';
 
-@JsonSerializable()
 class Shop {
-  String? shopId;
+  int? shopId;
   String? businessNumber;
   String? businessName;
   String? businessPhone;
-  int? dayoff;
+  int? dayOff;
   String? address;
-  String? latitude;
-  String? longitude;
+  double? latitude;
+  double? longitude;
   String? name;
   String? phone;
   String? origin;
   String? content;
   List<String?>? imageUrl;
-  String? officeHourStart;
-  String? officeHourEnd;
+  String? officeHour;
   String? temporaryDayStart;
   String? temporaryDayEnd;
   String? createdAt;
   String? updatedAt;
-  List<Dish?>? dishes;
-  String? distance;
+  late List<Dish> dishes;
+  int? distance;
 
   Shop(
       this.shopId,
       this.businessNumber,
       this.businessName,
       this.businessPhone,
-      this.dayoff,
+      this.dayOff,
       this.address,
       this.latitude,
       this.longitude,
@@ -40,8 +36,7 @@ class Shop {
       this.origin,
       this.content,
       this.imageUrl,
-      this.officeHourStart,
-      this.officeHourEnd,
+      this.officeHour,
       this.temporaryDayStart,
       this.temporaryDayEnd,
       this.createdAt,
@@ -49,6 +44,58 @@ class Shop {
       this.dishes,
       this.distance);
 
-  factory Shop.fromJson(Map<String, dynamic> json) => _$ShopFromJson(json);
-  Map<String, dynamic> toJson() => _$ShopToJson(this);
+  Shop.fromJson(Map<String, dynamic> json) {
+    shopId = json['shopId'];
+    businessNumber = json['businessNumber'];
+    businessName = json['businessName'];
+    businessPhone = json['businessPhone'];
+    dayOff = json['dayOff'];
+    address = json['address'];
+    latitude = json['latitude'];
+    longitude = json['longitude'];
+    name = json['name'];
+    phone = json['phone'];
+    origin = json['origin'];
+    content = json['content'];
+    imageUrl = json['imageUrl'];
+    officeHour = json['officeHour'];
+    temporaryDayStart = json['temporaryDayStart'];
+    temporaryDayEnd = json['temporaryDayEnd'];
+    createdAt = json['createdAt'];
+    updatedAt = json['updatedAt'];
+    if (json['dishes'] != null) {
+      dishes = <Dish>[];
+      json['dishes'].forEach((v) {
+        dishes.add(Dish.fromJson(v));
+      });
+    }
+    distance = json['distance'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['shopId'] = shopId;
+    data['businessNumber'] = businessNumber;
+    data['businessName'] = businessName;
+    data['businessPhone'] = businessPhone;
+    data['dayOff'] = dayOff;
+    data['address'] = address;
+    data['latitude'] = latitude;
+    data['longitude'] = longitude;
+    data['name'] = name;
+    data['phone'] = phone;
+    data['origin'] = origin;
+    data['content'] = content;
+    data['imageUrl'] = imageUrl;
+    data['officeHour'] = officeHour;
+    data['temporaryDayStart'] = temporaryDayStart;
+    data['temporaryDayEnd'] = temporaryDayEnd;
+    data['createdAt'] = createdAt;
+    data['updatedAt'] = updatedAt;
+    if (dishes != null) {
+      data['dishes'] = dishes.map((v) => v!.toJson()).toList();
+    }
+    data['distance'] = distance;
+    return data;
+  }
 }

@@ -1,17 +1,13 @@
-import 'package:json_annotation/json_annotation.dart';
-part 'dish.g.dart';
-
-@JsonSerializable()
 class Dish {
-  String? dishId;
-  String? shopId;
+  int? dishId;
+  int? shopId;
   bool? main;
   bool? thumbnail;
   String? title;
   String? content;
-  String? price;
-  String? count;
-  String? weight;
+  int? price;
+  int? count;
+  int? weight;
   String? imageUrl;
   String? createdAt;
   String? updatedAt;
@@ -30,6 +26,35 @@ class Dish {
       this.createdAt,
       this.updatedAt);
 
-  factory Dish.fromJson(Map<String, dynamic> json) => _$DishFromJson(json);
-  Map<String, dynamic> toJson() => _$DishToJson(this);
+  Dish.fromJson(Map<String, dynamic> json) {
+    dishId = json['dishId'];
+    shopId = json['shopId'];
+    main = json['main'];
+    thumbnail = json['thumbnail'];
+    title = json['title'];
+    content = json['content'];
+    price = json['price'];
+    count = json['count'];
+    weight = json['weight'];
+    imageUrl = json['imageUrl'];
+    createdAt = json['createdAt'];
+    updatedAt = json['updatedAt'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['dishId'] = dishId;
+    data['shopId'] = shopId;
+    data['main'] = main;
+    data['thumbnail'] = thumbnail;
+    data['title'] = title;
+    data['content'] = content;
+    data['price'] = price;
+    data['count'] = count;
+    data['weight'] = weight;
+    data['imageUrl'] = imageUrl;
+    data['createdAt'] = createdAt;
+    data['updatedAt'] = updatedAt;
+    return data;
+  }
 }
