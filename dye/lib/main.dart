@@ -20,7 +20,11 @@ class MyApp extends StatelessWidget {
       designSize: Size(375, 812),
       builder: () => MaterialApp(
         title: 'Flutter Demo',
-
+        builder: (context, child) {
+          return MediaQuery(
+              data: MediaQuery.of(context).copyWith(textScaleFactor: 1.0),
+              child: child!);
+        },
         theme: ThemeData(
           fontFamily: "Noto_Sans_KR",
           primarySwatch: Colors.blue,
