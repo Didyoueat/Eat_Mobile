@@ -1,11 +1,11 @@
 import 'package:dye/constants/colors.dart';
-import 'package:dye/constants/colors.dart';
 import 'package:dye/models/shop.dart';
 import 'package:dye/screens/shop_detail_screen.dart';
 import 'package:dye/widgets/shop_list_tile.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:easy_rich_text/easy_rich_text.dart';
 
 class LocateBasedShopList extends StatefulWidget {
   final List<Shop> list;
@@ -59,12 +59,15 @@ class _LocateBasedShopListState extends State<LocateBasedShopList> {
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: getWidgets(),
+    return Container(
+      margin: EdgeInsets.only(top: 29.h),
+      child: Stack(
+        children: getList(),
+      ),
     );
   }
 
-  List<Widget> getWidgets() {
+  List<Widget> getList() {
     List<Widget> list = [];
     list.add(ListView.separated(
       itemCount: widget.list.length + 1,
@@ -72,6 +75,19 @@ class _LocateBasedShopListState extends State<LocateBasedShopList> {
       itemBuilder: (BuildContext context, int position) {
         final tileWidth = 335.w;
         final tileHeight = 243.h;
+
+        if (widget.isInSubscribe && position == 0) {
+          return Container(
+            alignment: Alignment.center,
+            child: EasyRichText(
+              "우리동네 반찬가게에요!\n끌리는 반찬가게에 들어가보세요.",
+              defaultStyle: TextStyle(
+                  fontSize: 18.sp, color: Colors.black, fontFamily: "Godo"),
+              textAlign: TextAlign.center,
+            ),
+          );
+        }
+        position--;
 
         if (position == 0) {
           return Container(
