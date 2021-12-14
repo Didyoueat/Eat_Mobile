@@ -1,6 +1,7 @@
 import 'package:dye/constants/colors.dart';
 import 'package:dye/constants/colors.dart';
 import 'package:dye/models/shop.dart';
+import 'package:dye/screens/shop_detail_screen.dart';
 import 'package:dye/widgets/shop_list_tile.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter/material.dart';
@@ -81,24 +82,35 @@ class _LocateBasedShopListState extends State<LocateBasedShopList> {
 
         return Container(
           margin: EdgeInsets.only(left: 20.w, right: 20.w),
-          child: SizedBox(
-            width: tileWidth,
-            height: tileHeight,
-            child: ShopListTile(
-              title: position == 0
-                  ? "동찬이네"
-                  : widget.list[position].businessName ?? "동찬이네",
-              address: getDong(widget.list[position].address) ?? "신림동",
-              distance: (widget.list[position].distance! * (1 / 1000))
-                  .toStringAsFixed(1)
-                  .toString(),
-              like: true,
-              urlThumbNail1:
-                  widget.list[position].dishes[0].imageUrl.toString(),
-              urlThumbNail2:
-                  widget.list[position].dishes[1].imageUrl.toString(),
-              urlThumbNail3:
-                  widget.list[position].dishes[2].imageUrl.toString(),
+          child: InkWell(
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) =>
+                      ShopDetailScreen(shop: widget.list[position]),
+                ),
+              );
+            },
+            child: SizedBox(
+              width: tileWidth,
+              height: tileHeight,
+              child: ShopListTile(
+                title: position == 0
+                    ? "동찬이네"
+                    : widget.list[position].businessName ?? "동찬이네",
+                address: getDong(widget.list[position].address) ?? "신림동",
+                distance: (widget.list[position].distance! * (1 / 1000))
+                    .toStringAsFixed(1)
+                    .toString(),
+                like: true,
+                urlThumbNail1:
+                    widget.list[position].dishes[0].imageUrl.toString(),
+                urlThumbNail2:
+                    widget.list[position].dishes[1].imageUrl.toString(),
+                urlThumbNail3:
+                    widget.list[position].dishes[2].imageUrl.toString(),
+              ),
             ),
           ),
         );
