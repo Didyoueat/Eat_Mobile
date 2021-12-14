@@ -20,7 +20,7 @@ class RaiseCard extends StatelessWidget {
 
     return Card(
       shape:
-          RoundedRectangleBorder(borderRadius: BorderRadius.circular(15.0.sp)),
+          RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0.sp)),
       shadowColor: Color(0x33aaaaaa),
       color: cardColor ?? Colors.white,
       elevation: _elevation,
