@@ -55,14 +55,6 @@ class _LocateBasedShopListState extends State<LocateBasedShopList> {
   void didChangeDependencies() {
     super.didChangeDependencies();
   }
-  /*isLoading
-        ? Container(
-            color: Color(0x99ffffff),
-            child: Center(
-              child: CircularProgressIndicator(),
-            ),
-          )
-        : */
 
   @override
   Widget build(BuildContext context) {
@@ -73,21 +65,23 @@ class _LocateBasedShopListState extends State<LocateBasedShopList> {
 
   List<Widget> getWidgets() {
     List<Widget> list = [];
-    list.add(Container(
-      margin: EdgeInsets.only(left: 20.w, right: 20.w),
-      child: ListView.separated(
-        itemCount: widget.list.length + 1,
-        cacheExtent: 100,
-        itemBuilder: (BuildContext context, int position) {
-          final tileWidth = 335.w;
-          final tileHeight = 243.h;
+    list.add(ListView.separated(
+      itemCount: widget.list.length + 1,
+      cacheExtent: 100,
+      itemBuilder: (BuildContext context, int position) {
+        final tileWidth = 335.w;
+        final tileHeight = 243.h;
 
-          if (position == 0) {
-            return _getListHeader();
-          }
-          position--;
+        if (position == 0) {
+          return Container(
+              margin: EdgeInsets.only(left: 20.w, right: 20.w),
+              child: _getListHeader());
+        }
+        position--;
 
-          return SizedBox(
+        return Container(
+          margin: EdgeInsets.only(left: 20.w, right: 20.w),
+          child: SizedBox(
             width: tileWidth,
             height: tileHeight,
             child: ShopListTile(
@@ -106,14 +100,14 @@ class _LocateBasedShopListState extends State<LocateBasedShopList> {
               urlThumbNail3:
                   widget.list[position].dishes[2].imageUrl.toString(),
             ),
-          );
-        },
-        separatorBuilder: (BuildContext context, int index) {
-          return SizedBox(
-            height: 15.h,
-          );
-        },
-      ),
+          ),
+        );
+      },
+      separatorBuilder: (BuildContext context, int index) {
+        return SizedBox(
+          height: 15.h,
+        );
+      },
     ));
     if (isLoading) {
       list.add(Container(

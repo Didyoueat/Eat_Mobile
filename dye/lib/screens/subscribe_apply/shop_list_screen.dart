@@ -23,19 +23,16 @@ class _ShopListScreenState extends State<ShopListScreen> {
   late List<Shop> shopList = [];
   final radius = 500;
 
-  Future<List<Shop>> fetchAlbum() async {
+  Future<void> fetchShopList() async {
     final response = await http.get(Uri.parse(
         'http://54.180.122.1:5000/v0/shops/around?latitude=${widget.latitude}&longitude=${widget.longitude}&radius=$radius'));
 
     if (response.statusCode == 200) {
-      List<Shop> temp = [];
-
       for (Map<String, dynamic> shop in json.decode(response.body)['shops']) {
-        temp.add(Shop.fromJson(shop));
-        log(temp.last.shopId.toString());
+        shopList.add(Shop.fromJson(shop));
+        log(shopList.last.shopId.toString());
       }
       setState(() {});
-      return temp;
     } else {
       throw Exception('Failed to load album');
     }
@@ -44,19 +41,19 @@ class _ShopListScreenState extends State<ShopListScreen> {
   @override
   void initState() {
     super.initState();
-    //여기에다가 shoplist를 초기화해주고 싶은데 async가 안됨
+    fetchShopList();
   }
 
   @override
   void didChangeDependencies() async {
     super.didChangeDependencies();
-    shopList = await fetchAlbum();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
+        bottom: false,
         child: Container(
           child: LocateBasedShopList(
             isInSubscribe: true,
