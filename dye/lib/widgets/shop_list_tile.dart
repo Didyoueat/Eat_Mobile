@@ -34,116 +34,113 @@ class ShopListTile extends StatefulWidget {
 class _ShopListTileState extends State<ShopListTile> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: EdgeInsets.only(left: 20.w, right: 20.w),
-      child: RaiseCard(
-        Container(
-          padding: EdgeInsets.only(top: 12.h, bottom: 12.h),
-          child: Column(
-            children: <Widget>[
-              Stack(
-                children: <Widget>[
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        widget.title,
-                        style: TextStyle(
-                          fontSize: 18.sp,
-                          fontFamily: "Godo",
+    return RaiseCard(
+      Container(
+        padding: EdgeInsets.only(top: 12.h, bottom: 12.h),
+        child: Column(
+          children: <Widget>[
+            Stack(
+              children: <Widget>[
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      widget.title,
+                      style: TextStyle(
+                        fontSize: 18.sp,
+                        fontFamily: "Godo",
+                      ),
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        SvgPicture.asset(
+                          "assets/icons/star.svg",
+                          color: mainColor,
+                          width: 16.66.w,
+                          height: 16.66.h,
+                        ),
+                        SizedBox(width: 4.w),
+                        Text.rich(
+                          TextSpan(
+                            text: widget.star,
+                            style: TextStyle(fontSize: 16.sp),
+                            children: <TextSpan>[
+                              TextSpan(text: " ∙ "),
+                              TextSpan(text: widget.address),
+                              TextSpan(text: " ∙ "),
+                              TextSpan(text: widget.distance),
+                              TextSpan(text: "KM"),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+                Container(
+                  alignment: Alignment.topRight,
+                  padding: EdgeInsets.only(top: 2.5.h, right: 18.w),
+                  child: widget.like
+                      ? SvgPicture.asset("assets/icons/like(selected).svg")
+                      : SvgPicture.asset("assets/icons/like(unselected).svg"),
+                ),
+              ],
+            ),
+            Expanded(
+              flex: 1,
+              child: Container(
+                margin: EdgeInsets.only(top: 8.h),
+                child: Row(
+                  children: <Widget>[
+                    Expanded(
+                      flex: 3,
+                      child: Container(
+                        color: colorBeige,
+                        child: Image.network(
+                          widget.urlThumbNail1,
+                          fit: BoxFit.fitHeight,
                         ),
                       ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
+                    ),
+                    SizedBox(
+                      width: 4.w,
+                    ),
+                    Expanded(
+                      flex: 1,
+                      child: Column(
                         children: [
-                          SvgPicture.asset(
-                            "assets/icons/star.svg",
-                            color: mainColor,
-                            width: 16.66.w,
-                            height: 16.66.h,
+                          Expanded(
+                            flex: 1,
+                            child: Container(
+                              color: colorBeige,
+                              child: Image.network(
+                                widget.urlThumbNail2,
+                                fit: BoxFit.cover,
+                              ),
+                            ),
                           ),
-                          SizedBox(width: 4.w),
-                          Text.rich(
-                            TextSpan(
-                              text: widget.star,
-                              style: TextStyle(fontSize: 16.sp),
-                              children: <TextSpan>[
-                                TextSpan(text: " ∙ "),
-                                TextSpan(text: widget.address),
-                                TextSpan(text: " ∙ "),
-                                TextSpan(text: widget.distance),
-                                TextSpan(text: "KM"),
-                              ],
+                          SizedBox(
+                            height: 4.h,
+                          ),
+                          Expanded(
+                            flex: 1,
+                            child: Container(
+                              color: colorBeige,
+                              child: Image.network(
+                                widget.urlThumbNail3,
+                                fit: BoxFit.cover,
+                              ),
                             ),
                           ),
                         ],
                       ),
-                    ],
-                  ),
-                  Container(
-                    alignment: Alignment.topRight,
-                    padding: EdgeInsets.only(top: 2.5.h, right: 18.w),
-                    child: widget.like
-                        ? SvgPicture.asset("assets/icons/like(selected).svg")
-                        : SvgPicture.asset("assets/icons/like(unselected).svg"),
-                  ),
-                ],
-              ),
-              Expanded(
-                flex: 1,
-                child: Container(
-                  margin: EdgeInsets.only(top: 8.h),
-                  child: Row(
-                    children: <Widget>[
-                      Expanded(
-                        flex: 3,
-                        child: Container(
-                          color: colorBeige,
-                          child: Image.network(
-                            widget.urlThumbNail1,
-                            fit: BoxFit.fitHeight,
-                          ),
-                        ),
-                      ),
-                      SizedBox(
-                        width: 4.w,
-                      ),
-                      Expanded(
-                        flex: 1,
-                        child: Column(
-                          children: [
-                            Expanded(
-                              flex: 1,
-                              child: Container(
-                                color: colorBeige,
-                                child: Image.network(
-                                  widget.urlThumbNail2,
-                                  fit: BoxFit.cover,
-                                ),
-                              ),
-                            ),
-                            SizedBox(
-                              height: 4.h,
-                            ),
-                            Expanded(
-                              flex: 1,
-                              child: Container(
-                                color: colorBeige,
-                                child: Image.network(
-                                  widget.urlThumbNail3,
-                                  fit: BoxFit.cover,
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );
