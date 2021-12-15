@@ -21,6 +21,7 @@ class Shop {
   String? updatedAt;
   late List<Dish> dishes;
   int? distance;
+  int? dishCount;
 
   Shop(
       this.shopId,
@@ -42,7 +43,8 @@ class Shop {
       this.createdAt,
       this.updatedAt,
       this.dishes,
-      this.distance);
+      this.distance,
+      this.dishCount);
 
   Shop.fromJson(Map<String, dynamic> json) {
     shopId = json['shopId'];
@@ -70,6 +72,7 @@ class Shop {
       });
     }
     distance = json['distance'];
+    dishCount = json['dishCount'];
   }
 
   Map<String, dynamic> toJson() {
@@ -96,6 +99,7 @@ class Shop {
       data['dishes'] = dishes.map((v) => v.toJson()).toList();
     }
     data['distance'] = distance;
+    data['dishCount'] = dishCount;
     return data;
   }
 }

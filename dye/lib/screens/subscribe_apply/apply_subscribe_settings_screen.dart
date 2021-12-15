@@ -1,4 +1,4 @@
-import 'package:dye/screens/subscribe_apply/shop_list_screen.dart';
+import 'package:dye/screens/shop_list_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -28,7 +28,6 @@ class _ApplySubscribeSettingsState extends State<ApplySubscribeSettings> {
 
   @override
   void setState(VoidCallback fn) {
-    // TODO: implement setState
     super.setState(fn);
     if (!_q2Visible) _q2Visible = true;
     if (_q2Selection.contains(true)) {
