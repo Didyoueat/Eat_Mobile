@@ -1,6 +1,7 @@
 import 'package:dye/constants/colors.dart';
 import 'package:dye/models/shop.dart';
 import 'package:dye/screens/shop_detail_screen.dart';
+import 'package:dye/utils/get_address_dong.dart';
 import 'package:dye/widgets/shop_list_tile.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter/material.dart';
@@ -28,14 +29,6 @@ class _LocateBasedShopListState extends State<LocateBasedShopList> {
   final List<bool> selectSortButton = [false, false, false];
   final List<String> titleSortButton = ["평점순", "거리순", "단골집"];
   bool isLoading = true;
-
-  String? getDong(String? str) {
-    if (str == null) {
-      return ("");
-    }
-    final temp = str.split(" ");
-    return temp[1];
-  }
 
   Future<void> fetchLoading() async {
     await Future.delayed(Duration(seconds: 1), () {
