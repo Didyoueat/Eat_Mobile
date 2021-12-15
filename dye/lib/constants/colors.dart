@@ -1,6 +1,11 @@
-const mainColor = 0xffff5439;
-const textColorGray = 0xffaaaaaa;
-const borderColorGray = 0x55aaaaaa;
+import 'package:flutter/material.dart';
+
+const mainColor = Color(0xffff5439);
+const textColorGray = Color(0xffaaaaaa);
+const borderColorGray = Color(0x55aaaaaa);
 
 //Button
-const buttonInactive = 0xffbbbbbb;
+const buttonInactive = Color(0xffbbbbbb);
+
+//Background
+const colorBeige = Color(0xfffff6E4);
