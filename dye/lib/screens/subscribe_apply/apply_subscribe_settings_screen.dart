@@ -28,7 +28,6 @@ class _ApplySubscribeSettingsState extends State<ApplySubscribeSettings> {
 
   @override
   void setState(VoidCallback fn) {
-    // TODO: implement setState
     super.setState(fn);
     if (!_q2Visible) _q2Visible = true;
     if (_q2Selection.contains(true)) {

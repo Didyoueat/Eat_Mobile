@@ -49,6 +49,7 @@ class _ShopListTileState extends State<ShopListTile> {
                       style: TextStyle(
                         fontSize: 18.sp,
                         fontFamily: "Godo",
+                        fontWeight: FontWeight.w300,
                       ),
                     ),
                     Row(
