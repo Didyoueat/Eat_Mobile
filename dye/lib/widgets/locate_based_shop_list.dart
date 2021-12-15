@@ -1,7 +1,7 @@
 import 'package:dye/constants/colors.dart';
 import 'package:dye/models/shop.dart';
 import 'package:dye/screens/shop_detail_screen.dart';
-import 'package:dye/utils/get_address_dong.dart';
+import 'package:dye/utils/unit_converter.dart';
 import 'package:dye/widgets/shop_list_tile.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter/material.dart';
@@ -109,9 +109,7 @@ class _LocateBasedShopListState extends State<LocateBasedShopList> {
                     ? "동찬이네"
                     : widget.list[position].businessName ?? "동찬이네",
                 address: getDong(widget.list[position].address) ?? "신림동",
-                distance: (widget.list[position].distance! * (1 / 1000))
-                    .toStringAsFixed(1)
-                    .toString(),
+                distance: getDistance(widget.list[position].distance!)!,
                 like: true,
                 urlThumbNail1:
                     widget.list[position].dishes[0].imageUrl.toString(),
