@@ -85,10 +85,11 @@ class _ApplySubscribeSettingsState extends State<ApplySubscribeSettings> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => ShopListScreen(
-                              latitude: 37.55500,
-                              longitude: 126.97130,
-                            )),
+                      builder: (context) => ShopListScreen(
+                        latitude: 37.55500,
+                        longitude: 126.97130,
+                      ),
+                    ),
                   );
                 },
               ),

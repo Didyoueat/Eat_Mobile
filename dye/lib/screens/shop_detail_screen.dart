@@ -21,6 +21,23 @@ class ShopDetailScreen extends StatefulWidget {
 }
 
 class _ShopDetailScreenState extends State<ShopDetailScreen> {
+  final mainDish = [];
+  final sideDish = [];
+  final sideDishText = "밑반찬";
+  final mainDishText = "메인 반찬";
+
+  @override
+  void initState() {
+    super.initState();
+    for (Dish dish in widget.shop.dishes) {
+      if (dish.main == true) {
+        mainDish.add(dish);
+      } else {
+        sideDish.add(dish);
+      }
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -33,54 +50,51 @@ class _ShopDetailScreenState extends State<ShopDetailScreen> {
               titleContainer(),
               SizedBox(height: 28.h),
               Text(
-                "밑반찬",
-                style: TextStyle(
-                  fontSize: 20.sp,
-                  fontFamily: "Godo",
-                ),
+                sideDishText,
+                style: TextStyle(fontSize: 20.sp, fontFamily: "Godo"),
               ),
               SizedBox(height: 18.h),
               Container(
                 margin: EdgeInsets.only(left: 30.w, right: 30.w),
                 child: GridView.builder(
-                  itemCount: widget.shop.dishCount,
+                  itemCount: sideDish.length,
                   shrinkWrap: true,
                   physics: NeverScrollableScrollPhysics(),
                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 3,
-                    mainAxisSpacing: 20,
-                    crossAxisSpacing: 12,
+                    mainAxisSpacing: 12.h,
+                    crossAxisSpacing: 20.w,
                     childAspectRatio: 92 / 138,
                   ),
                   itemBuilder: (BuildContext context, int index) {
-                    Dish dish = widget.shop.dishes[index];
-                    return Container(
-                      color: Colors.red,
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: [
-                          SizedBox(
-                            child: Image.network(
-                              dish.imageUrl!,
-                              fit: BoxFit.cover,
-                            ),
-                            width: 92.w,
-                            height: 92.h,
-                          ),
-                          SizedBox(height: 8.h),
-                          AutoSizeText(
-                            dish.title!,
-                            style: TextStyle(
-                                fontWeight: FontWeight.w400, fontSize: 12.sp),
-                          ),
-                          AutoSizeText(
-                            dish.price.toString() + "원",
-                            style: TextStyle(
-                                fontWeight: FontWeight.w700, fontSize: 13.sp),
-                          ),
-                        ],
-                      ),
-                    );
+                    Dish dish = sideDish[index];
+                    return dishWindow(dish);
+                  },
+                ),
+              ),
+              SizedBox(height: 24.h),
+              Container(color: Color(0xFFBBBBBB), width: 172.w, height: 1),
+              SizedBox(height: 28.h),
+              Text(
+                mainDishText,
+                style: TextStyle(fontSize: 20.sp, fontFamily: "Godo"),
+              ),
+              SizedBox(height: 18.h),
+              Container(
+                margin: EdgeInsets.only(left: 30.w, right: 30.w),
+                child: GridView.builder(
+                  itemCount: mainDish.length,
+                  shrinkWrap: true,
+                  physics: NeverScrollableScrollPhysics(),
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 3,
+                    mainAxisSpacing: 12.h,
+                    crossAxisSpacing: 20.w,
+                    childAspectRatio: 92 / 138,
+                  ),
+                  itemBuilder: (BuildContext context, int index) {
+                    Dish dish = mainDish[index];
+                    return dishWindow(dish);
                   },
                 ),
               ),
@@ -88,6 +102,34 @@ class _ShopDetailScreenState extends State<ShopDetailScreen> {
           ),
         ),
       ),
+    );
+  }
+
+  Widget dishWindow(Dish dish) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      mainAxisAlignment: MainAxisAlignment.end,
+      children: [
+        SizedBox(
+          child: Image.network(
+            dish.imageUrl!,
+            fit: BoxFit.cover,
+          ),
+          width: 92.w,
+          height: 92.h,
+        ),
+        SizedBox(height: 8.h),
+        AutoSizeText(
+          dish.title!,
+          textAlign: TextAlign.center,
+          style: TextStyle(fontWeight: FontWeight.w400, fontSize: 12.sp),
+        ),
+        AutoSizeText(
+          dish.price.toString() + "원",
+          textAlign: TextAlign.center,
+          style: TextStyle(fontWeight: FontWeight.w700, fontSize: 13.sp),
+        ),
+      ],
     );
   }
 
@@ -102,7 +144,7 @@ class _ShopDetailScreenState extends State<ShopDetailScreen> {
             width: 327.w,
             height: 113.h,
             child: SvgPicture.asset(
-              "assets/test_r2.svg",
+              "assets/shop_detail_rectangle.svg",
               fit: BoxFit.fill,
             ),
           ),
