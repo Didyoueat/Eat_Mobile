@@ -8,5 +8,5 @@ String? getDong(String? str) {
 
 String? getDistance(int? distance) {
   if (distance == null) return null;
-  return (distance! * (1 / 1000)).toStringAsFixed(1).toString();
+  return (distance * (1 / 1000)).toStringAsFixed(1).toString();
 }

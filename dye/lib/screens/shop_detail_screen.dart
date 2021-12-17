@@ -2,6 +2,7 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:dye/constants/colors.dart';
 import 'package:dye/models/dish.dart';
 import 'package:dye/models/shop.dart';
+import 'package:dye/screens/dish_detail_screen.dart';
 import 'package:dye/utils/unit_converter.dart';
 import 'package:dye/widgets/custom_appbar.dart';
 import 'package:flutter/cupertino.dart';
@@ -106,31 +107,39 @@ class _ShopDetailScreenState extends State<ShopDetailScreen> {
   }
 
   Widget dishWindow(Dish dish) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.center,
-      mainAxisAlignment: MainAxisAlignment.end,
-      children: [
-        ClipRRect(
-          borderRadius: BorderRadius.circular(30.sp),
-          child: Image.network(
-            dish.imageUrl!,
-            fit: BoxFit.cover,
-            width: 92.w,
-            height: 92.h,
+    return InkWell(
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => DishDetailScreen(dish: dish)),
+        );
+      },
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: [
+          ClipRRect(
+            borderRadius: BorderRadius.circular(30.sp),
+            child: Image.network(
+              dish.imageUrl!,
+              fit: BoxFit.cover,
+              width: 92.w,
+              height: 92.h,
+            ),
           ),
-        ),
-        SizedBox(height: 8.h),
-        AutoSizeText(
-          dish.title!,
-          textAlign: TextAlign.center,
-          style: TextStyle(fontWeight: FontWeight.w400, fontSize: 12.sp),
-        ),
-        AutoSizeText(
-          dish.price.toString() + "원",
-          textAlign: TextAlign.center,
-          style: TextStyle(fontWeight: FontWeight.w700, fontSize: 13.sp),
-        ),
-      ],
+          SizedBox(height: 8.h),
+          AutoSizeText(
+            dish.title!,
+            textAlign: TextAlign.center,
+            style: TextStyle(fontWeight: FontWeight.w400, fontSize: 12.sp),
+          ),
+          AutoSizeText(
+            dish.price.toString() + "원",
+            textAlign: TextAlign.center,
+            style: TextStyle(fontWeight: FontWeight.w700, fontSize: 13.sp),
+          ),
+        ],
+      ),
     );
   }
 
