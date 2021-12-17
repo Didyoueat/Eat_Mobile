@@ -110,13 +110,14 @@ class _ShopDetailScreenState extends State<ShopDetailScreen> {
       crossAxisAlignment: CrossAxisAlignment.center,
       mainAxisAlignment: MainAxisAlignment.end,
       children: [
-        SizedBox(
+        ClipRRect(
+          borderRadius: BorderRadius.circular(30.sp),
           child: Image.network(
             dish.imageUrl!,
             fit: BoxFit.cover,
+            width: 92.w,
+            height: 92.h,
           ),
-          width: 92.w,
-          height: 92.h,
         ),
         SizedBox(height: 8.h),
         AutoSizeText(
