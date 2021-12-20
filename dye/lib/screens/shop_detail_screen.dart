@@ -47,7 +47,7 @@ class _ShopDetailScreenState extends State<ShopDetailScreen> {
         child: SingleChildScrollView(
           child: Column(
             children: [
-              Container(color: Colors.blue, child: CustomAppBar()),
+              CustomAppBar(),
               titleContainer(),
               SizedBox(height: 28.h),
               Text(
