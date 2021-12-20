@@ -3,13 +3,13 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:dye/constants/colors.dart';
 
-class BottomButton extends StatelessWidget {
+class BottomButtonFill extends StatelessWidget {
   final font = "Godo";
   final String message;
   final bool isActive;
   final VoidCallback function;
 
-  const BottomButton(
+  const BottomButtonFill(
     this.message,
     this.isActive,
     this.function, {

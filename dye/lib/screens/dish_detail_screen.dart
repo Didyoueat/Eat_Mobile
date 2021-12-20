@@ -1,7 +1,8 @@
 import 'package:dotted_border/dotted_border.dart';
 import 'package:dye/constants/colors.dart';
 import 'package:dye/models/dish.dart';
-import 'package:dye/widgets/bottom_button.dart';
+import 'package:dye/widgets/bottom_button_fill.dart';
+import 'package:dye/widgets/bottom_button_rect.dart';
 import 'package:dye/widgets/custom_appbar.dart';
 import 'package:easy_rich_text/easy_rich_text.dart';
 import 'package:flutter/material.dart';
@@ -326,6 +327,7 @@ class _DishDetailScreenState extends State<DishDetailScreen> {
                       ],
                     ),
                   ),
+                  BottomButtonRect("message", true, () {}),
                 ],
               ),
             ),

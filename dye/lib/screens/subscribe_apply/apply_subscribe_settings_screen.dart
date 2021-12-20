@@ -6,7 +6,7 @@ import 'package:easy_rich_text/easy_rich_text.dart';
 
 import 'package:dye/constants/colors.dart';
 import 'package:dye/widgets/circle_button.dart';
-import 'package:dye/widgets/bottom_button.dart';
+import 'package:dye/widgets/bottom_button_fill.dart';
 import 'package:dye/widgets/raise_card.dart';
 
 //void main() => runApp(const subsc);
@@ -78,7 +78,7 @@ class _ApplySubscribeSettingsState extends State<ApplySubscribeSettings> {
             ),
           ),
           widgetVisible(
-              BottomButton(
+              BottomButtonFill(
                 "이제 반찬을 골라볼까요?",
                 true,
                 () {
