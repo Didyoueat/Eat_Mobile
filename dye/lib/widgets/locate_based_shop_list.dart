@@ -13,10 +13,12 @@ class LocateBasedShopList extends StatefulWidget {
   final bool isInSubscribe;
   final String nowLocation;
   final VoidCallback onPressLocationButton;
+  final Function onTapTile;
   const LocateBasedShopList({
     Key? key,
     required this.list,
     required this.isInSubscribe,
+    required this.onTapTile,
     required this.onPressLocationButton,
     this.nowLocation = "서울시 관악구 신림동",
   }) : super(key: key);
@@ -92,15 +94,7 @@ class _LocateBasedShopListState extends State<LocateBasedShopList> {
         return Container(
           margin: EdgeInsets.only(left: 20.w, right: 20.w),
           child: InkWell(
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) =>
-                      ShopDetailScreen(shop: widget.list[position]),
-                ),
-              );
-            },
+            onTap: () => widget.onTapTile(position),
             child: SizedBox(
               width: tileWidth,
               height: tileHeight,

@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:dye/models/shop.dart';
+import 'package:dye/screens/shop_detail_screen.dart';
 import 'package:dye/widgets/locate_based_shop_list.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -22,6 +23,8 @@ class ShopListScreen extends StatefulWidget {
 class _ShopListScreenState extends State<ShopListScreen> {
   late List<Shop> shopList = [];
   final radius = 500;
+
+  String teststr = "d";
 
   Future<void> fetchShopList() async {
     final response = await http.get(Uri.parse(
@@ -49,6 +52,16 @@ class _ShopListScreenState extends State<ShopListScreen> {
     super.didChangeDependencies();
   }
 
+  void navigateShopScreen(int idx) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => ShopDetailScreen(shop: shopList[idx]),
+      ),
+    );
+    setState(() {});
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -58,6 +71,7 @@ class _ShopListScreenState extends State<ShopListScreen> {
           child: LocateBasedShopList(
             isInSubscribe: true,
             list: shopList,
+            onTapTile: navigateShopScreen,
             onPressLocationButton: () {
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(
