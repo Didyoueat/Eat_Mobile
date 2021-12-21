@@ -31,10 +31,13 @@ class _SubscribeShopListScreenState extends State<SubscribeShopListScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return ShopListScreen(
-      latitude: widget.latitude,
-      longitude: widget.longitude,
-      onTapTile: navigateSubscribeShopDetail,
+    return Scaffold(
+      appBar: AppBar(),
+      body: ShopListScreen(
+        latitude: widget.latitude,
+        longitude: widget.longitude,
+        onTapTile: navigateSubscribeShopDetail,
+      ),
     );
   }
 }
