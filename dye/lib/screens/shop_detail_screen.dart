@@ -12,9 +12,11 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class ShopDetailScreen extends StatefulWidget {
   final Shop shop;
+  final onTapDish;
   const ShopDetailScreen({
     Key? key,
     required this.shop,
+    this.onTapDish,
   }) : super(key: key);
 
   @override
@@ -106,13 +108,21 @@ class _ShopDetailScreenState extends State<ShopDetailScreen> {
     );
   }
 
+  void onTapDish(Dish dish) {
+    if (widget.onTapDish == null) {
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => DishDetailScreen(dish: dish)),
+      );
+    } else {
+      widget.onTapDish(dish);
+    }
+  }
+
   Widget dishWindow(Dish dish) {
     return InkWell(
       onTap: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => DishDetailScreen(dish: dish)),
-        );
+        onTapDish(dish);
       },
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
