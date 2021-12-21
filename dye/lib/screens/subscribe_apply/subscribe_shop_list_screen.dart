@@ -1,16 +1,20 @@
 import 'package:dye/models/shop.dart';
 import 'package:dye/screens/shop_detail_screen.dart';
 import 'package:dye/screens/shop_list_screen.dart';
+import 'package:dye/screens/subscribe_apply/subscribe_shop_detail_screen.dart';
+import 'package:dye/widgets/custom_info_appbar.dart';
 import 'package:flutter/material.dart';
 
 class SubscribeShopListScreen extends StatefulWidget {
   final latitude;
   final longitude;
+  final weekSelection;
 
   const SubscribeShopListScreen({
     Key? key,
     required this.latitude,
     required this.longitude,
+    required this.weekSelection,
   }) : super(key: key);
 
   @override
@@ -23,7 +27,10 @@ class _SubscribeShopListScreenState extends State<SubscribeShopListScreen> {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => ShopDetailScreen(shop: shop),
+        builder: (context) => SubscribeShopDetailScreen(
+          shop: shop,
+          weekSelection: widget.weekSelection,
+        ),
       ),
     );
     setState(() {});
@@ -32,7 +39,10 @@ class _SubscribeShopListScreenState extends State<SubscribeShopListScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      appBar: CustomInfoAppBar(
+        weekSelection: widget.weekSelection,
+        nowWeek: 0,
+      ),
       body: ShopListScreen(
         latitude: widget.latitude,
         longitude: widget.longitude,

@@ -89,6 +89,7 @@ class _ApplySubscribeSettingsState extends State<ApplySubscribeSettings> {
                       builder: (context) => SubscribeShopListScreen(
                         latitude: 37.55500,
                         longitude: 126.97130,
+                        weekSelection: _q2Selection,
                       ),
                     ),
                   );
