@@ -94,7 +94,7 @@ class _LocateBasedShopListState extends State<LocateBasedShopList> {
         return Container(
           margin: EdgeInsets.only(left: 20.w, right: 20.w),
           child: InkWell(
-            onTap: () => widget.onTapTile(position),
+            onTap: () => widget.onTapTile(widget.list[position]),
             child: SizedBox(
               width: tileWidth,
               height: tileHeight,

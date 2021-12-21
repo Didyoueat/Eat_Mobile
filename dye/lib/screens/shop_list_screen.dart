@@ -10,10 +10,12 @@ import 'dart:convert';
 class ShopListScreen extends StatefulWidget {
   final latitude;
   final longitude;
+  final Function? onTapTile;
   const ShopListScreen({
     Key? key,
     required this.latitude,
     required this.longitude,
+    this.onTapTile,
   }) : super(key: key);
 
   @override
@@ -23,8 +25,6 @@ class ShopListScreen extends StatefulWidget {
 class _ShopListScreenState extends State<ShopListScreen> {
   late List<Shop> shopList = [];
   final radius = 500;
-
-  String teststr = "d";
 
   Future<void> fetchShopList() async {
     final response = await http.get(Uri.parse(
@@ -52,11 +52,11 @@ class _ShopListScreenState extends State<ShopListScreen> {
     super.didChangeDependencies();
   }
 
-  void navigateShopScreen(int idx) {
+  void navigateShopScreen(Shop shop) {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => ShopDetailScreen(shop: shopList[idx]),
+        builder: (context) => ShopDetailScreen(shop: shop),
       ),
     );
     setState(() {});
@@ -67,20 +67,18 @@ class _ShopListScreenState extends State<ShopListScreen> {
     return Scaffold(
       body: SafeArea(
         bottom: false,
-        child: Container(
-          child: LocateBasedShopList(
-            isInSubscribe: true,
-            list: shopList,
-            onTapTile: navigateShopScreen,
-            onPressLocationButton: () {
-              ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(
-                  content: Text('지역을 바꾸는 함수가 실행될거임'),
-                  duration: Duration(milliseconds: 700),
-                ),
-              );
-            },
-          ),
+        child: LocateBasedShopList(
+          isInSubscribe: true,
+          list: shopList,
+          onTapTile: widget.onTapTile ?? navigateShopScreen,
+          onPressLocationButton: () {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: Text('지역을 바꾸는 함수가 실행될거임'),
+                duration: Duration(milliseconds: 700),
+              ),
+            );
+          },
         ),
       ),
     );
