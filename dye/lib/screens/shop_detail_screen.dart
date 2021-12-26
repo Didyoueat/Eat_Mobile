@@ -5,6 +5,7 @@ import 'package:dye/models/shop.dart';
 import 'package:dye/screens/dish_detail_screen.dart';
 import 'package:dye/utils/unit_converter.dart';
 import 'package:dye/widgets/custom_appbar.dart';
+import 'package:dye/widgets/shop_detail_title_border.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -158,69 +159,60 @@ class _ShopDetailScreenState extends State<ShopDetailScreen> {
       width: 327.w,
       height: 113.h,
       margin: EdgeInsets.only(top: 4.h),
-      child: Stack(
-        children: [
-          SizedBox(
-            width: 327.w,
-            height: 113.h,
-            child: SvgPicture.asset(
-              "assets/shop_detail_rectangle.svg",
-              fit: BoxFit.fill,
-            ),
-          ),
-          Container(
-            color: Colors.transparent,
-            padding: EdgeInsets.only(bottom: 19.h),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                SizedBox(
-                  width: 250.w,
-                  child: AutoSizeText(
-                    widget.shop.businessName!.trim(),
-                    maxLines: 1,
-                    style: TextStyle(
-                      fontSize: 24.sp,
-                      fontFamily: "Godo",
-                    ),
-                    textAlign: TextAlign.center,
+      child: CustomPaint(
+        painter: TrianglePainter(),
+        child: Container(
+          // color: Colors.blue,
+          padding: EdgeInsets.only(bottom: 19.h),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              SizedBox(
+                width: 250.w,
+                child: AutoSizeText(
+                  widget.shop.businessName!.trim(),
+                  maxLines: 1,
+                  style: TextStyle(
+                    fontSize: 24.sp,
+                    fontFamily: "Godo",
                   ),
+                  textAlign: TextAlign.center,
                 ),
-                SizedBox(
-                  height: 10.h,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    SvgPicture.asset(
-                      "assets/icons/star.svg",
-                      color: mainColor,
-                      width: 16.66.w,
-                      height: 16.66.h,
+              ),
+              SizedBox(
+                height: 10.h,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  SvgPicture.asset(
+                    "assets/icons/star.svg",
+                    color: mainColor,
+                    width: 16.66.w,
+                    height: 16.66.h,
+                  ),
+                  SizedBox(width: 4.w),
+                  Text.rich(
+                    TextSpan(
+                      text: "5.0",
+                      style: TextStyle(
+                          fontSize: 16.sp, fontWeight: FontWeight.w300),
+                      children: <TextSpan>[
+                        TextSpan(text: " ∙ "),
+                        TextSpan(text: getDong(widget.shop.address)),
+                        TextSpan(text: " ∙ "),
+                        TextSpan(
+                          text: getDistance(widget.shop.distance!),
+                        ),
+                        TextSpan(text: "KM"),
+                      ],
                     ),
-                    SizedBox(width: 4.w),
-                    Text.rich(
-                      TextSpan(
-                        text: "5.0",
-                        style: TextStyle(
-                            fontSize: 16.sp, fontWeight: FontWeight.w300),
-                        children: <TextSpan>[
-                          TextSpan(text: " ∙ "),
-                          TextSpan(text: getDong(widget.shop.address)),
-                          TextSpan(text: " ∙ "),
-                          TextSpan(
-                            text: getDistance(widget.shop.distance!),
-                          ),
-                          TextSpan(text: "KM"),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-              ],
-            ),
+                  ),
+                ],
+              ),
+            ],
           ),
-        ],
+        ),
       ),
     );
   }
