@@ -13,6 +13,7 @@ class BottomButtonFill extends StatelessWidget {
   final VoidCallback function;
   final mainContentsPadding = 10.0;
   final buttonHighlightColor = const Color(0x22000000);
+  final primaryColor = Colors.white;
 
   const BottomButtonFill({
     Key? key,
@@ -32,7 +33,6 @@ class BottomButtonFill extends StatelessWidget {
     final mainMessageFontSize = 18.sp;
     final sideMessageFontSize = 14.sp;
     final sidePadding = EdgeInsets.only(top: 20.h, right: 16.w);
-    final primaryColor = Colors.white;
 
     return Container(
       alignment: Alignment.bottomCenter,
@@ -55,7 +55,7 @@ class BottomButtonFill extends StatelessWidget {
             ),
             highlightColor: buttonHighlightColor,
             splashColor: Colors.transparent,
-            child: _body(childTopPadding, primaryColor, mainMessageMaxWidth,
+            child: _body(childTopPadding, mainMessageMaxWidth,
                 mainMessageFontSize, sideMessageFontSize, sidePadding),
           ),
         ),
@@ -63,13 +63,13 @@ class BottomButtonFill extends StatelessWidget {
     );
   }
 
-  Widget _body(final childTopPadding, final primaryColor, final messageWidth,
+  Widget _body(final childTopPadding, final messageWidth,
       final mainMessageFontSize, sideMessageFontSize, sidePadding) {
     List<Widget> _contents = [];
     List<Widget> _centerList = [];
 
     if (svgAsset != null) {
-      _centerList.add(_leading(primaryColor));
+      _centerList.add(_leading());
     }
     _centerList.add(_title(primaryColor, messageWidth, mainMessageFontSize));
     _contents.add(
@@ -121,7 +121,7 @@ class BottomButtonFill extends StatelessWidget {
     );
   }
 
-  Widget _leading(primaryColor) {
+  Widget _leading() {
     return Container(
       alignment: Alignment.topCenter,
       child: SvgPicture.asset(svgAsset!, color: primaryColor),

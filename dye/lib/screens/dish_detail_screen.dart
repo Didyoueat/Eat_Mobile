@@ -37,6 +37,7 @@ class _DishDetailScreenState extends State<DishDetailScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
+        bottom: false,
         child: Column(
           children: [
             CustomAppBar(),
@@ -327,7 +328,11 @@ class _DishDetailScreenState extends State<DishDetailScreen> {
                       ],
                     ),
                   ),
-                  BottomButtonRect("message", true, () {}),
+                  BottomButtonRect(
+                    mainMessage: "1개 담기",
+                    sideMessage: "7000원",
+                    function: () {},
+                  ),
                 ],
               ),
             ),
