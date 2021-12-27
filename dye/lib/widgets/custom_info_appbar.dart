@@ -47,7 +47,7 @@ class CustomInfoAppBar extends StatelessWidget with PreferredSizeWidget {
               maintainSize: true,
               maintainAnimation: true,
               child: SvgPicture.asset(
-                "assets/icons/cart(unselected).svg",
+                "assets/icons/cart.svg",
                 width: 15.h,
                 color: mainColor,
               ),

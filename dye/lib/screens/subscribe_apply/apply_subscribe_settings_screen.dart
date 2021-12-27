@@ -80,9 +80,8 @@ class _ApplySubscribeSettingsState extends State<ApplySubscribeSettings> {
           ),
           widgetVisible(
               BottomButtonFill(
-                "이제 반찬을 골라볼까요?",
-                true,
-                () {
+                mainMessage: "이제 반찬을 골라볼까요?",
+                function: () {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
