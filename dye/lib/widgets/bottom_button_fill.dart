@@ -12,6 +12,7 @@ class BottomButtonFill extends StatelessWidget {
   final bool isActive;
   final VoidCallback function;
   final mainContentsPadding = 10.0;
+  final buttonHighlightColor = const Color(0x22000000);
 
   const BottomButtonFill({
     Key? key,
@@ -36,22 +37,19 @@ class BottomButtonFill extends StatelessWidget {
           width: double.infinity,
           height: buttonHeight,
           decoration: BoxDecoration(
-            color: mainColor,
+            color: isActive ? mainColor : buttonInactive,
             borderRadius: BorderRadius.only(
               topLeft: Radius.circular(buttonTopRadius),
               topRight: Radius.circular(buttonTopRadius),
             ),
           ),
           child: InkWell(
-            onTap: function,
-            // onTap: () {},
-            onLongPress: null,
-
+            onTap: isActive ? function : null,
             borderRadius: BorderRadius.only(
               topLeft: Radius.circular(buttonTopRadius),
               topRight: Radius.circular(buttonTopRadius),
             ),
-            highlightColor: Color(0x22000000),
+            highlightColor: buttonHighlightColor,
             splashColor: Colors.transparent,
             child: _body(childTopPadding, primaryColor),
           ),
@@ -83,36 +81,34 @@ class BottomButtonFill extends StatelessWidget {
     return Stack(children: _contents);
   }
 
-  Container _side(primaryColor) {
+  Widget _side(primaryColor) {
     return Container(
+      alignment: Alignment.topRight,
       padding: EdgeInsets.only(top: 20.h, right: 16.w),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.end,
-        children: [
-          AutoSizeText(
-            sideMessage!,
-            style: TextStyle(
-                color: primaryColor,
-                fontSize: 14.sp,
-                fontWeight: FontWeight.w500),
-          ),
-        ],
+      child: AutoSizeText(
+        sideMessage!,
+        style: TextStyle(
+            color: primaryColor, fontSize: 14.sp, fontWeight: FontWeight.w500),
       ),
     );
   }
 
-  AutoSizeText _title(primaryColor) {
-    return AutoSizeText(
-      mainMessage,
-      style: TextStyle(
-        color: primaryColor,
-        fontSize: 18.sp,
-        fontFamily: font,
+  Widget _title(primaryColor) {
+    return SizedBox(
+      width: 200.w,
+      child: AutoSizeText(
+        mainMessage,
+        maxLines: 1,
+        style: TextStyle(
+          color: primaryColor,
+          fontSize: 18.sp,
+          fontFamily: font,
+        ),
       ),
     );
   }
 
-  Container _leading(primaryColor) {
+  Widget _leading(primaryColor) {
     return Container(
       child: SvgPicture.asset(svgAsset!, color: primaryColor),
       padding: EdgeInsets.only(right: mainContentsPadding),
