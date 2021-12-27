@@ -80,9 +80,10 @@ class _ApplySubscribeSettingsState extends State<ApplySubscribeSettings> {
           ),
           widgetVisible(
               BottomButtonFill(
-                "이제 반찬을 골라볼까요?",
-                true,
-                () {
+                mainMessage: "결제하기",
+                sideMessage: "7000원",
+                svgAsset: "assets/icons/pay(unselected).svg",
+                function: () {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
