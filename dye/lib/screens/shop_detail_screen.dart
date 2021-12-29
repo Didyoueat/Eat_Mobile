@@ -5,7 +5,7 @@ import 'package:dye/models/shop.dart';
 import 'package:dye/screens/dish_detail_screen.dart';
 import 'package:dye/utils/unit_converter.dart';
 import 'package:dye/widgets/custom_appbar.dart';
-import 'package:dye/widgets/shop_detail_title_border.dart';
+import 'package:dye/widgets/pentagon_painter.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -160,7 +160,7 @@ class _ShopDetailScreenState extends State<ShopDetailScreen> {
       height: 113.h,
       margin: EdgeInsets.only(top: 4.h),
       child: CustomPaint(
-        painter: TrianglePainter(),
+        painter: PentagonPainter(),
         child: Container(
           // color: Colors.blue,
           padding: EdgeInsets.only(bottom: 19.h),

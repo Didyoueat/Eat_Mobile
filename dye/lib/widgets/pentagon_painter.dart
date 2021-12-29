@@ -5,12 +5,12 @@ import 'package:flutter/material.dart';
 import 'dart:math' as math;
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class TrianglePainter extends CustomPainter {
+class PentagonPainter extends CustomPainter {
   final Color strokeColor;
   final PaintingStyle paintingStyle;
   final double strokeWidth;
 
-  const TrianglePainter(
+  const PentagonPainter(
       {this.strokeColor = mainColor,
       this.strokeWidth = 3,
       this.paintingStyle = PaintingStyle.stroke});
@@ -59,7 +59,7 @@ class TrianglePainter extends CustomPainter {
   }
 
   @override
-  bool shouldRepaint(TrianglePainter oldDelegate) {
+  bool shouldRepaint(PentagonPainter oldDelegate) {
     return oldDelegate.strokeColor != strokeColor ||
         oldDelegate.paintingStyle != paintingStyle ||
         oldDelegate.strokeWidth != strokeWidth;
