@@ -5,12 +5,12 @@ import 'package:flutter/material.dart';
 import 'dart:math' as math;
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class TrianglePainter extends CustomPainter {
+class PentagonPainter extends CustomPainter {
   final Color strokeColor;
   final PaintingStyle paintingStyle;
   final double strokeWidth;
 
-  const TrianglePainter(
+  const PentagonPainter(
       {this.strokeColor = mainColor,
       this.strokeWidth = 3,
       this.paintingStyle = PaintingStyle.stroke});
@@ -34,13 +34,12 @@ class TrianglePainter extends CustomPainter {
     final xGap =
         radius - (radius * math.cos(((math.pi / 2) - (topSideRadian / 2)) * 2));
     final topCenterHalfTheta = math.atan((y / 3) / (x / 2));
-    final topCenterHypotenuse = 10 / math.cos(topCenterHalfTheta);
 
     final topLeftStart = Offset(0, y / 3 + topSideLengthGap);
     final topLeftEnd = Offset(0 + xGap, y / 3 + topSideLengthGap - yGap);
     final topRightStart = Offset(x - xGap, y / 3 + topSideLengthGap - yGap);
     final topRightEnd = Offset(x, y / 3 + topSideLengthGap);
-    final topCenterOffset = Offset(x / 2, topCenterHypotenuse);
+    final topCenterOffset = Offset(x / 2, radius);
 
     Path path = Path()
       ..moveTo(topRightStart.dx, topRightStart.dy)
@@ -53,13 +52,13 @@ class TrianglePainter extends CustomPainter {
       ..lineTo(topLeftStart.dx, topLeftStart.dy)
       ..arcToPoint(topLeftEnd, radius: Radius.circular(radius))
       ..arcTo(Rect.fromCircle(center: topCenterOffset, radius: radius),
-          math.pi * 1.5 - topCenterHalfTheta, topCenterHalfTheta * 2, false)
+          math.pi * (3 / 2) - topCenterHalfTheta, topCenterHalfTheta * 2, false)
       ..close();
     return path;
   }
 
   @override
-  bool shouldRepaint(TrianglePainter oldDelegate) {
+  bool shouldRepaint(PentagonPainter oldDelegate) {
     return oldDelegate.strokeColor != strokeColor ||
         oldDelegate.paintingStyle != paintingStyle ||
         oldDelegate.strokeWidth != strokeWidth;
