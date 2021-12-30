@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -44,38 +45,45 @@ class _ShopListTileState extends State<ShopListTile> {
                 Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text(
-                      widget.title,
-                      style: TextStyle(
-                        fontSize: 18.sp,
-                        fontFamily: "Godo",
-                        fontWeight: FontWeight.w300,
+                    SizedBox(
+                      height: 20.h,
+                      child: AutoSizeText(
+                        widget.title,
+                        maxLines: 1,
+                        style: TextStyle(
+                          fontSize: 18.sp,
+                          fontFamily: "Godo",
+                          fontWeight: FontWeight.w300,
+                        ),
                       ),
                     ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        SvgPicture.asset(
-                          "assets/icons/star.svg",
-                          color: mainColor,
-                          width: 16.66.w,
-                          height: 16.66.h,
-                        ),
-                        SizedBox(width: 4.w),
-                        Text.rich(
-                          TextSpan(
-                            text: widget.star,
-                            style: TextStyle(fontSize: 16.sp),
-                            children: <TextSpan>[
-                              TextSpan(text: " ∙ "),
-                              TextSpan(text: widget.address),
-                              TextSpan(text: " ∙ "),
-                              TextSpan(text: widget.distance),
-                              TextSpan(text: "KM"),
-                            ],
+                    SizedBox(
+                      height: 23.h,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          SvgPicture.asset(
+                            "assets/icons/star.svg",
+                            color: mainColor,
+                            width: 16.66.w,
+                            height: 16.66.h,
                           ),
-                        ),
-                      ],
+                          SizedBox(width: 4.w),
+                          Text.rich(
+                            TextSpan(
+                              text: widget.star,
+                              style: TextStyle(fontSize: 16.sp),
+                              children: <TextSpan>[
+                                TextSpan(text: " ∙ "),
+                                TextSpan(text: widget.address),
+                                TextSpan(text: " ∙ "),
+                                TextSpan(text: widget.distance),
+                                TextSpan(text: "KM"),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   ],
                 ),
