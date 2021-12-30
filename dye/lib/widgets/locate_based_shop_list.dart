@@ -1,6 +1,5 @@
 import 'package:dye/constants/colors.dart';
 import 'package:dye/models/shop.dart';
-import 'package:dye/screens/shop_detail_screen.dart';
 import 'package:dye/utils/unit_converter.dart';
 import 'package:dye/widgets/shop_list_tile.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -32,6 +31,7 @@ class _LocateBasedShopListState extends State<LocateBasedShopList> {
   final List<String> titleSortButton = ["평점순", "거리순", "단골집"];
   bool isLoading = true;
 
+  //TODO
   Future<void> fetchLoading() async {
     await Future.delayed(Duration(seconds: 1), () {
       setState(() {
@@ -125,14 +125,6 @@ class _LocateBasedShopListState extends State<LocateBasedShopList> {
         },
       ),
     );
-    // if (isLoading) {
-    //   list.add(Container(
-    //     color: Color(0xffffffff),
-    //     child: Center(
-    //       child: CircularProgressIndicator(),
-    //     ),
-    //   ));
-    // }
     return list;
   }
 
