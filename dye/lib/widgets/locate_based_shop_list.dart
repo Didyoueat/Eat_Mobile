@@ -125,14 +125,14 @@ class _LocateBasedShopListState extends State<LocateBasedShopList> {
         },
       ),
     );
-    if (isLoading) {
-      list.add(Container(
-        color: Color(0xffffffff),
-        child: Center(
-          child: CircularProgressIndicator(),
-        ),
-      ));
-    }
+    // if (isLoading) {
+    //   list.add(Container(
+    //     color: Color(0xffffffff),
+    //     child: Center(
+    //       child: CircularProgressIndicator(),
+    //     ),
+    //   ));
+    // }
     return list;
   }
 
