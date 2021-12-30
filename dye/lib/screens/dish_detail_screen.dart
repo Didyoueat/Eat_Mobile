@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:dye/constants/colors.dart';
 import 'package:dye/models/dish.dart';
@@ -50,10 +51,18 @@ class _DishDetailScreenState extends State<DishDetailScreen> {
                         SizedBox(
                           width: 1000,
                           height: 196.h,
-                          child: Image.network(
-                            widget.dish.imageUrl!,
+                          child: CachedNetworkImage(
+                            imageUrl: widget.dish.imageUrl!,
                             fit: BoxFit.cover,
+                            fadeOutDuration: Duration(seconds: 0),
+                            fadeInDuration: Duration(seconds: 0),
+                            placeholder: (context, url) =>
+                                CircularProgressIndicator(),
                           ),
+                          // Image.network(
+                          //   widget.dish.imageUrl!,
+                          //   fit: BoxFit.cover,
+                          // ),
                         ),
                         SizedBox(height: 8.h),
                         Container(

@@ -1,4 +1,5 @@
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:dye/constants/colors.dart';
 import 'package:dye/models/dish.dart';
 import 'package:dye/models/shop.dart';
@@ -131,11 +132,14 @@ class _ShopDetailScreenState extends State<ShopDetailScreen> {
         children: [
           ClipRRect(
             borderRadius: BorderRadius.circular(30.sp),
-            child: Image.network(
-              dish.imageUrl!,
-              fit: BoxFit.cover,
+            child: CachedNetworkImage(
               width: 92.w,
               height: 92.h,
+              imageUrl: dish.imageUrl!,
+              fit: BoxFit.cover,
+              fadeOutDuration: Duration(seconds: 0),
+              fadeInDuration: Duration(seconds: 0),
+              placeholder: (context, url) => CircularProgressIndicator(),
             ),
           ),
           SizedBox(height: 8.h),
