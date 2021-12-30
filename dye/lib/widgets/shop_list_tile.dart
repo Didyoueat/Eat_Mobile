@@ -1,4 +1,5 @@
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -106,10 +107,18 @@ class _ShopListTileState extends State<ShopListTile> {
                       flex: 3,
                       child: Container(
                         color: colorBeige,
-                        child: Image.network(
-                          widget.urlThumbNail1,
-                          fit: BoxFit.fitHeight,
+                        child: CachedNetworkImage(
+                          imageUrl: widget.urlThumbNail1,
+                          fit: BoxFit.cover,
+                          fadeOutDuration: Duration(seconds: 0),
+                          fadeInDuration: Duration(seconds: 0),
+                          placeholder: (context, url) =>
+                              CircularProgressIndicator(),
                         ),
+                        // Image.network(
+                        //   widget.urlThumbNail1,
+                        //   fit: BoxFit.fitHeight,
+                        // ),
                       ),
                     ),
                     SizedBox(
@@ -123,9 +132,13 @@ class _ShopListTileState extends State<ShopListTile> {
                             flex: 1,
                             child: Container(
                               color: colorBeige,
-                              child: Image.network(
-                                widget.urlThumbNail2,
+                              child: CachedNetworkImage(
+                                imageUrl: widget.urlThumbNail2,
                                 fit: BoxFit.cover,
+                                fadeOutDuration: Duration(seconds: 0),
+                                fadeInDuration: Duration(seconds: 0),
+                                placeholder: (context, url) =>
+                                    CircularProgressIndicator(),
                               ),
                             ),
                           ),
@@ -136,9 +149,13 @@ class _ShopListTileState extends State<ShopListTile> {
                             flex: 1,
                             child: Container(
                               color: colorBeige,
-                              child: Image.network(
-                                widget.urlThumbNail3,
+                              child: CachedNetworkImage(
+                                imageUrl: widget.urlThumbNail3,
                                 fit: BoxFit.cover,
+                                fadeOutDuration: Duration(seconds: 0),
+                                fadeInDuration: Duration(seconds: 0),
+                                placeholder: (context, url) =>
+                                    CircularProgressIndicator(),
                               ),
                             ),
                           ),
