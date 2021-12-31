@@ -56,13 +56,7 @@ class _DishDetailScreenState extends State<DishDetailScreen> {
                             fit: BoxFit.cover,
                             fadeOutDuration: Duration(seconds: 0),
                             fadeInDuration: Duration(seconds: 0),
-                            placeholder: (context, url) =>
-                                CircularProgressIndicator(),
                           ),
-                          // Image.network(
-                          //   widget.dish.imageUrl!,
-                          //   fit: BoxFit.cover,
-                          // ),
                         ),
                         SizedBox(height: 8.h),
                         Container(

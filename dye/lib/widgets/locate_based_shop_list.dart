@@ -31,7 +31,7 @@ class LocateBasedShopList extends StatefulWidget {
 class _LocateBasedShopListState extends State<LocateBasedShopList> {
   final List<bool> selectSortButton = [false, false, false];
   final List<String> titleSortButton = ["평점순", "거리순", "단골집"];
-  bool isLoading = true;
+  bool isLoading = false;
 
   //TODO
   Future<void> fetchLoading() async {

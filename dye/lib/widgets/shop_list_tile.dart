@@ -112,13 +112,7 @@ class _ShopListTileState extends State<ShopListTile> {
                           fit: BoxFit.cover,
                           fadeOutDuration: Duration(seconds: 0),
                           fadeInDuration: Duration(seconds: 0),
-                          placeholder: (context, url) =>
-                              CircularProgressIndicator(),
                         ),
-                        // Image.network(
-                        //   widget.urlThumbNail1,
-                        //   fit: BoxFit.fitHeight,
-                        // ),
                       ),
                     ),
                     SizedBox(
@@ -137,8 +131,6 @@ class _ShopListTileState extends State<ShopListTile> {
                                 fit: BoxFit.cover,
                                 fadeOutDuration: Duration(seconds: 0),
                                 fadeInDuration: Duration(seconds: 0),
-                                placeholder: (context, url) =>
-                                    CircularProgressIndicator(),
                               ),
                             ),
                           ),
@@ -154,8 +146,6 @@ class _ShopListTileState extends State<ShopListTile> {
                                 fit: BoxFit.cover,
                                 fadeOutDuration: Duration(seconds: 0),
                                 fadeInDuration: Duration(seconds: 0),
-                                placeholder: (context, url) =>
-                                    CircularProgressIndicator(),
                               ),
                             ),
                           ),
