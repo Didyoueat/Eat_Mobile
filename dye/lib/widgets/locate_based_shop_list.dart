@@ -2,10 +2,12 @@ import 'package:dye/constants/colors.dart';
 import 'package:dye/models/shop.dart';
 import 'package:dye/utils/unit_converter.dart';
 import 'package:dye/widgets/shop_list_tile.dart';
+import 'package:dye/widgets/shop_list_tile_skeleton.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:easy_rich_text/easy_rich_text.dart';
+import 'package:skeleton_loader/skeleton_loader.dart';
 
 class LocateBasedShopList extends StatefulWidget {
   final List<Shop> list;
@@ -33,7 +35,7 @@ class _LocateBasedShopListState extends State<LocateBasedShopList> {
 
   //TODO
   Future<void> fetchLoading() async {
-    await Future.delayed(Duration(seconds: 1), () {
+    await Future.delayed(Duration(milliseconds: 500), () {
       setState(() {
         isLoading = false;
       });
@@ -54,78 +56,93 @@ class _LocateBasedShopListState extends State<LocateBasedShopList> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      // margin: EdgeInsets.only(top: 29.h),
-      child: Stack(
-        children: getList(),
-      ),
+    return _body();
+  }
+
+  Widget _body() {
+    return ListView.separated(
+      itemCount: widget.list.length + 1,
+      cacheExtent: 100,
+      separatorBuilder: (context, index) => SizedBox(height: 15.h),
+      itemBuilder: (BuildContext context, int position) {
+        final tileWidth = 335.w;
+        final tileHeight = 243.h;
+
+        if (widget.isInSubscribe && position == 0) {
+          return Container(
+            margin: EdgeInsets.only(top: 29.h),
+            alignment: Alignment.center,
+            child: EasyRichText(
+              "우리동네 반찬가게에요!\n끌리는 반찬가게에 들어가보세요.",
+              defaultStyle: TextStyle(
+                  fontSize: 18.sp, color: Colors.black, fontFamily: "Godo"),
+              textAlign: TextAlign.center,
+            ),
+          );
+        }
+        position--;
+
+        if (position == 0) {
+          return Container(
+              margin: EdgeInsets.only(left: 20.w, right: 20.w),
+              child: _getListHeader());
+        }
+        position--;
+
+        return listTile(position, tileWidth, tileHeight);
+      },
     );
   }
 
-  List<Widget> getList() {
-    List<Widget> list = [];
-    list.add(
-      ListView.separated(
-        itemCount: widget.list.length + 1,
-        cacheExtent: 100,
-        itemBuilder: (BuildContext context, int position) {
-          final tileWidth = 335.w;
-          final tileHeight = 243.h;
-
-          if (widget.isInSubscribe && position == 0) {
-            return Container(
-              margin: EdgeInsets.only(top: 29.h),
-              alignment: Alignment.center,
-              child: EasyRichText(
-                "우리동네 반찬가게에요!\n끌리는 반찬가게에 들어가보세요.",
-                defaultStyle: TextStyle(
-                    fontSize: 18.sp, color: Colors.black, fontFamily: "Godo"),
-                textAlign: TextAlign.center,
-              ),
-            );
-          }
-          position--;
-
-          if (position == 0) {
-            return Container(
-                margin: EdgeInsets.only(left: 20.w, right: 20.w),
-                child: _getListHeader());
-          }
-          position--;
-
-          return Container(
-            margin: EdgeInsets.only(left: 20.w, right: 20.w),
-            child: InkWell(
-              onTap: () => widget.onTapTile(widget.list[position]),
+  Widget listTile(int position, double tileWidth, double tileHeight) {
+    if (!isLoading) {
+      return Container(
+        margin: EdgeInsets.only(left: 20.w, right: 20.w),
+        child: InkWell(
+          onTap: () => widget.onTapTile(widget.list[position]),
+          child: SizedBox(
+            width: tileWidth,
+            height: tileHeight,
+            child: getTile(position),
+          ),
+        ),
+      );
+    } else {
+      return SkeletonLoader(
+        builder: Padding(
+          padding: const EdgeInsets.only(left: 20, right: 20),
+          child: Card(
+            color: Colors.transparent,
+            child: Container(
+              color: Colors.transparent,
+              margin: const EdgeInsets.only(left: 20, right: 20),
               child: SizedBox(
-                width: tileWidth,
-                height: tileHeight,
-                child: ShopListTile(
-                  title: position == 0
-                      ? "동찬이네"
-                      : widget.list[position].businessName ?? "동찬이네",
-                  address: getDong(widget.list[position].address) ?? "신림동",
-                  distance: getDistance(widget.list[position].distance!)!,
-                  like: true,
-                  urlThumbNail1:
-                      widget.list[position].dishes[0].imageUrl.toString(),
-                  urlThumbNail2:
-                      widget.list[position].dishes[1].imageUrl.toString(),
-                  urlThumbNail3:
-                      widget.list[position].dishes[2].imageUrl.toString(),
-                ),
+                width: 335.w,
+                height: 243.h,
+                child: ShopListTileSkeleton(),
               ),
             ),
-          );
-        },
-        separatorBuilder: (BuildContext context, int index) {
-          return SizedBox(
-            height: 15.h,
-          );
-        },
+          ),
+        ),
+        period: Duration(seconds: 1),
+        highlightColor: Colors.grey[400]!,
+      );
+    }
+  }
+
+  Widget skeletonHeader() {
+    return Container(
+      height: 28.h,
+      padding: EdgeInsets.only(left: 4.w, right: 4.w),
+      alignment: Alignment.center,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: <Widget>[
+          locationButton(),
+          sortButtonList(),
+        ],
       ),
     );
-    return list;
   }
 
   Widget _getListHeader() {
@@ -140,6 +157,19 @@ class _LocateBasedShopListState extends State<LocateBasedShopList> {
           sortButtonList(),
         ],
       ),
+    );
+  }
+
+  Widget getTile(int position) {
+    return ShopListTile(
+      title:
+          position == 0 ? "동찬이네" : widget.list[position].businessName ?? "동찬이네",
+      address: getDong(widget.list[position].address) ?? "신림동",
+      distance: getDistance(widget.list[position].distance!)!,
+      like: true,
+      urlThumbNail1: widget.list[position].dishes[0].imageUrl.toString(),
+      urlThumbNail2: widget.list[position].dishes[1].imageUrl.toString(),
+      urlThumbNail3: widget.list[position].dishes[2].imageUrl.toString(),
     );
   }
 
