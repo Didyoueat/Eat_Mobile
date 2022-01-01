@@ -31,13 +31,13 @@ class LocateBasedShopList extends StatefulWidget {
 class _LocateBasedShopListState extends State<LocateBasedShopList> {
   final List<bool> selectSortButton = [false, false, false];
   final List<String> titleSortButton = ["평점순", "거리순", "단골집"];
-  bool isLoading = false;
+  bool isLoading = true;
 
   //TODO
   Future<void> fetchLoading() async {
-    await Future.delayed(Duration(milliseconds: 500), () {
+    await Future.delayed(Duration(milliseconds: 1000), () {
       setState(() {
-        isLoading = false;
+        isLoading = true;
       });
     });
   }
@@ -108,41 +108,8 @@ class _LocateBasedShopListState extends State<LocateBasedShopList> {
         ),
       );
     } else {
-      return SkeletonLoader(
-        builder: Padding(
-          padding: const EdgeInsets.only(left: 20, right: 20),
-          child: Card(
-            color: Colors.transparent,
-            child: Container(
-              color: Colors.transparent,
-              margin: const EdgeInsets.only(left: 20, right: 20),
-              child: SizedBox(
-                width: 335.w,
-                height: 243.h,
-                child: ShopListTileSkeleton(),
-              ),
-            ),
-          ),
-        ),
-        period: Duration(seconds: 1),
-        highlightColor: Colors.grey[400]!,
-      );
+      return ShopListTileSkeleton();
     }
-  }
-
-  Widget skeletonHeader() {
-    return Container(
-      height: 28.h,
-      padding: EdgeInsets.only(left: 4.w, right: 4.w),
-      alignment: Alignment.center,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: <Widget>[
-          locationButton(),
-          sortButtonList(),
-        ],
-      ),
-    );
   }
 
   Widget _getListHeader() {
