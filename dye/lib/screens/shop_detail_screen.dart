@@ -139,7 +139,6 @@ class _ShopDetailScreenState extends State<ShopDetailScreen> {
               fit: BoxFit.cover,
               fadeOutDuration: Duration(seconds: 0),
               fadeInDuration: Duration(seconds: 0),
-              placeholder: (context, url) => CircularProgressIndicator(),
             ),
           ),
           SizedBox(height: 8.h),
