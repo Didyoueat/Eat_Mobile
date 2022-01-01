@@ -38,7 +38,7 @@ class _LocateBasedShopListState extends State<LocateBasedShopList> {
   Future<void> fetchLoading() async {
     await Future.delayed(Duration(milliseconds: 1000), () {
       setState(() {
-        isLoading = true;
+        isLoading = false;
       });
     });
   }
