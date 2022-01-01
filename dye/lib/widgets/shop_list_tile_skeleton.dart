@@ -22,7 +22,7 @@ class ShopListTileSkeleton extends StatelessWidget {
     final tileHeight = 243.h;
     final titleHeight = 53.h;
     final contentsMargin = SizedBox(height: 8.h);
-    final EdgeInsets outerPadding = EdgeInsets.only(left: 20.w, right: 20.w);
+    final EdgeInsets outerMargin = EdgeInsets.only(left: 20.w, right: 20.w);
     final EdgeInsets innerMargin = EdgeInsets.only(left: 20.w, right: 20.w);
     final EdgeInsets innerPadding = EdgeInsets.only(top: 12.h, bottom: 12.h);
 
@@ -32,7 +32,7 @@ class ShopListTileSkeleton extends StatelessWidget {
       builder: Container(
         width: tileWidth,
         height: tileHeight,
-        padding: outerPadding,
+        margin: outerMargin,
         child: Card(
           color: Colors.transparent,
           child: Container(
