@@ -15,6 +15,7 @@ class LocateBasedShopList extends StatefulWidget {
   final String nowLocation;
   final VoidCallback onPressLocationButton;
   final Function onTapTile;
+  final skeletonLength = 5;
   const LocateBasedShopList({
     Key? key,
     required this.list,
@@ -61,8 +62,8 @@ class _LocateBasedShopListState extends State<LocateBasedShopList> {
 
   Widget _body() {
     return ListView.separated(
-      itemCount: widget.list.length + 1,
-      cacheExtent: 100,
+      itemCount: isLoading ? widget.skeletonLength : widget.list.length + 1,
+      cacheExtent: 4,
       separatorBuilder: (context, index) => SizedBox(height: 15.h),
       itemBuilder: (BuildContext context, int position) {
         final tileWidth = 335.w;
