@@ -8,7 +8,7 @@ class Dish {
   int price;
   int count;
   int weight;
-  String? imageUrl;
+  String imageUrl;
 
   Dish(
     this.dishId,
