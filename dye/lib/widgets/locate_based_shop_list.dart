@@ -1,15 +1,10 @@
-import 'dart:developer';
-
 import 'package:dye/constants/colors.dart';
 import 'package:dye/models/shop.dart';
-import 'package:dye/utils/unit_converter.dart';
 import 'package:dye/widgets/shop_list_tile.dart';
 import 'package:dye/widgets/shop_list_tile_skeleton.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:easy_rich_text/easy_rich_text.dart';
-import 'package:skeleton_loader/skeleton_loader.dart';
 
 class LocateBasedShopList extends StatefulWidget {
   final List<Shop> list;
