@@ -33,7 +33,6 @@ class LocateBasedShopList extends StatefulWidget {
 class _LocateBasedShopListState extends State<LocateBasedShopList> {
   final _skeletonLength = 5;
   final _loadingDuration = Duration(milliseconds: 1000);
-  late final _listCount = _isLoading ? _skeletonLength : widget.list.length + 1;
   late final double _listCacheExtent = widget.list.length + 5;
   Widget _listSeparator(context, idx) => SizedBox(height: 15.h);
   final _subscribeTitleString = "우리동네 반찬가게에요!\n끌리는 반찬가게에 들어가보세요.";
@@ -81,7 +80,7 @@ class _LocateBasedShopListState extends State<LocateBasedShopList> {
     return Container(
       margin: _bodyMargin,
       child: ListView.separated(
-        itemCount: _listCount,
+        itemCount: _isLoading ? _skeletonLength : widget.list.length + 1,
         cacheExtent: _listCacheExtent,
         separatorBuilder: _listSeparator,
         itemBuilder: (BuildContext context, int position) {
