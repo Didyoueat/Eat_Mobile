@@ -2,6 +2,9 @@ import 'dart:developer';
 
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:dye/models/dish.dart';
+import 'package:dye/models/shop.dart';
+import 'package:dye/utils/unit_converter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -10,24 +13,12 @@ import 'package:dye/widgets/raise_card.dart';
 import 'package:dye/constants/colors.dart';
 
 class ShopListTile extends StatefulWidget {
-  final String title;
+  final Shop shop;
   final String star;
-  final String address;
-  final String distance;
-  final String urlThumbNail1;
-  final String urlThumbNail2;
-  final String urlThumbNail3;
-  final bool like;
 
   const ShopListTile({
     Key? key,
-    required this.title,
-    required this.address,
-    required this.distance,
-    required this.like,
-    required this.urlThumbNail1,
-    required this.urlThumbNail2,
-    required this.urlThumbNail3,
+    required this.shop,
     this.star = "5.0",
   }) : super(key: key);
 
@@ -55,11 +46,27 @@ class _ShopListTileState extends State<ShopListTile> {
   final _marginBetweenMainThumbSubThumb = SizedBox(width: 4.w);
   final _marginBetweenSubThumbTopBottom = SizedBox(height: 4.h);
 
+  final _thumbnailList = <String>[];
+
   @override
   void initState() {
     super.initState();
-    _subTitleString =
-        "${widget.star} ∙ ${widget.address} ∙ ${widget.distance}KM";
+    _setSubTitleString();
+    _setThumbnailList();
+  }
+
+  void _setSubTitleString() {
+    String _address = getDong(widget.shop.address);
+    String _distance = getDistance(widget.shop.distance);
+    _subTitleString = "${widget.star} ∙ $_address ∙ ${_distance}KM";
+  }
+
+  void _setThumbnailList() {
+    for (Dish dish in widget.shop.dishes) {
+      if (dish.main == true) {
+        _thumbnailList.add(dish.imageUrl);
+      }
+    }
   }
 
   @override
@@ -68,17 +75,20 @@ class _ShopListTileState extends State<ShopListTile> {
   }
 
   Widget _body(double tileWidth, double tileHeight) {
-    return RaiseCard(
-      cardWidth: tileWidth,
-      cardHeight: tileHeight,
-      child: Container(
-        padding: cardInnerPadding,
-        child: Column(
-          children: <Widget>[
-            _header(),
-            _marginBetweenTitleContents,
-            _contentsBlock(),
-          ],
+    return Container(
+      margin: EdgeInsets.only(left: 20.w, right: 20.w),
+      child: RaiseCard(
+        cardWidth: tileWidth,
+        cardHeight: tileHeight,
+        child: Container(
+          padding: cardInnerPadding,
+          child: Column(
+            children: <Widget>[
+              _header(),
+              _marginBetweenTitleContents,
+              _contentsBlock(),
+            ],
+          ),
         ),
       ),
     );
@@ -106,7 +116,7 @@ class _ShopListTileState extends State<ShopListTile> {
 
   Widget _title() {
     return AutoSizeText(
-      widget.title,
+      widget.shop.businessName,
       maxLines: 1,
       style: TextStyle(
         fontSize: _titleSize,
@@ -141,7 +151,7 @@ class _ShopListTileState extends State<ShopListTile> {
     return Container(
       alignment: Alignment.topRight,
       padding: _likeButtonPadding,
-      child: widget.like
+      child: widget.shop.like
           ? SvgPicture.asset(_likeAssetsSelected)
           : SvgPicture.asset(_likeAssetsUnSelected),
     );
@@ -178,7 +188,7 @@ class _ShopListTileState extends State<ShopListTile> {
   Widget _mainThumbnail() {
     return Expanded(
       flex: 3,
-      child: _thumbnailImage(widget.urlThumbNail1),
+      child: _thumbnailImage(_thumbnailList[0]),
     );
   }
 
@@ -198,14 +208,14 @@ class _ShopListTileState extends State<ShopListTile> {
   Widget _topSubThumbnail() {
     return Expanded(
       flex: 1,
-      child: _thumbnailImage(widget.urlThumbNail2),
+      child: _thumbnailImage(_thumbnailList[1]),
     );
   }
 
   Widget _bottomSubThumbnail() {
     return Expanded(
       flex: 1,
-      child: _thumbnailImage(widget.urlThumbNail3),
+      child: _thumbnailImage(_thumbnailList[2]),
     );
   }
 }

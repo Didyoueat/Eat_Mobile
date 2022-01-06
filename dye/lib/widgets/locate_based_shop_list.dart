@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:dye/constants/colors.dart';
 import 'package:dye/models/shop.dart';
 import 'package:dye/utils/unit_converter.dart';
@@ -34,7 +36,6 @@ class _LocateBasedShopListState extends State<LocateBasedShopList> {
   final List<String> titleSortButton = ["평점순", "거리순", "단골집"];
   bool isLoading = true;
 
-  //TODO
   Future<void> fetchLoading() async {
     await Future.delayed(Duration(milliseconds: 1000), () {
       setState(() {
@@ -51,24 +52,12 @@ class _LocateBasedShopListState extends State<LocateBasedShopList> {
   }
 
   @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-  }
-
-  @override
   Widget build(BuildContext context) {
-    return _body();
-  }
-
-  Widget _body() {
     return ListView.separated(
       itemCount: isLoading ? widget.skeletonLength : widget.list.length + 1,
       cacheExtent: 4,
       separatorBuilder: (context, index) => SizedBox(height: 15.h),
       itemBuilder: (BuildContext context, int position) {
-        final tileWidth = 335.w;
-        final tileHeight = 243.h;
-
         if (widget.isInSubscribe && position == 0) {
           return Container(
             margin: EdgeInsets.only(top: 29.h),
@@ -90,22 +79,17 @@ class _LocateBasedShopListState extends State<LocateBasedShopList> {
         }
         position--;
 
-        return listTile(position, tileWidth, tileHeight);
+        return listTile(position);
       },
     );
   }
 
-  Widget listTile(int position, double tileWidth, double tileHeight) {
+  Widget listTile(int position) {
     if (!isLoading) {
-      return Container(
-        margin: EdgeInsets.only(left: 20.w, right: 20.w),
-        child: InkWell(
-          onTap: () => widget.onTapTile(widget.list[position]),
-          child: SizedBox(
-            width: tileWidth,
-            height: tileHeight,
-            child: getTile(position),
-          ),
+      return InkWell(
+        onTap: () => widget.onTapTile(widget.list[position]),
+        child: ShopListTile(
+          shop: widget.list[position],
         ),
       );
     } else {
@@ -125,19 +109,6 @@ class _LocateBasedShopListState extends State<LocateBasedShopList> {
           sortButtonList(),
         ],
       ),
-    );
-  }
-
-  Widget getTile(int position) {
-    return ShopListTile(
-      title:
-          position == 0 ? "동찬이네" : widget.list[position].businessName ?? "동찬이네",
-      address: getDong(widget.list[position].address) ?? "신림동",
-      distance: getDistance(widget.list[position].distance!)!,
-      like: true,
-      urlThumbNail1: widget.list[position].dishes[0].imageUrl.toString(),
-      urlThumbNail2: widget.list[position].dishes[1].imageUrl.toString(),
-      urlThumbNail3: widget.list[position].dishes[2].imageUrl.toString(),
     );
   }
 
