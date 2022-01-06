@@ -19,6 +19,7 @@ class Shop {
   String? temporaryDayEnd;
   List<Dish> dishes;
   int distance;
+  bool like;
 
   Shop(
     this.shopId,
@@ -39,7 +40,7 @@ class Shop {
     this.temporaryDayEnd,
     this.dishes,
     this.distance,
-  );
+  ) : like = true;
 
   Shop.fromJson(Map<String, dynamic> json)
       : shopId = json['shopId'],
@@ -59,7 +60,8 @@ class Shop {
         temporaryDayStart = json['temporaryDayStart'],
         temporaryDayEnd = json['temporaryDayEnd'],
         dishes = <Dish>[],
-        distance = json['distance'] {
+        distance = json['distance'],
+        like = true {
     if (json['dishes'] != null) {
       dishes = <Dish>[];
       json['dishes'].forEach((v) {
