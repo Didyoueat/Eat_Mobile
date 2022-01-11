@@ -180,23 +180,31 @@ class ShopDetailScreen extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Container(
-          margin: _titleContainerStarMargin,
-          child: SvgPicture.asset(
-            _titleContainerStarAsset,
-            color: mainColor,
-            width: _titleContainerStarWidth,
-            height: _titleContainerStarHeight,
-          ),
-        ),
-        Text(
-          _titleContainerSubtitleText,
-          style: TextStyle(
-            fontSize: _titleContainerSubtitleFontSize,
-            fontWeight: _titleContainerSubtitleFontFamily,
-          ),
-        ),
+        _subtitleStarIcon(),
+        _subtitleText(),
       ],
+    );
+  }
+
+  Widget _subtitleStarIcon() {
+    return Container(
+      margin: _titleContainerStarMargin,
+      child: SvgPicture.asset(
+        _titleContainerStarAsset,
+        color: mainColor,
+        width: _titleContainerStarWidth,
+        height: _titleContainerStarHeight,
+      ),
+    );
+  }
+
+  Widget _subtitleText() {
+    return Text(
+      _titleContainerSubtitleText,
+      style: TextStyle(
+        fontSize: _titleContainerSubtitleFontSize,
+        fontWeight: _titleContainerSubtitleFontFamily,
+      ),
     );
   }
 
@@ -215,10 +223,7 @@ class ShopDetailScreen extends StatelessWidget {
         ),
         itemBuilder: (BuildContext context, int index) {
           Dish dish = dishList[index];
-          return Container(
-            // color: Colors.red,
-            child: _dishTile(dish),
-          );
+          return _dishTile(dish);
         },
       ),
     );
@@ -246,14 +251,7 @@ class ShopDetailScreen extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         _dishTileThumbnail(dish),
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.end,
-          children: [
-            _dishTileText(_dishName, _dishTileNameTextStyle),
-            _dishTileText(_dishPrice, _dishTilePriceTextStyle),
-          ],
-        ),
+        _dishTileContents(_dishName, _dishPrice),
       ],
     );
   }
@@ -269,6 +267,17 @@ class ShopDetailScreen extends StatelessWidget {
         fadeOutDuration: Duration(seconds: 0),
         fadeInDuration: Duration(seconds: 0),
       ),
+    );
+  }
+
+  Column _dishTileContents(String _dishName, String _dishPrice) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      mainAxisAlignment: MainAxisAlignment.end,
+      children: [
+        _dishTileText(_dishName, _dishTileNameTextStyle),
+        _dishTileText(_dishPrice, _dishTilePriceTextStyle),
+      ],
     );
   }
 
