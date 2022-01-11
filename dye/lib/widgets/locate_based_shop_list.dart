@@ -219,6 +219,7 @@ class _LocateBasedShopListState extends State<LocateBasedShopList> {
     if (!_isLoading) {
       return InkWell(
         onTap: () => widget.onTapTile(widget.list[position]),
+        splashColor: Colors.transparent,
         child: ShopListTile(
           shop: widget.list[position],
         ),
