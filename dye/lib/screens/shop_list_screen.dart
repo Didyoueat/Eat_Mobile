@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:dye/models/shop.dart';
 import 'package:dye/screens/shop_detail_screen.dart';
 import 'package:dye/widgets/locate_based_shop_list.dart';
@@ -33,11 +31,10 @@ class _ShopListScreenState extends State<ShopListScreen> {
     if (response.statusCode == 200) {
       for (Map<String, dynamic> shop in json.decode(response.body)['shops']) {
         shopList.add(Shop.fromJson(shop));
-        log(shopList.last.shopId.toString());
       }
       setState(() {});
     } else {
-      throw Exception('Failed to load album');
+      throw Exception('Failed to load shop list');
     }
   }
 

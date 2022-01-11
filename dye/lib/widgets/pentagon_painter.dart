@@ -10,8 +10,11 @@ class PentagonPainter extends CustomPainter {
   final PaintingStyle paintingStyle;
   final double strokeWidth;
 
+  final double radius;
+
   const PentagonPainter(
-      {this.strokeColor = mainColor,
+      {this.radius = 10,
+      this.strokeColor = mainColor,
       this.strokeWidth = 3,
       this.paintingStyle = PaintingStyle.stroke});
 
@@ -26,7 +29,6 @@ class PentagonPainter extends CustomPainter {
   }
 
   Path getPath(double x, double y) {
-    final radius = 10.sp;
     final topSideRadian = (math.pi - math.atan((x / 2) / (y / 3)));
     final topSideLengthGap =
         radius * math.tan((math.pi / 2) - (topSideRadian / 2));
