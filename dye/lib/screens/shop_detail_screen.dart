@@ -100,12 +100,12 @@ class ShopDetailScreen extends StatelessWidget {
     initDishes();
 
     return Scaffold(
+      appBar: CustomAppBar(),
       body: SafeArea(
         bottom: false,
         child: SingleChildScrollView(
           child: Column(
             children: [
-              CustomAppBar(),
               titleContainer(),
               _dishTitleTopMargin,
               _dishTitle(sideDishTitle),
