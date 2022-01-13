@@ -3,9 +3,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class CustomAppBar extends StatelessWidget with PreferredSizeWidget {
-  CustomAppBar({Key? key})
-      : preferredSize = Size.fromHeight(72.h),
-        super(key: key);
   @override
   final Size preferredSize;
 
@@ -19,6 +16,10 @@ class CustomAppBar extends StatelessWidget with PreferredSizeWidget {
   final _callAsset = "assets/icons/call.svg";
   final _shareAsset = "assets/icons/share.svg";
   final _likeAsset = "assets/icons/like(selected).svg";
+
+  CustomAppBar({Key? key})
+      : preferredSize = Size.fromHeight(72.h),
+        super(key: key);
 
   @override
   Widget build(BuildContext context) {
