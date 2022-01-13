@@ -62,21 +62,18 @@ class _ShopListScreenState extends State<ShopListScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SafeArea(
-        bottom: false,
-        child: LocateBasedShopList(
-          isInSubscribe: true,
-          list: shopList,
-          onTapTile: widget.onTapTile ?? navigateShopScreen,
-          onPressLocationButton: () {
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(
-                content: Text('지역을 바꾸는 함수가 실행될거임'),
-                duration: Duration(milliseconds: 700),
-              ),
-            );
-          },
-        ),
+      body: LocateBasedShopList(
+        isInSubscribe: true,
+        list: shopList,
+        onTapTile: widget.onTapTile ?? navigateShopScreen,
+        onPressLocationButton: () {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text('지역을 바꾸는 함수가 실행될거임'),
+              duration: Duration(milliseconds: 700),
+            ),
+          );
+        },
       ),
     );
   }

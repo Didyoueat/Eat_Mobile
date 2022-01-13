@@ -167,6 +167,12 @@ class _ApplySubscribeSettingsState extends State<ApplySubscribeSettings> {
         ),
       ),
     );
+    // MaterialPageRoute(builder: (context) => SelectDishScreen()));
+    // MaterialPageRoute(
+    //     builder: (context) => ShopListScreen(
+    //           latitude: 37.55500,
+    //           longitude: 126.97130,
+    //         )));
   }
 
   Widget _subscribeTypeCard() {

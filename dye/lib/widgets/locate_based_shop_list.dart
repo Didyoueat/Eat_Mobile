@@ -38,7 +38,7 @@ class _LocateBasedShopListState extends State<LocateBasedShopList> {
   final List<String> _titleSortButton = ["평점순", "거리순", "단골집"];
   final _buttonHeaderHeight = 28.h;
   final _buttonHeaderMargin = EdgeInsets.only(left: 20.w, right: 20.w);
-  final _buttonHeaderPadding = EdgeInsets.only(left: 4.w, right: 4.w);
+  final _buttonHeaderSidePadding = EdgeInsets.only(left: 4.w, right: 4.w);
   final _buttonBorderRadius = BorderRadius.circular(10);
   final _locationButtonPadding = EdgeInsets.only(left: 8.w, right: 8.w);
   final _locationButtonIconAsset = "assets/icons/location.svg";
@@ -73,8 +73,8 @@ class _LocateBasedShopListState extends State<LocateBasedShopList> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: _bodyMargin,
       child: ListView.separated(
+        shrinkWrap: true,
         itemCount: _isLoading ? _skeletonLength : widget.list.length + 1,
         cacheExtent: _listCacheExtent,
         separatorBuilder: _listSeparator,
@@ -100,6 +100,7 @@ class _LocateBasedShopListState extends State<LocateBasedShopList> {
 
   Widget _subscribeTitle() {
     return Container(
+      margin: _bodyMargin,
       alignment: Alignment.center,
       child: Text(
         _subscribeTitleString,
@@ -117,7 +118,7 @@ class _LocateBasedShopListState extends State<LocateBasedShopList> {
     return Container(
       height: _buttonHeaderHeight,
       margin: _buttonHeaderMargin,
-      padding: _buttonHeaderPadding,
+      padding: _buttonHeaderSidePadding,
       alignment: Alignment.center,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,

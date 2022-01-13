@@ -2,8 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-class CustomAppBar extends StatelessWidget {
-  CustomAppBar({Key? key}) : super(key: key);
+class CustomAppBar extends StatelessWidget with PreferredSizeWidget {
+  CustomAppBar({Key? key})
+      : preferredSize = Size.fromHeight(72.h),
+        super(key: key);
+  @override
+  final Size preferredSize;
 
   final _appbarWidth = double.infinity;
   final _appbarHeight = 44.h;
