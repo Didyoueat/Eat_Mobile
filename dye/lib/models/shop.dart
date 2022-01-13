@@ -1,15 +1,15 @@
 import 'package:dye/models/dish.dart';
 
 class Shop {
-  int? shopId;
-  String? businessNumber;
-  String? businessName;
-  String? businessPhone;
-  int? dayOff;
-  String? address;
-  double? latitude;
-  double? longitude;
-  String? name;
+  int shopId;
+  String businessNumber;
+  String businessName;
+  String businessPhone;
+  int dayOff;
+  String address;
+  double latitude;
+  double longitude;
+  String name;
   String? phone;
   String? origin;
   String? content;
@@ -17,62 +17,57 @@ class Shop {
   String? officeHour;
   String? temporaryDayStart;
   String? temporaryDayEnd;
-  String? createdAt;
-  String? updatedAt;
-  late List<Dish> dishes;
-  int? distance;
-  int? dishCount;
+  List<Dish> dishes;
+  int distance;
+  bool like;
 
   Shop(
-      this.shopId,
-      this.businessNumber,
-      this.businessName,
-      this.businessPhone,
-      this.dayOff,
-      this.address,
-      this.latitude,
-      this.longitude,
-      this.name,
-      this.phone,
-      this.origin,
-      this.content,
-      this.imageUrl,
-      this.officeHour,
-      this.temporaryDayStart,
-      this.temporaryDayEnd,
-      this.createdAt,
-      this.updatedAt,
-      this.dishes,
-      this.distance,
-      this.dishCount);
+    this.shopId,
+    this.businessNumber,
+    this.businessName,
+    this.businessPhone,
+    this.dayOff,
+    this.address,
+    this.latitude,
+    this.longitude,
+    this.name,
+    this.phone,
+    this.origin,
+    this.content,
+    this.imageUrl,
+    this.officeHour,
+    this.temporaryDayStart,
+    this.temporaryDayEnd,
+    this.dishes,
+    this.distance,
+  ) : like = true;
 
-  Shop.fromJson(Map<String, dynamic> json) {
-    shopId = json['shopId'];
-    businessNumber = json['businessNumber'];
-    businessName = json['businessName'];
-    businessPhone = json['businessPhone'];
-    dayOff = json['dayOff'];
-    address = json['address'];
-    latitude = json['latitude'];
-    longitude = json['longitude'];
-    name = json['name'];
-    phone = json['phone'];
-    origin = json['origin'];
-    content = json['content'];
-    imageUrl = json['imageUrl'];
-    officeHour = json['officeHour'];
-    temporaryDayStart = json['temporaryDayStart'];
-    temporaryDayEnd = json['temporaryDayEnd'];
-    createdAt = json['createdAt'];
-    updatedAt = json['updatedAt'];
+  Shop.fromJson(Map<String, dynamic> json)
+      : shopId = json['shopId'],
+        businessNumber = json['businessNumber'],
+        businessName = json['businessName'],
+        businessPhone = json['businessPhone'],
+        dayOff = json['dayOff'],
+        address = json['address'],
+        latitude = json['latitude'],
+        longitude = json['longitude'],
+        name = json['name'],
+        phone = json['phone'],
+        origin = json['origin'],
+        content = json['content'],
+        imageUrl = json['imageUrl'],
+        officeHour = json['officeHour'],
+        temporaryDayStart = json['temporaryDayStart'],
+        temporaryDayEnd = json['temporaryDayEnd'],
+        dishes = <Dish>[],
+        distance = json['distance'],
+        like = true {
     if (json['dishes'] != null) {
       dishes = <Dish>[];
       json['dishes'].forEach((v) {
         dishes.add(Dish.fromJson(v));
       });
     }
-    distance = json['distance'];
-    dishCount = json['dishCount'];
   }
 
   Map<String, dynamic> toJson() {
@@ -93,13 +88,10 @@ class Shop {
     data['officeHour'] = officeHour;
     data['temporaryDayStart'] = temporaryDayStart;
     data['temporaryDayEnd'] = temporaryDayEnd;
-    data['createdAt'] = createdAt;
-    data['updatedAt'] = updatedAt;
-    if (dishes != null) {
+    if (dishes.isNotEmpty) {
       data['dishes'] = dishes.map((v) => v.toJson()).toList();
     }
     data['distance'] = distance;
-    data['dishCount'] = dishCount;
     return data;
   }
 }

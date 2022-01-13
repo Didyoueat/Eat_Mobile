@@ -3,26 +3,26 @@ import 'package:dye/constants/colors.dart';
 
 class CircleButton extends StatefulWidget {
   final VoidCallback onTap;
-  final Widget? child;
-  final double? width;
-  final double? height;
+  final Widget child;
+  final double width;
+  final double height;
   final Color? borderColor;
-  final double? borderWidth;
-  final BorderStyle? borderStyle;
-  final String? tooltip;
-  final Color? backgroundColor;
+  final double borderWidth;
+  final BorderStyle borderStyle;
+  final String tooltip;
+  final Color backgroundColor;
 
   const CircleButton({
     Key? key,
     required this.onTap,
-    this.child,
-    this.width,
-    this.height,
-    this.borderColor,
-    this.borderWidth,
-    this.borderStyle,
-    this.tooltip,
-    this.backgroundColor,
+    required this.child,
+    this.width = 40,
+    this.height = 40,
+    this.borderColor = borderColorGray,
+    this.borderWidth = 1,
+    this.borderStyle = BorderStyle.solid,
+    this.tooltip = "",
+    this.backgroundColor = Colors.transparent,
   }) : super(key: key);
 
   @override
@@ -33,19 +33,19 @@ class _CircleButtonState extends State<CircleButton> {
   @override
   Widget build(BuildContext context) {
     return Tooltip(
-      message: widget.tooltip ?? '',
+      message: widget.tooltip,
       child: GestureDetector(
         onTap: widget.onTap,
         child: Container(
-          width: widget.width ?? 40,
-          height: widget.height ?? 40,
+          width: widget.width,
+          height: widget.height,
           decoration: BoxDecoration(
-            color: widget.backgroundColor ?? Colors.transparent,
+            color: widget.backgroundColor,
             shape: BoxShape.circle,
             border: Border.all(
               color: widget.borderColor ?? borderColorGray,
-              style: widget.borderStyle ?? BorderStyle.solid,
-              width: widget.borderWidth ?? 1,
+              style: widget.borderStyle,
+              width: widget.borderWidth,
             ),
           ),
           child: Center(

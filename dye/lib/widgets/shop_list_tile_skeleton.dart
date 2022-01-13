@@ -1,101 +1,85 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:skeleton_loader/skeleton_loader.dart';
 
 class ShopListTileSkeleton extends StatelessWidget {
+  final int skeletonDurationSecond;
+  final Color highlightColor;
+  final int leftImageRatio;
+  final int rightImageRatio;
+
   const ShopListTileSkeleton({
     Key? key,
+    this.skeletonDurationSecond = 1,
+    this.highlightColor = const Color(0xffbdbdbd),
+    this.leftImageRatio = 3,
+    this.rightImageRatio = 1,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final tileWidth = 335.w;
+    final tileHeight = 243.h;
+    final titleHeight = 53.h;
+    final contentsMargin = SizedBox(height: 8.h);
+    final EdgeInsets outerMargin = EdgeInsets.only(left: 20.w, right: 20.w);
+    final EdgeInsets innerMargin = EdgeInsets.only(left: 20.w, right: 20.w);
+    final EdgeInsets innerPadding = EdgeInsets.only(top: 12.h, bottom: 12.h);
+
     return SkeletonLoader(
-      period: Duration(seconds: 1),
-      highlightColor: Colors.grey[400]!,
-      builder: Padding(
-        padding: const EdgeInsets.only(left: 20.0, right: 20.0),
+      period: Duration(seconds: skeletonDurationSecond),
+      highlightColor: highlightColor,
+      builder: Container(
+        width: tileWidth,
+        height: tileHeight,
+        margin: outerMargin,
         child: Card(
           color: Colors.transparent,
           child: Container(
-            width: 335.w,
-            height: 243.h,
-            margin: const EdgeInsets.only(left: 20, right: 20),
-            padding: EdgeInsets.only(top: 12.h, bottom: 12.h),
+            width: double.infinity,
+            margin: innerMargin,
+            padding: innerPadding,
             color: Colors.transparent,
             child: Column(
               children: <Widget>[
-                Stack(
-                  children: <Widget>[
-                    Center(
-                      child: Container(
-                        decoration: BoxDecoration(
-                          // borderRadius: BorderRadius.circular(10),
-                          color: Colors.white,
-                        ),
-                        // color: Colors.white,
-                        width: double.infinity,
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Container(
-                              width: 65.w,
-                              height: 20.h,
-                              color: Colors.white,
-                            ),
-                            Container(
-                              margin: EdgeInsets.only(top: 5.h),
-                              width: 150.w,
-                              height: 23.h,
-                              color: Colors.white,
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                    Container(
-                      alignment: Alignment.topRight,
-                      padding: EdgeInsets.only(top: 7.h, right: 18.w),
-                      child: Container(
-                        // color: Colors.white,
-                        child: SvgPicture.asset(
-                            "assets/icons/like(unselected).svg"),
-                      ),
-                    ),
-                  ],
-                ),
-                Expanded(
-                  flex: 1,
-                  child: Container(
-                    margin: EdgeInsets.only(top: 8.h),
-                    child: Row(
-                      children: <Widget>[
-                        Expanded(
-                            flex: 3, child: Container(color: Colors.white)),
-                        SizedBox(width: 4.w),
-                        Expanded(
-                          flex: 1,
-                          child: Column(
-                            children: [
-                              Expanded(
-                                  flex: 1,
-                                  child: Container(color: Colors.white)),
-                              SizedBox(height: 4.h),
-                              Expanded(
-                                  flex: 1,
-                                  child: Container(color: Colors.white)),
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
+                titleBox(titleHeight),
+                contentsMargin,
+                bodyBox(),
               ],
             ),
           ),
         ),
       ),
     );
+  }
+
+  Widget contentsBox({double? h = double.infinity}) {
+    return Container(color: Colors.white, height: h);
+  }
+
+  Widget bodyBox() {
+    return Expanded(
+      flex: 1,
+      child: Row(
+        children: <Widget>[
+          Expanded(flex: leftImageRatio, child: contentsBox()),
+          SizedBox(width: 4.w),
+          Expanded(
+            flex: rightImageRatio,
+            child: Column(
+              children: [
+                Expanded(flex: 1, child: contentsBox()),
+                SizedBox(height: 4.h),
+                Expanded(flex: 1, child: contentsBox()),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget titleBox(double? h) {
+    return contentsBox(h: h);
   }
 }
