@@ -17,7 +17,9 @@ class CustomAppBar extends StatelessWidget with PreferredSizeWidget {
   final _shareAsset = "assets/icons/share.svg";
   final _likeAsset = "assets/icons/like(selected).svg";
 
-  CustomAppBar({Key? key})
+  final onTapLeading;
+
+  CustomAppBar({Key? key, this.onTapLeading})
       : preferredSize = Size.fromHeight(72.h),
         super(key: key);
 
@@ -39,7 +41,7 @@ class CustomAppBar extends StatelessWidget with PreferredSizeWidget {
   Widget _leading(context) {
     return Container(
       margin: _leadingMargin,
-      child: _button(_backAsset, () => Navigator.pop(context)),
+      child: _button(_backAsset, onTapLeading ?? () => Navigator.pop(context)),
     );
   }
 

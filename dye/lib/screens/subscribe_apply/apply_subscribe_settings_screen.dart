@@ -159,21 +159,24 @@ class _ApplySubscribeSettingsState extends State<ApplySubscribeSettings> {
   //TODO : 페이지 호출 변경
   void _onTapBottomButton() {
     Navigator.push(
-        context,
-        //   MaterialPageRoute(
-        //     builder: (context) => SubscribeShopListScreen(
-        //       latitude: 37.55500,
-        //       longitude: 126.97130,
-        //       weekSelection: _daysOption,
-        //     ),
-        //   ),
-        // );
-        MaterialPageRoute(builder: (context) => SelectDishScreen()));
-    // MaterialPageRoute(
-    //     builder: (context) => ShopListScreen(
-    //           latitude: 37.55500,
-    //           longitude: 126.97130,
-    //         )));
+      context,
+      // MaterialPageRoute(
+      //   builder: (context) => SubscribeShopListScreen(
+      //     latitude: 37.55500,
+      //     longitude: 126.97130,
+      //     weekSelection: _daysOption,
+      //   ),
+      // ),
+      //
+      MaterialPageRoute(builder: (context) => SelectDishScreen()),
+
+      // MaterialPageRoute(
+      //   builder: (context) => ShopListScreen(
+      //     latitude: 37.55500,
+      //     longitude: 126.97130,
+      //   ),
+      // ),
+    );
   }
 
   Widget _subscribeTypeCard() {
