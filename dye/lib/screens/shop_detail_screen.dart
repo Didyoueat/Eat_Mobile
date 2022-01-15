@@ -6,6 +6,7 @@ import 'package:dye/models/shop.dart';
 import 'package:dye/screens/dish_detail_screen.dart';
 import 'package:dye/utils/unit_converter.dart';
 import 'package:dye/widgets/custom_appbar.dart';
+import 'package:dye/widgets/custom_info_appbar.dart';
 import 'package:dye/widgets/pentagon_painter.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -23,7 +24,7 @@ class ShopDetailScreen extends StatelessWidget {
 
   final _titleContainerWidth = 327.w;
   final _titleContainerHeight = 113.h;
-  final _titleContainerTopMargin = EdgeInsets.only(top: 4.h);
+  final _titleContainerTopMargin = EdgeInsets.only(top: 12.h);
   final _titleContainerInnerPadding = EdgeInsets.only(bottom: 19.h);
   final _titleContainerTitleMaxWidth = 250.w;
   final _titleContainerTitleFontSize = 24.sp;
@@ -100,12 +101,12 @@ class ShopDetailScreen extends StatelessWidget {
     initDishes();
 
     return Scaffold(
+      appBar: CustomAppBar(),
       body: SafeArea(
         bottom: false,
         child: SingleChildScrollView(
           child: Column(
             children: [
-              CustomAppBar(),
               titleContainer(),
               _dishTitleTopMargin,
               _dishTitle(sideDishTitle),

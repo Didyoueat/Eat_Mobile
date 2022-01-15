@@ -1,10 +1,12 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:dotted_border/dotted_border.dart';
 import 'package:dye/constants/colors.dart';
 import 'package:dye/models/dish.dart';
 import 'package:dye/widgets/bottom_button_rect.dart';
 import 'package:dye/widgets/custom_appbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/svg.dart';
 
 class DishDetailScreen extends StatefulWidget {
   final Dish dish;
@@ -67,26 +69,20 @@ class _DishDetailScreenState extends State<DishDetailScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: CustomAppBar(),
       body: SafeArea(
         bottom: false,
-        child: Column(
-          children: [
-            CustomAppBar(),
-            _body(),
-          ],
-        ),
+        child: _body(),
       ),
     );
   }
 
   Widget _body() {
-    return Expanded(
-      child: Stack(
-        children: [
-          _contents(),
-          _addCartButton(),
-        ],
-      ),
+    return Stack(
+      children: [
+        _contents(),
+        _addCartButton(),
+      ],
     );
   }
 

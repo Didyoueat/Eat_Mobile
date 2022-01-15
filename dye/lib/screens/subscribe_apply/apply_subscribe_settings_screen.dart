@@ -1,4 +1,5 @@
 import 'package:dye/screens/shop_list_screen.dart';
+import 'package:dye/screens/subscribe_apply/select_dish_screen.dart';
 import 'package:dye/screens/subscribe_apply/subscribe_shop_list_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -159,20 +160,23 @@ class _ApplySubscribeSettingsState extends State<ApplySubscribeSettings> {
   void _onTapBottomButton() {
     Navigator.push(
       context,
-      MaterialPageRoute(
-        builder: (context) => SubscribeShopListScreen(
-          latitude: 37.55500,
-          longitude: 126.97130,
-          weekSelection: _daysOption,
-        ),
-      ),
+      // MaterialPageRoute(
+      //   builder: (context) => SubscribeShopListScreen(
+      //     latitude: 37.55500,
+      //     longitude: 126.97130,
+      //     weekSelection: _daysOption,
+      //   ),
+      // ),
+      //
+      MaterialPageRoute(builder: (context) => SelectDishScreen()),
+
+      // MaterialPageRoute(
+      //   builder: (context) => ShopListScreen(
+      //     latitude: 37.55500,
+      //     longitude: 126.97130,
+      //   ),
+      // ),
     );
-    // MaterialPageRoute(builder: (context) => SelectDishScreen()));
-    // MaterialPageRoute(
-    //     builder: (context) => ShopListScreen(
-    //           latitude: 37.55500,
-    //           longitude: 126.97130,
-    //         )));
   }
 
   Widget _subscribeTypeCard() {
