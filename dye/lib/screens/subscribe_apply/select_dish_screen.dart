@@ -14,15 +14,20 @@ const shopDetail = '/shopDetail';
 const dishDetail = '/dishDetail';
 
 class SelectDishScreen extends StatefulWidget {
-  const SelectDishScreen({Key? key}) : super(key: key);
+  final List<bool> daysOption;
+  const SelectDishScreen({
+    Key? key,
+    required this.daysOption,
+  }) : super(key: key);
 
   @override
   _SelectDishScreenState createState() => _SelectDishScreenState();
 }
 
 class _SelectDishScreenState extends State<SelectDishScreen> {
-  late Shop nowShop;
-  late Dish nowDish;
+  late Shop _nowShop;
+  late Dish _nowDish;
+  late final List<bool> _daysOption = widget.daysOption;
 
   final _navigatorKey = GlobalKey<NavigatorState>();
 
@@ -59,27 +64,6 @@ class _SelectDishScreenState extends State<SelectDishScreen> {
   }
 
   Widget _home() {
-    // return Builder(builder: (context) {
-    //   return WillPopScope(
-    //     onWillPop: () {
-    //       if (Platform.isIOS) {
-    //         // if (_navigatorKey.currentState!.canPop() == false) {
-    //         //   return Future(() => true);
-    //         // }
-    //         // Navigator.pop(context);
-    //         return Future(() => true);
-    //       } else if (Platform.isAndroid) {
-    //         if (_navigatorKey.currentState!.canPop() == false) {
-    //           return Future(() => true);
-    //         }
-    //         _navigatorKey.currentState!.maybePop();
-    //         return Future(() => false);
-    //       }
-    //       return Future(() => _onBackPressed());
-    //     },
-    //     child: _scaffold(),
-    //   );
-    // });
     return GestureDetector(
       onPanUpdate: (details) {
         // Swiping in right direction.
@@ -108,47 +92,13 @@ class _SelectDishScreenState extends State<SelectDishScreen> {
         child: _scaffold(),
       ),
     );
-    // if (Platform.isIOS) {
-    //   return GestureDetector(
-    //       onPanUpdate: (details) {
-    //         // Swiping in right direction.
-    //         if (details.delta.dx > 0) {
-    //           if (_navigatorKey.currentState!.canPop())
-    //             _navigatorKey.currentState!.pop();
-    //         }
-    //
-    //         // Swiping in left direction.
-    //         if (details.delta.dx < 0) {}
-    //       },
-    //       child: _scaffold());
-    // } else {
-    //   return WillPopScope(
-    //     onWillPop: () {
-    //       if (Platform.isIOS) {
-    //         // if (_navigatorKey.currentState!.canPop() == false) {
-    //         //   return Future(() => true);
-    //         // }
-    //         // Navigator.pop(context);
-    //         return Future(() => true);
-    //       } else if (Platform.isAndroid) {
-    //         if (_navigatorKey.currentState!.canPop() == false) {
-    //           return Future(() => true);
-    //         }
-    //         _navigatorKey.currentState!.maybePop();
-    //         return Future(() => false);
-    //       }
-    //       return Future(() => _onBackPressed());
-    //     },
-    //     child: _scaffold(),
-    //   );
-    // }
   }
 
   Widget _scaffold() {
     return Scaffold(
       appBar: CustomInfoAppBar(
         nowWeek: 0,
-        weekSelection: const [true, false, true, false, false, false, false],
+        daysOption: _daysOption,
       ),
       body: Stack(
         children: [
@@ -162,7 +112,7 @@ class _SelectDishScreenState extends State<SelectDishScreen> {
                   latitude: 37.55500,
                   longitude: 126.97130,
                   onTapTile: (shop) {
-                    nowShop = shop;
+                    _nowShop = shop;
                     _navigatorKey.currentState!.pushNamed(shopDetail);
                     // _navigatorKey.currentState!.push(MaterialPageRoute(
                     //     builder: (context) => ShopDetailScreen(shop: shop)));
@@ -174,14 +124,14 @@ class _SelectDishScreenState extends State<SelectDishScreen> {
                 );
               } else if (setting.name == shopDetail) {
                 page = ShopDetailScreen(
-                  shop: nowShop,
+                  shop: _nowShop,
                   onTapDish: (dish) {
-                    nowDish = dish;
+                    _nowDish = dish;
                     _navigatorKey.currentState!.pushNamed(dishDetail);
                   },
                 );
               } else if (setting.name == dishDetail) {
-                page = DishDetailScreen(dish: nowDish);
+                page = DishDetailScreen(dish: _nowDish);
               } else {
                 throw Exception('Unknown route: ${setting.name}');
               }

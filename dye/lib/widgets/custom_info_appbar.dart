@@ -9,13 +9,13 @@ import 'circle_button.dart';
 class CustomInfoAppBar extends StatelessWidget with PreferredSizeWidget {
   @override
   final Size preferredSize;
-  final List<bool> weekSelection;
+  final List<bool> daysOption;
   final int nowWeek;
   final List<String> _weekName = const ["월", "화", "수", "목", "금", "토", "일"];
 
   CustomInfoAppBar({
     Key? key,
-    required this.weekSelection,
+    required this.daysOption,
     required this.nowWeek,
   })  : preferredSize = Size.fromHeight(72.h),
         super(key: key);
@@ -33,12 +33,12 @@ class CustomInfoAppBar extends StatelessWidget with PreferredSizeWidget {
             CircleButton(
               width: circleWidth,
               height: circleHeight,
-              borderColor: weekSelection[i] ? mainColor : null,
+              borderColor: daysOption[i] ? mainColor : null,
               onTap: () {},
               child: Text(
                 _weekName[i],
-                style: TextStyle(
-                    color: weekSelection[i] ? mainColor : textColorGray),
+                style:
+                    TextStyle(color: daysOption[i] ? mainColor : textColorGray),
               ),
             ),
             Visibility(
