@@ -5,6 +5,10 @@ import 'package:dye/screens/shop_list_screen.dart';
 import 'package:dye/widgets/custom_info_appbar.dart';
 import 'package:flutter/material.dart';
 
+const shopList = '/';
+const shopDetail = '/shopDetail';
+const dishDetail = '/dishDetail';
+
 class SelectDishScreen extends StatefulWidget {
   const SelectDishScreen({Key? key}) : super(key: key);
 
@@ -36,42 +40,88 @@ class _SelectDishScreenState extends State<SelectDishScreen> {
     "distance": 113
   });
 
-  void _f1(shop) {
-    // testShop(shop);
-    defaultShop = shop;
-    pageController.jumpTo(0);
+  final _navigatorKey = GlobalKey<NavigatorState>();
+
+  bool _onBackPressed() {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          content: Text("밥 안먹을겨?"),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: Text("아니오"),
+            ),
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+                Navigator.of(context).pop();
+              },
+              child: Text("예"),
+            ),
+          ],
+        );
+      },
+    );
+
+    return false;
   }
-
-  void _f2(dish) {}
-
-  Future<void> testShop(shop) async {
-    defaultShop = shop;
-  }
-
-  final PageController pageController = PageController(
-    initialPage: 0,
-  );
-
-  @override
-  void initState() {}
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: CustomInfoAppBar(
-        nowWeek: 0,
-        weekSelection: [true, false, true, false, false, false, false],
-      ),
-      body: PageView(
-        controller: pageController,
-        children: [
-          ShopListScreen(
-            latitude: 37.55500,
-            longitude: 126.97130,
-            onTapTile: _f1,
-          ),
-          ShopDetailScreen(shop: defaultShop),
-        ],
+    return WillPopScope(
+      onWillPop: () {
+        return Future(() => _onBackPressed());
+      },
+      child: Scaffold(
+        appBar: CustomInfoAppBar(
+          nowWeek: 0,
+          weekSelection: const [true, false, true, false, false, false, false],
+        ),
+        body: Navigator(
+          key: _navigatorKey,
+          initialRoute: shopList,
+          onGenerateRoute: (setting) {
+            late Widget page;
+            if (setting.name == shopList) {
+              page = ShopListScreen(
+                latitude: 37.55500,
+                longitude: 126.97130,
+                onTapTile: (shop) {
+                  defaultShop = shop;
+                  _navigatorKey.currentState!.pushNamed(shopDetail);
+                  // _navigatorKey.currentState!.push(MaterialPageRoute(
+                  //     builder: (context) => ShopDetailScreen(shop: shop)));
+                  // 함수를 push로 호출할 수 있지만, depth가 생긴다.
+                  // Navigator.pop(context);
+                  // 여기 익명함수는 ShopListScreen 밖의 함수이기 때문에 Navigator은 default로 인식한다.
+                  // Navigator.of(context).pop();
+                },
+              );
+            } else if (setting.name == shopDetail) {
+              page = ShopDetailScreen(
+                shop: defaultShop,
+                onTapDish: (dish) {
+                  _navigatorKey.currentState!.pop();
+                  // Navigator.of(context).pop();
+                  // Navigator.pop(context);
+                },
+              );
+            } else {
+              throw Exception('Unknown route: ${setting.name}');
+            }
+
+            return MaterialPageRoute<dynamic>(
+              builder: (context) {
+                return page;
+              },
+              settings: setting,
+            );
+          },
+        ),
       ),
     );
   }
