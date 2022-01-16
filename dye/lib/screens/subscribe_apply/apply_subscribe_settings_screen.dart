@@ -1,6 +1,5 @@
 import 'package:dye/screens/shop_list_screen.dart';
 import 'package:dye/screens/subscribe_apply/select_dish_screen.dart';
-import 'package:dye/screens/subscribe_apply/subscribe_shop_list_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -168,7 +167,11 @@ class _ApplySubscribeSettingsState extends State<ApplySubscribeSettings> {
       //   ),
       // ),
       //
-      MaterialPageRoute(builder: (context) => SelectDishScreen()),
+      MaterialPageRoute(
+        builder: (context) => SelectDishScreen(
+          daysOption: _daysOption,
+        ),
+      ),
 
       // MaterialPageRoute(
       //   builder: (context) => ShopListScreen(
