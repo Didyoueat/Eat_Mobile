@@ -1,5 +1,7 @@
 import 'dart:developer';
+import 'dart:io';
 
+import 'package:dye/models/dish.dart';
 import 'package:dye/models/shop.dart';
 import 'package:dye/screens/dish_detail_screen.dart';
 import 'package:dye/screens/shop_detail_screen.dart';
@@ -19,39 +21,35 @@ class SelectDishScreen extends StatefulWidget {
 }
 
 class _SelectDishScreenState extends State<SelectDishScreen> {
-  late Shop defaultShop;
+  late Shop nowShop;
+  late Dish nowDish;
 
   final _navigatorKey = GlobalKey<NavigatorState>();
 
-  bool _onBackPressed(context) {
-    // showDialog(
-    //   context: context,
-    //   builder: (context) {
-    //     return AlertDialog(
-    //       content: Text("밥 안먹을겨?"),
-    //       actions: [
-    //         TextButton(
-    //           onPressed: () {
-    //             Navigator.of(context).pop();
-    //           },
-    //           child: Text("아니오"),
-    //         ),
-    //         TextButton(
-    //           onPressed: () {
-    //             Navigator.of(context).pop();
-    //             Navigator.of(context).pop();
-    //           },
-    //           child: Text("예"),
-    //         ),
-    //       ],
-    //     );
-    //   },
-    // );
-    // str = "navi = " + _navigatorKey.currentState!.canPop().toString() + "\n\n";
-    // str += context.toString();
-    // setState(() {});
-
-    _navigatorKey.currentState!.maybePop();
+  bool _onBackPressed() {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          content: Text("밥 안먹을겨?"),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: Text("아니오"),
+            ),
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+                Navigator.of(context).pop();
+              },
+              child: Text("예"),
+            ),
+          ],
+        );
+      },
+    );
     return false;
   }
 
@@ -60,10 +58,24 @@ class _SelectDishScreenState extends State<SelectDishScreen> {
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () {
-        if (_navigatorKey.currentState!.canPop() == false) {
-          return Future(() => true);
+        // if (Platform.isIOS) {
+        //   str = "navi = " +
+        //       _navigatorKey.currentState!.canPop().toString() +
+        //       "\n\n";
+        //   setState(() {});
+        //   if (_navigatorKey.currentState!.canPop() == false) {
+        //     return Future(() => true);
+        //   }
+        //   return Future(() => false);
+        // } else
+        if (Platform.isAndroid) {
+          if (_navigatorKey.currentState!.canPop() == false) {
+            return Future(() => true);
+          }
+          _navigatorKey.currentState!.maybePop();
+          return Future(() => false);
         }
-        return Future(() => _onBackPressed(context));
+        return Future(() => _onBackPressed());
       },
       child: Scaffold(
         appBar: CustomInfoAppBar(
@@ -82,7 +94,7 @@ class _SelectDishScreenState extends State<SelectDishScreen> {
                     latitude: 37.55500,
                     longitude: 126.97130,
                     onTapTile: (shop) {
-                      defaultShop = shop;
+                      nowShop = shop;
                       _navigatorKey.currentState!.pushNamed(shopDetail);
                       // _navigatorKey.currentState!.push(MaterialPageRoute(
                       //     builder: (context) => ShopDetailScreen(shop: shop)));
@@ -94,13 +106,14 @@ class _SelectDishScreenState extends State<SelectDishScreen> {
                   );
                 } else if (setting.name == shopDetail) {
                   page = ShopDetailScreen(
-                    shop: defaultShop,
+                    shop: nowShop,
                     onTapDish: (dish) {
-                      _navigatorKey.currentState!.pop();
-                      // Navigator.of(context).pop();
-                      // Navigator.pop(context);
+                      nowDish = dish;
+                      _navigatorKey.currentState!.pushNamed(dishDetail);
                     },
                   );
+                } else if (setting.name == dishDetail) {
+                  page = DishDetailScreen(dish: nowDish);
                 } else {
                   throw Exception('Unknown route: ${setting.name}');
                 }
