@@ -58,17 +58,16 @@ class _SelectDishScreenState extends State<SelectDishScreen> {
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () {
-        // if (Platform.isIOS) {
-        //   str = "navi = " +
-        //       _navigatorKey.currentState!.canPop().toString() +
-        //       "\n\n";
-        //   setState(() {});
-        //   if (_navigatorKey.currentState!.canPop() == false) {
-        //     return Future(() => true);
-        //   }
-        //   return Future(() => false);
-        // } else
-        if (Platform.isAndroid) {
+        if (Platform.isIOS) {
+          str = "navi = " +
+              _navigatorKey.currentState!.canPop().toString() +
+              "\n\n";
+          setState(() {});
+          if (_navigatorKey.currentState!.canPop() == false) {
+            return Future(() => true);
+          }
+          return Future(() => false);
+        } else if (Platform.isAndroid) {
           if (_navigatorKey.currentState!.canPop() == false) {
             return Future(() => true);
           }
