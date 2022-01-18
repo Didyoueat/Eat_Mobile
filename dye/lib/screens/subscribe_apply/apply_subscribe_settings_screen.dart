@@ -1,6 +1,7 @@
 import 'package:dye/screens/shop_list_screen.dart';
 import 'package:dye/screens/subscribe_apply/select_dish_screen.dart';
 import 'package:dye/screens/subscribe_apply/subscribe_shop_list_screen.dart';
+import 'package:dye/widgets/custom_visibility.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -109,15 +110,15 @@ class _ApplySubscribeSettingsState extends State<ApplySubscribeSettings> {
             children: [
               _titleText(widget.name),
               _questionTopMargin,
-              _visibility(child: _subscribeTypeCard(), visible: true),
+              CustomVisibility(child: _subscribeTypeCard(), visible: true),
               _questionGapMargin,
-              _visibility(child: _daySelectionCard(), visible: _q2Visible),
+              CustomVisibility(child: _daySelectionCard(), visible: _q2Visible),
               _questionGapMargin,
-              _visibility(child: _noticeCard(), visible: _notiVisible),
+              CustomVisibility(child: _noticeCard(), visible: _notiVisible),
             ],
           ),
         ),
-        _visibility(
+        CustomVisibility(
           visible: _notiVisible,
           child: BottomButtonFill(
             mainMessage: _bottomButtonText,
@@ -143,16 +144,6 @@ class _ApplySubscribeSettingsState extends State<ApplySubscribeSettings> {
           ),
         ],
       ),
-    );
-  }
-
-  Widget _visibility({required child, required visible}) {
-    return Visibility(
-      child: child,
-      maintainState: true,
-      maintainSize: true,
-      maintainAnimation: true,
-      visible: visible,
     );
   }
 
