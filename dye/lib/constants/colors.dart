@@ -10,6 +10,7 @@ const buttonInactive = Color(0xffbbbbbb);
 const colorBeige = Color(0xfffff6E4);
 
 //Border
+const borderColorAA = Color(0xffaaaaaa);
 const borderColorBB = Color(0xffbbbbbb);
 const borderColorGray = Color(0x55aaaaaa);
 
