@@ -80,7 +80,7 @@ class _SelectDishScreenState extends State<SelectDishScreen> {
         if (details.delta.dy < 45 && details.delta.dy > -45) {
           if (Platform.isIOS &&
               details.delta.dx > 0 &&
-              details.globalPosition.dx < 250 &&
+              details.globalPosition.dx < 100 &&
               _navigatorKey.currentState!.canPop() == false) {
             _onBackPressed();
           }

@@ -18,7 +18,7 @@ class CircleButton extends StatefulWidget {
     required this.child,
     this.width = 40,
     this.height = 40,
-    this.borderColor = borderColorGray,
+    this.borderColor,
     this.borderWidth = 1,
     this.borderStyle = BorderStyle.solid,
     this.tooltip = "",
@@ -43,7 +43,7 @@ class _CircleButtonState extends State<CircleButton> {
             color: widget.backgroundColor,
             shape: BoxShape.circle,
             border: Border.all(
-              color: widget.borderColor ?? borderColorGray,
+              color: widget.borderColor ?? borderColorAA,
               style: widget.borderStyle,
               width: widget.borderWidth,
             ),
