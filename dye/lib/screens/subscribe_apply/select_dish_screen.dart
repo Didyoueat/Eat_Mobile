@@ -1,6 +1,7 @@
 import 'dart:developer';
 import 'dart:io';
 import 'package:dye/models/dish.dart';
+import 'package:dye/models/dto/subscribe_form_dto.dart';
 import 'package:dye/models/shop.dart';
 import 'package:dye/screens/dish_detail_screen.dart';
 import 'package:dye/screens/shop_detail_screen.dart';
@@ -24,49 +25,26 @@ class SelectDishScreen extends StatefulWidget {
   _SelectDishScreenState createState() => _SelectDishScreenState();
 }
 
-//Todo
-/**
- * 좌표 등 밖에서 받아와야 하는 정보들 받아오기
- *  반찬 장바구니 기능 구현
- *  CustomInfoAppbar 변경
- *  장바구니에 따라 바뀌는 CustomAppbar 확인
- *  장바구니화면 구현
- *  결제 전 화면 구현
-* **/
-
 class _SelectDishScreenState extends State<SelectDishScreen> {
   late Shop _nowShop;
   late Dish _nowDish;
-
+  late int _nowDay;
   late final List<bool> _daysOption = widget.daysOption;
+  final List<List<Dish>> _cartList = [];
 
   final _navigatorKey = GlobalKey<NavigatorState>();
 
-  bool _onBackPressed() {
-    showDialog(
-      context: context,
-      builder: (context) {
-        return AlertDialog(
-          content: Text("나갈겨?"),
-          actions: [
-            TextButton(
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-              child: Text("아니오"),
-            ),
-            TextButton(
-              onPressed: () {
-                Navigator.of(context).pop();
-                Navigator.of(context).pop();
-              },
-              child: Text("예"),
-            ),
-          ],
-        );
-      },
-    );
-    return false;
+  @override
+  void initState() {
+    super.initState();
+    _initVar();
+  }
+
+  void _initVar() {
+    for (int i = 0; i < 7; i++) {
+      _cartList.add([]);
+    }
+    _nowDay = _daysOption.indexOf(true);
   }
 
   @override
@@ -104,10 +82,37 @@ class _SelectDishScreenState extends State<SelectDishScreen> {
     );
   }
 
+  bool _onBackPressed() {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          content: Text("나갈겨?"),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: Text("아니오"),
+            ),
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+                Navigator.of(context).pop();
+              },
+              child: Text("예"),
+            ),
+          ],
+        );
+      },
+    );
+    return false;
+  }
+
   Widget _scaffold() {
     return Scaffold(
       appBar: CustomInfoAppBar(
-        nowWeek: 0,
+        nowWeek: _nowDay,
         daysOption: _daysOption,
       ),
       body: Stack(
