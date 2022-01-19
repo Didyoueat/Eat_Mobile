@@ -1,7 +1,5 @@
-import 'dart:developer';
 import 'dart:io';
 import 'package:dye/models/dish.dart';
-import 'package:dye/models/dto/subscribe_form_dto.dart';
 import 'package:dye/models/shop.dart';
 import 'package:dye/screens/dish_detail_screen.dart';
 import 'package:dye/screens/shop_detail_screen.dart';
@@ -30,9 +28,11 @@ class _SelectDishScreenState extends State<SelectDishScreen> {
   late Dish _nowDish;
   late int _nowDay;
   late final List<bool> _daysOption = widget.daysOption;
-  final List<List<Dish>> _cartList = [];
+  final List<Map<Dish, int>> _cartList = [];
 
   final _navigatorKey = GlobalKey<NavigatorState>();
+
+  String test = "나갈겨?";
 
   @override
   void initState() {
@@ -42,7 +42,7 @@ class _SelectDishScreenState extends State<SelectDishScreen> {
 
   void _initVar() {
     for (int i = 0; i < 7; i++) {
-      _cartList.add([]);
+      _cartList.add({});
     }
     _nowDay = _daysOption.indexOf(true);
   }
@@ -87,7 +87,7 @@ class _SelectDishScreenState extends State<SelectDishScreen> {
       context: context,
       builder: (context) {
         return AlertDialog(
-          content: Text("나갈겨?"),
+          content: Text(test),
           actions: [
             TextButton(
               onPressed: () {
@@ -114,6 +114,7 @@ class _SelectDishScreenState extends State<SelectDishScreen> {
       appBar: CustomInfoAppBar(
         nowWeek: _nowDay,
         daysOption: _daysOption,
+        cartList: _cartList,
       ),
       body: Stack(
         children: [
@@ -140,7 +141,29 @@ class _SelectDishScreenState extends State<SelectDishScreen> {
                   },
                 );
               } else if (setting.name == dishDetail) {
-                page = DishDetailScreen(dish: _nowDish);
+                page = DishDetailScreen(
+                  dish: _nowDish,
+                  onTapCartButton: (Dish dish, int count) {
+                    bool flag = false;
+                    _cartList[_nowDay].forEach((dishInCart, count) {
+                      if (dishInCart.shopId != dish.shopId) {
+                        flag = true;
+                      }
+                    });
+                    if (flag == true) {
+                      _navigatorKey.currentState!.pop();
+                      return;
+                    }
+                    if (_cartList[_nowDay].containsKey(dish)) {
+                      _cartList[_nowDay][dish] =
+                          _cartList[_nowDay][dish]! + count;
+                    } else {
+                      _cartList[_nowDay][dish] = count;
+                    }
+                    setState(() {});
+                    _navigatorKey.currentState!.pop();
+                  },
+                );
               } else {
                 throw Exception('Unknown route: ${setting.name}');
               }
@@ -152,6 +175,10 @@ class _SelectDishScreenState extends State<SelectDishScreen> {
                 settings: setting,
               );
             },
+          ),
+          Container(
+            color: Colors.blue,
+            child: Text(_cartList.toString()),
           ),
         ],
       ),

@@ -10,9 +10,11 @@ import 'package:flutter_svg/svg.dart';
 
 class DishDetailScreen extends StatefulWidget {
   final Dish dish;
+  final Function? onTapCartButton;
   const DishDetailScreen({
     Key? key,
     required this.dish,
+    this.onTapCartButton,
   }) : super(key: key);
 
   @override
@@ -402,7 +404,15 @@ class _DishDetailScreenState extends State<DishDetailScreen> {
     return BottomButtonRect(
       mainMessage: _addCardButtonString,
       sideMessage: "7000원",
-      function: () {},
+      function: () {
+        widget.onTapCartButton!(widget.dish, _orderCount);
+      },
     );
+  }
+
+  void _onTapCartButton() {
+    if (widget.onTapCartButton != null) {
+      widget.onTapCartButton!(widget.dish, _orderCount);
+    }
   }
 }

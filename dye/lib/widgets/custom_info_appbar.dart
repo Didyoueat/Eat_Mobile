@@ -1,5 +1,6 @@
 import 'package:dye/constants/colors.dart';
 import 'package:dye/main.dart';
+import 'package:dye/models/dish.dart';
 import 'package:dye/widgets/custom_visibility.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -13,6 +14,7 @@ class CustomInfoAppBar extends StatelessWidget with PreferredSizeWidget {
     Key? key,
     required this.daysOption,
     required this.nowWeek,
+    required this.cartList,
   })  : preferredSize = Size.fromHeight(60.h),
         super(key: key);
 
@@ -20,6 +22,7 @@ class CustomInfoAppBar extends StatelessWidget with PreferredSizeWidget {
   final Size preferredSize;
   final List<bool> daysOption;
   final int nowWeek;
+  List<Map<Dish, int>> cartList;
 
   final List<String> _weekName = const ["월", "화", "수", "목", "금", "토", "일"];
   final _weekButtonWidth = 36.w;
@@ -105,8 +108,7 @@ class CustomInfoAppBar extends StatelessWidget with PreferredSizeWidget {
     return Container(
       alignment: Alignment.bottomCenter,
       child: CustomVisibility(
-        visible:
-            true, //(i == nowWeek) ? true : false, //TODO 선택로직이 아니라 장바구니 개수에 따라 되게끔
+        visible: (cartList[i].isEmpty) ? false : true,
         child: Container(
           height: _cartInfoContainerHeight,
           decoration: BoxDecoration(
@@ -115,7 +117,7 @@ class CustomInfoAppBar extends StatelessWidget with PreferredSizeWidget {
           ),
           child: Center(
             child: Text(
-              "1",
+              cartList[i].length.toString(),
               style: TextStyle(
                 color: Colors.white,
                 fontSize: _cartInfoTextSize,

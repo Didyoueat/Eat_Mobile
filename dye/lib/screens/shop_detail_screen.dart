@@ -86,8 +86,7 @@ class ShopDetailScreen extends StatelessWidget {
 
   void initText() {
     _titleContainerTitleText = shop.businessName.trim();
-    _titleContainerSubtitleText = "5.0" +
-        " ∙ " +
+    _titleContainerSubtitleText = "5.0 ∙ " +
         getDong(shop.address) +
         " ∙ " +
         getDistance(shop.distance) +
