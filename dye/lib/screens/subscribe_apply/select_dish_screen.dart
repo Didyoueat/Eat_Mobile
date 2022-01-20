@@ -115,6 +115,11 @@ class _SelectDishScreenState extends State<SelectDishScreen> {
         nowWeek: _nowDay,
         daysOption: _daysOption,
         cartList: _cartList,
+        onTapCircleButton: (i) {
+          setState(() {
+            _nowDay = i;
+          });
+        },
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {},

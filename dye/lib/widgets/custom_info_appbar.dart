@@ -15,6 +15,7 @@ class CustomInfoAppBar extends StatelessWidget with PreferredSizeWidget {
     required this.daysOption,
     required this.nowWeek,
     required this.cartList,
+    required this.onTapCircleButton,
   })  : preferredSize = Size.fromHeight(60.h),
         super(key: key);
 
@@ -22,7 +23,8 @@ class CustomInfoAppBar extends StatelessWidget with PreferredSizeWidget {
   final Size preferredSize;
   final List<bool> daysOption;
   final int nowWeek;
-  List<Map<Dish, int>> cartList;
+  final Function onTapCircleButton;
+  final List<Map<Dish, int>> cartList;
 
   final List<String> _weekName = const ["월", "화", "수", "목", "금", "토", "일"];
   final _weekButtonWidth = 36.w;
@@ -91,7 +93,7 @@ class CustomInfoAppBar extends StatelessWidget with PreferredSizeWidget {
       alignment: Alignment.topCenter,
       child: CircleButton(
         height: _circleHeight,
-        onTap: () {},
+        onTap: () => onTapCircleButton(i),
         borderColor: (i == nowWeek) ? mainColor : null,
         child: Text(
           _weekName[i],
