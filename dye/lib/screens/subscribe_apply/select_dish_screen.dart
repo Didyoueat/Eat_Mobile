@@ -4,6 +4,7 @@ import 'package:dye/models/shop.dart';
 import 'package:dye/screens/dish_detail_screen.dart';
 import 'package:dye/screens/shop_detail_screen.dart';
 import 'package:dye/screens/shop_list_screen.dart';
+import 'package:dye/widgets/cart_floating_button.dart';
 import 'package:dye/widgets/custom_info_appbar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -34,9 +35,13 @@ class _SelectDishScreenState extends State<SelectDishScreen> {
 
   //String
   final List<String> _weekName = const ["월", "화", "수", "목", "금", "토", "일"];
-  final String _onBackPressTitle = "나갈겨?";
-  final String _onBackPressNegative = "아니오";
-  final String _onBackPressPositive = "예";
+  final String _backPressDialogTitle = "나갈겨?";
+  final String _backPressDialogNegative = "아니오";
+  final String _backPressDialogPositive = "예";
+  final String _cartWarningDialogTitle = "하루에 한 가게의 반찬만 담을 수 있습니다.";
+  final String _cartWarningDialogContents = "요일의 장바구니가 초기화됩니다.\n반찬을 담으시겠습니까?";
+  final String _cartWarningDialogNegative = "아니요";
+  final String _cartWarningDialogPositive = "예";
 
   @override
   void initState() {
@@ -93,20 +98,20 @@ class _SelectDishScreenState extends State<SelectDishScreen> {
       context: context,
       builder: (context) {
         return AlertDialog(
-          title: Text(_onBackPressTitle),
+          title: Text(_backPressDialogTitle),
           actions: [
             TextButton(
               onPressed: () {
                 Navigator.of(context).pop();
               },
-              child: Text(_onBackPressNegative),
+              child: Text(_backPressDialogNegative),
             ),
             TextButton(
               onPressed: () {
                 Navigator.of(context).pop();
                 Navigator.of(context).pop();
               },
-              child: Text(_onBackPressPositive),
+              child: Text(_backPressDialogPositive),
             ),
           ],
         );
@@ -123,10 +128,7 @@ class _SelectDishScreenState extends State<SelectDishScreen> {
         cartList: _cartList,
         onTapCircleButton: _onTapAppBarCircleButton,
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {},
-        child: Text(getTotalDishCount().toString()),
-      ),
+      floatingActionButton: CartFloatingButton(onPressed: () {}),
       body: Navigator(
         key: _navigatorKey,
         initialRoute: shopList,
@@ -210,19 +212,19 @@ class _SelectDishScreenState extends State<SelectDishScreen> {
       context: context,
       builder: (context) {
         return AlertDialog(
-          title: Text("하루에 한 가게의 반찬만 담을 수 있습니다."),
-          content: Text("${_weekName[_nowDay]}요일의 장바구니가 초기화됩니다.\n반찬을 담으시겠습니까?"),
+          title: Text(_cartWarningDialogTitle),
+          content: Text(_weekName[_nowDay] + _cartWarningDialogContents),
           actions: [
             TextButton(
               onPressed: () => Navigator.of(context).pop(false),
-              child: Text("아니요"),
+              child: Text(_cartWarningDialogNegative),
             ),
             TextButton(
               onPressed: () {
                 _cartList[_nowDay].clear();
                 Navigator.of(context).pop(true);
               },
-              child: Text("네"),
+              child: Text(_cartWarningDialogPositive),
             ),
           ],
         );
