@@ -116,6 +116,10 @@ class _SelectDishScreenState extends State<SelectDishScreen> {
         daysOption: _daysOption,
         cartList: _cartList,
       ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {},
+        child: Text(getTotalDishCount().toString()),
+      ),
       body: Stack(
         children: [
           Navigator(
@@ -183,6 +187,16 @@ class _SelectDishScreenState extends State<SelectDishScreen> {
         ],
       ),
     );
+  }
+
+  int getTotalDishCount() {
+    int total = 0;
+    for (var map in _cartList) {
+      map.forEach((dish, int count) {
+        total += count;
+      });
+    }
+    return total;
   }
 }
 

@@ -117,7 +117,8 @@ class CustomInfoAppBar extends StatelessWidget with PreferredSizeWidget {
           ),
           child: Center(
             child: Text(
-              cartList[i].length.toString(),
+              // cartList[i].length.toString(),
+              getDishCount(i),
               style: TextStyle(
                 color: Colors.white,
                 fontSize: _cartInfoTextSize,
@@ -128,6 +129,14 @@ class CustomInfoAppBar extends StatelessWidget with PreferredSizeWidget {
         ),
       ),
     );
+  }
+
+  String getDishCount(int i) {
+    int dishCount = 0;
+    cartList[i].forEach((dish, count) {
+      dishCount += count;
+    });
+    return dishCount.toString();
   }
 
   Widget _appbarDivider() => Container(
