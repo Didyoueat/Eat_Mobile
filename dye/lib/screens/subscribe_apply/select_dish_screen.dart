@@ -32,7 +32,11 @@ class _SelectDishScreenState extends State<SelectDishScreen> {
 
   final _navigatorKey = GlobalKey<NavigatorState>();
 
-  String test = "나갈겨?";
+  //String
+  final List<String> _weekName = const ["월", "화", "수", "목", "금", "토", "일"];
+  final String _onBackPressTitle = "나갈겨?";
+  final String _onBackPressNegative = "아니오";
+  final String _onBackPressPositive = "예";
 
   @override
   void initState() {
@@ -54,16 +58,7 @@ class _SelectDishScreenState extends State<SelectDishScreen> {
 
   Widget _home() {
     return GestureDetector(
-      onPanUpdate: (details) {
-        if (details.delta.dy < 45 && details.delta.dy > -45) {
-          if (Platform.isIOS &&
-              details.delta.dx > 0 &&
-              details.globalPosition.dx < 100 &&
-              _navigatorKey.currentState!.canPop() == false) {
-            _onBackPressed();
-          }
-        }
-      },
+      onPanUpdate: _onPanUpdate,
       child: WillPopScope(
         onWillPop: () {
           if (Platform.isIOS) {
@@ -82,25 +77,36 @@ class _SelectDishScreenState extends State<SelectDishScreen> {
     );
   }
 
+  void _onPanUpdate(DragUpdateDetails details) {
+    if (details.delta.dy < 45 && details.delta.dy > -45) {
+      if (Platform.isIOS &&
+          details.delta.dx > 0 &&
+          details.globalPosition.dx < 100 &&
+          _navigatorKey.currentState!.canPop() == false) {
+        _onBackPressed();
+      }
+    }
+  }
+
   bool _onBackPressed() {
     showDialog(
       context: context,
       builder: (context) {
         return AlertDialog(
-          content: Text(test),
+          title: Text(_onBackPressTitle),
           actions: [
             TextButton(
               onPressed: () {
                 Navigator.of(context).pop();
               },
-              child: Text("아니오"),
+              child: Text(_onBackPressNegative),
             ),
             TextButton(
               onPressed: () {
                 Navigator.of(context).pop();
                 Navigator.of(context).pop();
               },
-              child: Text("예"),
+              child: Text(_onBackPressPositive),
             ),
           ],
         );
@@ -115,82 +121,112 @@ class _SelectDishScreenState extends State<SelectDishScreen> {
         nowWeek: _nowDay,
         daysOption: _daysOption,
         cartList: _cartList,
-        onTapCircleButton: (i) {
-          setState(() {
-            _nowDay = i;
-          });
-        },
+        onTapCircleButton: _onTapAppBarCircleButton,
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {},
         child: Text(getTotalDishCount().toString()),
       ),
-      body: Stack(
-        children: [
-          Navigator(
-            key: _navigatorKey,
-            initialRoute: shopList,
-            onGenerateRoute: (setting) {
-              late Widget page;
-              if (setting.name == shopList) {
-                page = ShopListScreen(
-                  latitude: 37.55500,
-                  longitude: 126.97130,
-                  onTapTile: (shop) {
-                    _nowShop = shop;
-                    _navigatorKey.currentState!.pushNamed(shopDetail);
-                  },
-                );
-              } else if (setting.name == shopDetail) {
-                page = ShopDetailScreen(
-                  shop: _nowShop,
-                  onTapDish: (dish) {
-                    _nowDish = dish;
-                    _navigatorKey.currentState!.pushNamed(dishDetail);
-                  },
-                );
-              } else if (setting.name == dishDetail) {
-                page = DishDetailScreen(
-                  dish: _nowDish,
-                  onTapCartButton: (Dish dish, int count) {
-                    bool flag = false;
-                    _cartList[_nowDay].forEach((dishInCart, count) {
-                      if (dishInCart.shopId != dish.shopId) {
-                        flag = true;
-                      }
-                    });
-                    if (flag == true) {
-                      _navigatorKey.currentState!.pop();
-                      return;
-                    }
-                    if (_cartList[_nowDay].containsKey(dish)) {
-                      _cartList[_nowDay][dish] =
-                          _cartList[_nowDay][dish]! + count;
-                    } else {
-                      _cartList[_nowDay][dish] = count;
-                    }
-                    setState(() {});
-                    _navigatorKey.currentState!.pop();
-                  },
-                );
-              } else {
-                throw Exception('Unknown route: ${setting.name}');
-              }
-
-              return MaterialPageRoute<dynamic>(
-                builder: (context) {
-                  return page;
-                },
-                settings: setting,
-              );
-            },
-          ),
-          Container(
-            color: Colors.blue,
-            child: Text(_cartList.toString()),
-          ),
-        ],
+      body: Navigator(
+        key: _navigatorKey,
+        initialRoute: shopList,
+        onGenerateRoute: _onGenerateRoute,
       ),
+    );
+  }
+
+  void _onTapAppBarCircleButton(i) {
+    _nowDay = i;
+    setState(() {});
+  }
+
+  MaterialPageRoute _onGenerateRoute(setting) {
+    late Widget page;
+    if (setting.name == shopList) {
+      page = ShopListScreen(
+        latitude: 37.55500,
+        longitude: 126.97130,
+        onTapTile: _onTapTileInShopList,
+      );
+    } else if (setting.name == shopDetail) {
+      page = ShopDetailScreen(
+        shop: _nowShop,
+        onTapDish: _onTapDishInShopDetail,
+      );
+    } else if (setting.name == dishDetail) {
+      page = DishDetailScreen(
+        dish: _nowDish,
+        onTapCartButton: _onTapCartButtonInDishDetail,
+      );
+    } else {
+      throw Exception('Unknown route: ${setting.name}');
+    }
+
+    return MaterialPageRoute<dynamic>(
+      builder: (context) {
+        return page;
+      },
+      settings: setting,
+    );
+  }
+
+  void _onTapTileInShopList(shop) {
+    _nowShop = shop;
+    _navigatorKey.currentState!.pushNamed(shopDetail);
+  }
+
+  void _onTapDishInShopDetail(dish) {
+    _nowDish = dish;
+    _navigatorKey.currentState!.pushNamed(dishDetail);
+  }
+
+  void _onTapCartButtonInDishDetail(Dish dish, int count) async {
+    if (_isSameShop(dish) == true) {
+      bool result = await _showCartWarningDialog();
+      if (!result) return;
+    }
+    if (_cartList[_nowDay].containsKey(dish)) {
+      _cartList[_nowDay][dish] = _cartList[_nowDay][dish]! + count;
+    } else {
+      _cartList[_nowDay][dish] = count;
+    }
+    setState(() {});
+    _navigatorKey.currentState!.pop();
+  }
+
+  bool _isSameShop(Dish dish) {
+    bool flag = false;
+    _cartList[_nowDay].forEach((dishInCart, count) {
+      if (dishInCart.shopId != dish.shopId) {
+        flag = true;
+        return;
+      }
+    });
+    return flag;
+  }
+
+  Future<bool> _showCartWarningDialog() async {
+    return await showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: Text("하루에 한 가게의 반찬만 담을 수 있습니다."),
+          content: Text("${_weekName[_nowDay]}요일의 장바구니가 초기화됩니다.\n반찬을 담으시겠습니까?"),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.of(context).pop(false),
+              child: Text("아니요"),
+            ),
+            TextButton(
+              onPressed: () {
+                _cartList[_nowDay].clear();
+                Navigator.of(context).pop(true);
+              },
+              child: Text("네"),
+            ),
+          ],
+        );
+      },
     );
   }
 
