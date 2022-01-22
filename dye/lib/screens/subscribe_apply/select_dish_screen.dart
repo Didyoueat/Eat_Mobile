@@ -128,7 +128,10 @@ class _SelectDishScreenState extends State<SelectDishScreen> {
         cartList: _cartList,
         onTapCircleButton: _onTapAppBarCircleButton,
       ),
-      floatingActionButton: CartFloatingButton(onPressed: () {}),
+      floatingActionButton: CartFloatingButton(
+        onPressed: () {},
+        totalCount: getTotalDishCount(),
+      ),
       body: Navigator(
         key: _navigatorKey,
         initialRoute: shopList,
