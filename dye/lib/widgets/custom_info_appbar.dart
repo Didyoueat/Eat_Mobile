@@ -1,6 +1,7 @@
 import 'package:dye/constants/colors.dart';
 import 'package:dye/main.dart';
 import 'package:dye/models/dish.dart';
+import 'package:dye/models/dish_cart.dart';
 import 'package:dye/widgets/custom_visibility.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -24,7 +25,7 @@ class CustomInfoAppBar extends StatelessWidget with PreferredSizeWidget {
   final List<bool> daysOption;
   final int nowWeek;
   final Function onTapCircleButton;
-  final List<Map<Dish, int>> cartList;
+  final List<List<DishCart>> cartList;
 
   final List<String> _weekName = const ["월", "화", "수", "목", "금", "토", "일"];
   final _weekButtonWidth = 36.w;
@@ -135,8 +136,8 @@ class CustomInfoAppBar extends StatelessWidget with PreferredSizeWidget {
 
   String getDishCount(int i) {
     int dishCount = 0;
-    cartList[i].forEach((dish, count) {
-      dishCount += count;
+    cartList[i].forEach((e) {
+      dishCount += e.count;
     });
     return dishCount.toString();
   }

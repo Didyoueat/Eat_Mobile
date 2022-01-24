@@ -297,7 +297,11 @@ class ShopDetailScreen extends StatelessWidget {
     if (onTapDish == null) {
       Navigator.push(
         _context,
-        MaterialPageRoute(builder: (context) => DishDetailScreen(dish: dish)),
+        MaterialPageRoute(
+          builder: (context) => DishDetailScreen(
+            dish: dish,
+          ),
+        ),
       );
     } else {
       onTapDish!(dish);

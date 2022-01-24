@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:dye/constants/colors.dart';
@@ -56,7 +58,7 @@ class _DishDetailScreenState extends State<DishDetailScreen> {
   final _dishInfoMarginBetweenPriceCount = SizedBox(height: 20.h);
 
   final _dishCountSelectionButtonRadius = 30.sp;
-  final _dishCountSelectionButtonWidth = 100.w;
+  final _dishCountSelectionButtonWidth = 84.w;
   final _dishCountSelectionButtonHeight = 36.h;
 
   final _dishInfoMarginBetweenCountReview = SizedBox(height: 28.h);

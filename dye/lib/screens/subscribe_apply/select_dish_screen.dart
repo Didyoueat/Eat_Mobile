@@ -1,9 +1,11 @@
 import 'dart:io';
 import 'package:dye/models/dish.dart';
+import 'package:dye/models/dish_cart.dart';
 import 'package:dye/models/shop.dart';
 import 'package:dye/screens/dish_detail_screen.dart';
 import 'package:dye/screens/shop_detail_screen.dart';
 import 'package:dye/screens/shop_list_screen.dart';
+import 'package:dye/screens/subscribe_apply/dish_cart_screen.dart';
 import 'package:dye/widgets/cart_floating_button.dart';
 import 'package:dye/widgets/custom_info_appbar.dart';
 import 'package:flutter/cupertino.dart';
@@ -29,7 +31,7 @@ class _SelectDishScreenState extends State<SelectDishScreen> {
   late Dish _nowDish;
   late int _nowDay;
   late final List<bool> _daysOption = widget.daysOption;
-  final List<Map<Dish, int>> _cartList = [];
+  final List<List<DishCart>> _cartList = [];
 
   final _navigatorKey = GlobalKey<NavigatorState>();
 
@@ -51,7 +53,7 @@ class _SelectDishScreenState extends State<SelectDishScreen> {
 
   void _initVar() {
     for (int i = 0; i < 7; i++) {
-      _cartList.add({});
+      _cartList.add([]);
     }
     _nowDay = _daysOption.indexOf(true);
   }
@@ -129,7 +131,7 @@ class _SelectDishScreenState extends State<SelectDishScreen> {
         onTapCircleButton: _onTapAppBarCircleButton,
       ),
       floatingActionButton: CartFloatingButton(
-        onPressed: () {},
+        onPressed: _onTapFloatingButton,
         totalCount: getTotalDishCount(),
       ),
       body: Navigator(
@@ -140,12 +142,37 @@ class _SelectDishScreenState extends State<SelectDishScreen> {
     );
   }
 
+  void _onTapFloatingButton() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => DishCartScreen(
+          cartList: _cartList,
+          onTapMinusButton: (
+            int day,
+          ) {},
+          onTapPlusButton: () {},
+          onTapAddDishButton: (dayNum) {
+            _nowDay = dayNum;
+            setState(() {});
+            _navigatorKey.currentState!.popUntil((route) {
+              if (!_navigatorKey.currentState!.canPop()) return true;
+              return false;
+            });
+            Navigator.pop(context);
+          },
+          onTapSubscribeButton: () {},
+        ),
+      ),
+    );
+  }
+
   void _onTapAppBarCircleButton(i) {
     _nowDay = i;
     setState(() {});
   }
 
-  MaterialPageRoute _onGenerateRoute(setting) {
+  MaterialPageRoute _onGenerateRoute(RouteSettings setting) {
     late Widget page;
     if (setting.name == shopList) {
       page = ShopListScreen(
@@ -190,10 +217,16 @@ class _SelectDishScreenState extends State<SelectDishScreen> {
       bool result = await _showCartWarningDialog();
       if (!result) return;
     }
-    if (_cartList[_nowDay].containsKey(dish)) {
-      _cartList[_nowDay][dish] = _cartList[_nowDay][dish]! + count;
-    } else {
-      _cartList[_nowDay][dish] = count;
+    bool flag = false;
+    for (int i = 0; i < _cartList[_nowDay].length; i++) {
+      if (_cartList[_nowDay][i].dish.dishId == dish.dishId) {
+        _cartList[_nowDay][i].count += count;
+        flag = true;
+        break;
+      }
+    }
+    if (!flag) {
+      _cartList[_nowDay].add(DishCart(dish, count));
     }
     setState(() {});
     _navigatorKey.currentState!.pop();
@@ -201,8 +234,8 @@ class _SelectDishScreenState extends State<SelectDishScreen> {
 
   bool _isSameShop(Dish dish) {
     bool flag = false;
-    _cartList[_nowDay].forEach((dishInCart, count) {
-      if (dishInCart.shopId != dish.shopId) {
+    _cartList[_nowDay].forEach((e) {
+      if (e.dish.shopId != dish.shopId) {
         flag = true;
         return;
       }
@@ -238,8 +271,8 @@ class _SelectDishScreenState extends State<SelectDishScreen> {
   int getTotalDishCount() {
     int total = 0;
     for (var map in _cartList) {
-      map.forEach((dish, int count) {
-        total += count;
+      map.forEach((e) {
+        total += e.count;
       });
     }
     return total;

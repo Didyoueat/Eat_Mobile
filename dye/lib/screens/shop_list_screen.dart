@@ -1,5 +1,7 @@
+import 'package:dye/models/dish.dart';
 import 'package:dye/models/shop.dart';
 import 'package:dye/screens/shop_detail_screen.dart';
+import 'package:dye/widgets/cart_floating_button.dart';
 import 'package:dye/widgets/locate_based_shop_list.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -9,6 +11,7 @@ class ShopListScreen extends StatefulWidget {
   final latitude;
   final longitude;
   final Function? onTapTile;
+
   const ShopListScreen({
     Key? key,
     required this.latitude,
