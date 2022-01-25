@@ -44,6 +44,10 @@ class _SelectDishScreenState extends State<SelectDishScreen> {
   final String _cartWarningDialogContents = "요일의 장바구니가 초기화됩니다.\n반찬을 담으시겠습니까?";
   final String _cartWarningDialogNegative = "아니요";
   final String _cartWarningDialogPositive = "예";
+  final String _cancelDialogTitle = "정말 삭제할거여?";
+  final String _cancelDialogContents = "장바구니의 반찬이 없어져~";
+  final String _cancelDialogNegative = "아니요";
+  final String _cancelDialogPositive = "예";
 
   @override
   void initState() {
@@ -148,10 +152,19 @@ class _SelectDishScreenState extends State<SelectDishScreen> {
       MaterialPageRoute(
         builder: (context) => DishCartScreen(
           cartList: _cartList,
-          onTapMinusButton: (
-            int day,
-          ) {},
-          onTapPlusButton: () {},
+          daysOption: _daysOption,
+          onTapMinusButton: (int dayIndex, int dishIndex) {
+            if (_cartList[dayIndex][dishIndex].count > 1) {
+              _cartList[dayIndex][dishIndex].count--;
+              setState(() {});
+            }
+          },
+          onTapPlusButton: (int dayIndex, int dishIndex) {
+            if (_cartList[dayIndex][dishIndex].count < 99) {
+              _cartList[dayIndex][dishIndex].count++;
+              setState(() {});
+            }
+          },
           onTapAddDishButton: (dayNum) {
             _nowDay = dayNum;
             setState(() {});
@@ -161,9 +174,39 @@ class _SelectDishScreenState extends State<SelectDishScreen> {
             });
             Navigator.pop(context);
           },
+          onTapCancelButton: (int dayIndex, int dishIndex) async {
+            bool _result = await _cancelWarningDialog();
+            if (_result) {
+              // _cartList[dayIndex].removeAt(dayIndex);
+              _cartList[dayIndex].removeRange(dishIndex, dishIndex + 1);
+              setState(() {});
+            }
+          },
           onTapSubscribeButton: () {},
         ),
       ),
+    );
+  }
+
+  Future<bool> _cancelWarningDialog() async {
+    return await showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: Text(_cancelDialogTitle),
+          content: Text(_cancelDialogContents),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.of(context).pop(false),
+              child: Text(_cancelDialogNegative),
+            ),
+            TextButton(
+              onPressed: () => Navigator.of(context).pop(true),
+              child: Text(_cancelDialogPositive),
+            ),
+          ],
+        );
+      },
     );
   }
 
@@ -220,13 +263,25 @@ class _SelectDishScreenState extends State<SelectDishScreen> {
     bool flag = false;
     for (int i = 0; i < _cartList[_nowDay].length; i++) {
       if (_cartList[_nowDay][i].dish.dishId == dish.dishId) {
+        if (_cartList[_nowDay][i].count + count >= 100) {
+          ScaffoldMessenger.of(context).removeCurrentSnackBar();
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text("하나의 반찬은 최대 100개까지 가능하오"),
+            ),
+          );
+          _navigatorKey.currentState!.pop();
+          return;
+        }
         _cartList[_nowDay][i].count += count;
         flag = true;
         break;
       }
     }
     if (!flag) {
-      _cartList[_nowDay].add(DishCart(dish, count));
+      var dishCart = DishCart(dish, count);
+      dishCart.shop = _nowShop;
+      _cartList[_nowDay].add(dishCart);
     }
     setState(() {});
     _navigatorKey.currentState!.pop();
