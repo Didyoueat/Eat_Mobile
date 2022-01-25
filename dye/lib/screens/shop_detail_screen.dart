@@ -6,7 +6,6 @@ import 'package:dye/models/shop.dart';
 import 'package:dye/screens/dish_detail_screen.dart';
 import 'package:dye/utils/unit_converter.dart';
 import 'package:dye/widgets/custom_appbar.dart';
-import 'package:dye/widgets/custom_info_appbar.dart';
 import 'package:dye/widgets/pentagon_painter.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
