@@ -14,11 +14,10 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class ShopDetailScreen extends StatelessWidget {
-  late final _context;
-
+  late bool isInit = true;
+  late BuildContext _context;
   final Shop shop;
   final Function? onTapDish;
-
   final mainDishList = <Dish>[];
   final sideDishList = <Dish>[];
 
@@ -34,8 +33,8 @@ class ShopDetailScreen extends StatelessWidget {
   final _titleContainerStarWidth = 16.66.w;
   final _titleContainerStarHeight = 16.66.h;
   final _titleContainerStarMargin = EdgeInsets.only(right: 4.w);
-  late final _titleContainerTitleText;
-  late final _titleContainerSubtitleText;
+  late String _titleContainerTitleText;
+  late String _titleContainerSubtitleText;
   final _titleContainerSubtitleFontSize = 16.sp;
   final _titleContainerSubtitleFontFamily = FontWeight.w300;
 
@@ -95,9 +94,12 @@ class ShopDetailScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    _context = context;
-    initText();
-    initDishes();
+    if (isInit) {
+      _context = context;
+      initText();
+      initDishes();
+      isInit = false;
+    }
 
     return Scaffold(
       appBar: CustomAppBar(),

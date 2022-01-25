@@ -29,7 +29,7 @@ class _DishDetailScreenState extends State<DishDetailScreen> {
   late final _dishWeight = "(" + widget.dish.weight.toString() + "g)";
   late final _dishDescription = widget.dish.content!.toString();
   late final _dishPrice = widget.dish.price.toString() + "원";
-  final _addCardButtonString = "1개 담기";
+  final _addCardButtonString = "개 담기";
   int _orderCount = 1;
   final _orderCountMin = 1;
   final _orderCountMax = 99;
@@ -404,8 +404,8 @@ class _DishDetailScreenState extends State<DishDetailScreen> {
 
   Widget _addCartButton() {
     return BottomButtonRect(
-      mainMessage: _addCardButtonString,
-      sideMessage: "7000원",
+      mainMessage: _orderCount.toString() + _addCardButtonString,
+      sideMessage: (widget.dish.price * _orderCount).toString() + "원",
       function: () {
         widget.onTapCartButton!(widget.dish, _orderCount);
       },
