@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:dye/constants/colors.dart';
@@ -10,9 +12,11 @@ import 'package:flutter_svg/svg.dart';
 
 class DishDetailScreen extends StatefulWidget {
   final Dish dish;
+  final Function? onTapCartButton;
   const DishDetailScreen({
     Key? key,
     required this.dish,
+    this.onTapCartButton,
   }) : super(key: key);
 
   @override
@@ -54,7 +58,7 @@ class _DishDetailScreenState extends State<DishDetailScreen> {
   final _dishInfoMarginBetweenPriceCount = SizedBox(height: 20.h);
 
   final _dishCountSelectionButtonRadius = 30.sp;
-  final _dishCountSelectionButtonWidth = 100.w;
+  final _dishCountSelectionButtonWidth = 84.w;
   final _dishCountSelectionButtonHeight = 36.h;
 
   final _dishInfoMarginBetweenCountReview = SizedBox(height: 28.h);
@@ -402,7 +406,15 @@ class _DishDetailScreenState extends State<DishDetailScreen> {
     return BottomButtonRect(
       mainMessage: _addCardButtonString,
       sideMessage: "7000원",
-      function: () {},
+      function: () {
+        widget.onTapCartButton!(widget.dish, _orderCount);
+      },
     );
+  }
+
+  void _onTapCartButton() {
+    if (widget.onTapCartButton != null) {
+      widget.onTapCartButton!(widget.dish, _orderCount);
+    }
   }
 }
