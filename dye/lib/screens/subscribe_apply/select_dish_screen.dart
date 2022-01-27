@@ -6,6 +6,7 @@ import 'package:dye/screens/dish_detail_screen.dart';
 import 'package:dye/screens/shop_detail_screen.dart';
 import 'package:dye/screens/shop_list_screen.dart';
 import 'package:dye/screens/subscribe_apply/dish_cart_screen.dart';
+import 'package:dye/screens/subscribe_apply/subscribtion_payment_screen.dart';
 import 'package:dye/widgets/cart_floating_button.dart';
 import 'package:dye/widgets/custom_info_appbar.dart';
 import 'package:flutter/cupertino.dart';
@@ -174,6 +175,7 @@ class _SelectDishScreenState extends State<SelectDishScreen> {
             });
             Navigator.pop(context);
           },
+          onTapSubscribeButton: _onTapSubscribeButton,
           onTapCancelButton: (int dayIndex, int dishIndex) async {
             bool _result = await _cancelWarningDialog();
             if (_result) {
@@ -182,7 +184,17 @@ class _SelectDishScreenState extends State<SelectDishScreen> {
               setState(() {});
             }
           },
-          onTapSubscribeButton: () {},
+        ),
+      ),
+    );
+  }
+
+  void _onTapSubscribeButton() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => SubscribePaymentScreen(
+          cartList: _cartList,
         ),
       ),
     );

@@ -32,8 +32,7 @@ class MyApp extends StatelessWidget {
           primaryColor: Color(0xffff5439),
         ),
         // home: const ApplySubscribeSettings(),
-        // home: ApplySubscribeSettings(),
-        home: SubscribePaymentScreen(),
+        home: ApplySubscribeSettings(),
       ),
     );
   }

@@ -1,11 +1,16 @@
+import 'package:dye/models/dish_cart.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 
 class SubscribePaymentScreen extends StatefulWidget {
-  const SubscribePaymentScreen({Key? key}) : super(key: key);
+  const SubscribePaymentScreen({
+    Key? key,
+    required this.cartList,
+  }) : super(key: key);
 
+  final List<List<DishCart>> cartList;
   final title = "결제하기";
   @override
   _SubscribePaymentScreenState createState() => _SubscribePaymentScreenState();
@@ -22,13 +27,22 @@ class _SubscribePaymentScreenState extends State<SubscribePaymentScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: CupertinoNavigationBar(
-        middle: _appBarMiddleWidget(),
-        automaticallyImplyLeading: false,
+    return MaterialApp(
+      home: Scaffold(
+        appBar: CupertinoNavigationBar(
+          middle: _appBarMiddleWidget(),
+          automaticallyImplyLeading: false,
+        ),
+        body: _body(),
       ),
-      body: Container(),
     );
+    // return Scaffold(
+    //   appBar: CupertinoNavigationBar(
+    //     middle: _appBarMiddleWidget(),
+    //     automaticallyImplyLeading: false,
+    //   ),
+    //   body: _body(),
+    // );
   }
 
   Widget _appBarMiddleWidget() {
@@ -57,5 +71,15 @@ class _SubscribePaymentScreenState extends State<SubscribePaymentScreen> {
         ),
       ],
     );
+  }
+
+  Widget _body() {
+    return Column(
+      children: [_totalPriceContainer()],
+    );
+  }
+
+  Widget _totalPriceContainer() {
+    return Row();
   }
 }
