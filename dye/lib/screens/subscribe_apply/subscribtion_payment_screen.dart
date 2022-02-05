@@ -27,49 +27,42 @@ class _SubscribePaymentScreenState extends State<SubscribePaymentScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
-        appBar: CupertinoNavigationBar(
-          middle: _appBarMiddleWidget(),
-          automaticallyImplyLeading: false,
-        ),
-        body: _body(),
+    return Scaffold(
+      appBar: CupertinoNavigationBar(
+        middle: _appBarMiddleWidget(),
+        automaticallyImplyLeading: false,
       ),
+      body: _body(),
     );
-    // return Scaffold(
-    //   appBar: CupertinoNavigationBar(
-    //     middle: _appBarMiddleWidget(),
-    //     automaticallyImplyLeading: false,
-    //   ),
-    //   body: _body(),
-    // );
   }
 
   Widget _appBarMiddleWidget() {
-    return Stack(
-      children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            SvgPicture.asset(_walletAsset),
-            _appBarTitleMargin,
-            Text(
-              widget.title,
-              style: TextStyle(
-                fontWeight: FontWeight.w700,
-                fontSize: 16.sp,
+    return Material(
+      child: Stack(
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              SvgPicture.asset(_walletAsset),
+              _appBarTitleMargin,
+              Text(
+                widget.title,
+                style: TextStyle(
+                  fontWeight: FontWeight.w700,
+                  fontSize: 16.sp,
+                ),
               ),
-            ),
-          ],
-        ),
-        InkWell(
-          onTap: () => Navigator.pop(context),
-          child: Container(
-            padding: _appBarBackMargin,
-            child: SvgPicture.asset(_backButtonAsset),
+            ],
           ),
-        ),
-      ],
+          InkWell(
+            onTap: () => Navigator.pop(context),
+            child: Container(
+              padding: _appBarBackMargin,
+              child: SvgPicture.asset(_backButtonAsset),
+            ),
+          ),
+        ],
+      ),
     );
   }
 
