@@ -12,7 +12,7 @@ const colorBeige = Color(0xfffff6E4);
 //Border
 const borderColorAA = Color(0xffaaaaaa);
 const borderColorBB = Color(0xffbbbbbb);
-const borderColorGray = Color(0x55aaaaaa);
+const borderColorGrey = Color(0x55aaaaaa);
 
 //deactivate
 const colorDeactivate = Color(0x33333333);

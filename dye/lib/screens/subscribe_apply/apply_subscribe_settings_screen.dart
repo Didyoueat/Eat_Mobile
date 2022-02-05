@@ -242,7 +242,7 @@ class _ApplySubscribeSettingsState extends State<ApplySubscribeSettings> {
       padding: _subscribeTypeButtonInnerPadding,
       splashFactory: NoSplash.splashFactory,
       side: BorderSide(
-          color: _subscribeTypeOption[position] ? mainColor : borderColorGray,
+          color: _subscribeTypeOption[position] ? mainColor : borderColorGrey,
           width: 1,
           style: BorderStyle.solid),
       shape: RoundedRectangleBorder(
