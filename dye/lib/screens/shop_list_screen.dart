@@ -27,6 +27,7 @@ class _ShopListScreenState extends State<ShopListScreen> {
   late List<Shop> shopList = [];
   final radius = 500;
 
+  //TODO: timeout 설정
   Future<void> fetchShopList() async {
     final response = await http.get(Uri.parse(
         'http://54.180.122.1:5000/v0/shops/around?latitude=${widget.latitude}&longitude=${widget.longitude}&radius=$radius'));
