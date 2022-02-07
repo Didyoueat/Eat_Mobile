@@ -1,5 +1,6 @@
 import 'package:dye/models/shop.dart';
 import 'package:dye/screens/subscribe_apply/apply_subscribe_settings_screen.dart';
+import 'package:dye/screens/subscribe_apply/subscribtion_payment_screen.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';

@@ -3,6 +3,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:dye/constants/colors.dart';
 import 'package:dye/models/dish.dart';
 import 'package:dye/models/dish_cart.dart';
+import 'package:dye/screens/subscribe_apply/subscribtion_payment_screen.dart';
 import 'package:dye/widgets/bottom_button_fill.dart';
 import 'package:dye/widgets/raise_card.dart';
 import 'package:flutter/cupertino.dart';
@@ -119,7 +120,7 @@ class _DishCartScreenState extends State<DishCartScreen> {
         BottomButtonFill(
           mainMessage: "반찬 구독하기",
           sideMessage: _getAllPrice().toString() + "원",
-          function: () {},
+          function: () => widget.onTapSubscribeButton(),
         ),
       ],
     );
