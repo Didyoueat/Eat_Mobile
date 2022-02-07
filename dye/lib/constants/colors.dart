@@ -6,8 +6,12 @@ const textColorGray = Color(0xffaaaaaa);
 //Button
 const buttonInactive = Color(0xffbbbbbb);
 
+//Text
+const textGray = Color(0xff868686);
+
 //Background
 const colorBeige = Color(0xfffff6E4);
+const colorGrayCard = Color(0xfff5f4f2);
 
 //Border
 const borderColorAA = Color(0xffaaaaaa);
