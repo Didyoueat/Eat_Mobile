@@ -1,5 +1,6 @@
 import 'package:dye/constants/colors.dart';
 import 'package:dye/models/dish_cart.dart';
+import 'package:dye/models/dto/subscribe_form_dto.dart';
 import 'package:dye/widgets/bottom_button_fill.dart';
 import 'package:dye/widgets/raise_card.dart';
 import 'package:flutter/cupertino.dart';
@@ -406,5 +407,7 @@ class _SubscribePaymentScreenState extends State<SubscribePaymentScreen> {
     return _price;
   }
 
-  void _onTapBottomButton() {}
+  void _onTapBottomButton() {
+    for (List<DishCart> _dayList in _cartList) {}
+  }
 }
